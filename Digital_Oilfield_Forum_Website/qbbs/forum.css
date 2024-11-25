@@ -1,0 +1,13 @@
+select{font-family:ËÎÌו;font-size:9pt }
+BODY {
+	FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif", "ËÎÌו"; FONT-SIZE: 9pt;
+background:#ffffff;}
+td{font-size:9pt;}
+p{font-size:9pt}
+li{font-size:9pt;line-height:11pt;}
+input.smallInput1{font-size:8pt}
+input.smallInput{font-size:9pt}
+textarea.smallarea{font-size:9pt;background-color:white;color:rgb(0,0,128);}
+input.buttonface{font-size:9pt;background-color:#ffffff;}
+A{text-decoration:none;color:navy}
+A:hover{color:ff8c00;text-decoration:underline;}

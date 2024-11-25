@@ -1,0 +1,12 @@
+<%
+'**********************首页参数设定********************************************************
+dim firstpglines,lengthperline,firstfollowlines,daysfornew,downloadlines,experttoday,leftpartheight
+firstpglines = 31        '首页最新文章显示多少行，不能超过BBS设定的每页行数
+lengthperline = 28       '首页各行标题过长时，要剪断，保留的长度
+firstfollowlines = 3     '首页每个主标题最多跟多少子标题
+daysfornew = 15           '几日之内标新标志
+downloadlines = 20       '资料下载中心首页显示个数
+experttoday = 17         '首页强制显示某位今日专家
+leftpartheight = 15      '为了左右框对齐。首页BBS总高度微调，值越大bbs就越高。
+'******************************************************************************************
+%>

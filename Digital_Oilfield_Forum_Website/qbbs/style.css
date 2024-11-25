@@ -1,0 +1,31 @@
+<!-- 请修改以下内容个性化您的文章系统 -->
+
+.buttonface{  FONT-SIZE: 9pt;  HEIGHT: 20px; }
+.smallInput{FONT-SIZE: 9pt;  HEIGHT: 20px; }
+.b2{font-size: 7pt; font-family:"Verdana", "Arial", "宋体";}
+
+body {SCROLLBAR-FACE-COLOR: #dee3e7; SCROLLBAR-HIGHLIGHT-COLOR: #ffffff; SCROLLBAR-SHADOW-COLOR: #dee3e7; SCROLLBAR-3DLIGHT-COLOR: #d1d7dc; SCROLLBAR-ARROW-COLOR: #006699; SCROLLBAR-TRACK-COLOR: #ffffff; BACKGROUND-COLOR: #ffffff; SCROLLBAR-DARKSHADOW-COLOR: #ffffff}
+
+<!-- 文章内容字体设置 -->
+.b1{font-size: 11pt; font-family:"Verdana", "Arial", "宋体";line-height:130%;}
+
+<!-- 标题栏颜色 -->
+.title{ background:#A9D46D;padding:5px}
+
+<!--标题栏颜色2 专题背景 -->
+.title2{background:#E3F1D1;}
+
+<!-- 标题栏颜色3 -->
+.title3{ background:#A9D46D;  border-top:1px solid #A9D46D;}
+
+<!-- 表格边框颜色 -->
+.border{ border:1px solid #A9D46D;}
+
+<!-- 表格内背景色 -->
+.tdbg{ background:#F4FAED;}
+
+.smallFont{font-size:10.5pt}
+
+body{background-attachment:fixed;margin-left:35;margin-right:5;FONT-SIZE: 10.5pt;}
+a{text-decoration:none}
+body {SCROLLBAR-FACE-COLOR: #dee3e7; SCROLLBAR-HIGHLIGHT-COLOR: #ffffff; SCROLLBAR-SHADOW-COLOR: #dee3e7; SCROLLBAR-3DLIGHT-COLOR: #d1d7dc; SCROLLBAR-ARROW-COLOR: #006699; SCROLLBAR-TRACK-COLOR: #ffffff; BACKGROUND-COLOR: #ffffff; SCROLLBAR-DARKSHADOW-COLOR: #98aab1}
