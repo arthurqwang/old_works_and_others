@@ -1,0 +1,6 @@
+void testmove();
+main()
+  {
+    testmove();
+    }
+

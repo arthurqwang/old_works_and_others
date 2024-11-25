@@ -1,0 +1,149 @@
+           让DOS、Windows3.X、中文Windows95、英文Windows95共存
+                    大庆地质录井公司 163411  王权
+
+     我单位近日引进一台PC,预装有英文Windows95,但同事们要求:在保留原机
+预装软件的前提下，再安装中文Windows95、Windows3.2、DOS6.21和UCDOS等,
+几乎包括PC上常用的各类系统.虽然这样的例子可能很少见,但确实具有代表意
+义.因此有必要尝试,于是笔者按下述步骤开始操作,并最终实现.
+
+     		       一 安装中文Windows 95
+     经分析得知,中、英文Windows95的系统文件基本相同,只要在启动时分别使
+用自己的三个文件:MSDOS.SYS、AUTOEXEC.BAT、CONFIG.SYS,即可进入相应的环
+境.所以可以通过将这三个文件改名来实现Windows95中、英文版的切换.具体步
+骤如下:
+     1.启动机器,此时机内只有英文Windows95.
+     2.将C:\MSDOS.SYS备份,以备失败后恢复.
+     3.制作英文Windows95启动盘,以备失败后修复英文Windows95系统文件.如
+有启动盘可跳过此步.修复系统文件的方法是:用启动盘启动机器;执行SYS C:命
+令;然后将备份的MSDOS.SYS拷回C:\下.
+     4.以MS-DOS方式重新启动Windows95.
+     5.在C:\执行:
+         ATTRIB MSDOS.SYS -S -H -R
+     6.将MSDOS.SYS改名为MSDOS.ENG;
+       将AUTOEXEC.BAT改名为AUTOEXEC.ENG;
+       将CONFIG.SYS改名为CONFIG.ENG.
+     7.安装中文Windows95.系统会提示机内已有Windows95,此时应忽略提示继
+续安装,而且应将中文Windows95安装到不同于英文Windows95的目录中,如果你
+希望安装后的中文Windows95与英文的Windows95具有相同的桌面,则可以在安装
+中文Windows95之前,将英文Windows95的整个目录(一般为C:\WINDOWS)复制到中
+文Windows95的目标目录中.不过这样做有时会因路径的变化出点小问题,但不会
+影响中文Windows95的安装.如果你打算这样做,请你注意配置文件CONFIG.SYS和
+AUTOEXEC.BAT与中文Windows95的一致性.可以将原英文Windows95的配置文件拷
+过来,一般情况下稍加修改即可.
+     8.中文Windows95启动后，建立一个批处理文件C:\GOENG.BAT,内容如下:
+       ATTRIB MSDOS.SYS -S -H -R>NUL
+       REN MSDOS.SYS MSDOS.CHN>NUL
+       REN MSDOS.ENG MSDOS.SYS>NUL
+       REN AUTOEXEC.BAT AUTOEXEC.CHN>NUL
+       REN AUTOEXEC.ENG AUTOEXEC.BAT>NUL
+       REN CONFIG.SYS CONFIG.CHN>NUL
+       REN CONFIG.ENG CONFIG.SYS>NUL
+     9.建立一个批处理文件C:\GOCHN.BAT,内容如下:
+       ATTRIB MSDOS.SYS -S -H -R>NUL
+       REN MSDOS.SYS MSDOS.ENG>NUL
+       REN MSDOS.CHN MSDOS.SYS>NUL
+       REN AUTOEXEC.BAT AUTOEXEC.ENG>NUL
+       REN AUTOEXEC.CHN AUTOEXEC.BAT>NUL
+       REN CONFIG.SYS CONFIG.ENG>NUL
+       REN CONFIG.CHN CONFIG.SYS>NUL
+     10.在中文Windows95桌面上建立一个快捷方式,其命令行是
+          C:\GOENG.BAT
+     11.双击GOENG.BAT的快捷方式图标,然后重新启动机器,你将发现英文
+        Windows95被启动了.
+     12.在英文Windows95桌面上建立一个快捷方式,其命令行是
+          C:\GOCHN.BAT
+     13.双击GOCHN.BAT的快捷方式图标,然后重新启动机器,你将发现中文
+        Windows95被启动了.
+     至此,中英文Windows95已经共存于一台PC中了,切换也较为简便.
+        
+                           二 安装DOS
+     DOS和Windows95的系统文件(包括MSDOS.SYS,IO.SYS,COMMAND.COM,
+CONFIG.SYS,AUTOEXEC.BAT)名字是相同的,但文件内容不同.譬如,在Windows95
+环境中,MSDOS.DOS实际上是DOS的MSDOS.SYS.其它系统文件也有类似情况,DOS
+的系统文件均被改名为*.DOS.而在DOS系统中,Windows95的系统文件也被改名.
+其实,DOS与Windows95的切换主要就是靠改系统文件的名字实现的,但要满足下
+面的三个条件:
+     第一,在硬盘上必须拥有各自的系统文件,且应使用规定的文件名.
+     第二,系统引导区(即C:盘的第0个逻辑扇区)应是Windows95的.这可用
+Windows95的SYS C:命令实现.
+     第三,在Windows95的系统文件MSDOS.SYS中,必须在[Options]块内含有一
+行: BootMulti=1 .
+     因此,我们可以这样安装DOS(V6.21):
+     1.用DOS6.21系统盘启动机器,按两次F3退出SETUP,回到DOS提示符 A:>.
+     2.执行
+         A:\ATTRIB -S -H -R C:\*.SYS
+         A:\ATTRIB -S -H -R C:\COMMAND.COM
+     3.进入C:\,执行:
+         REN MSDOS.SYS MSDOS.W95
+         REN CONFIG.SYS CONFIG.W95
+         REN AUTOEXEC.BAT AUTOEXEC.W95
+         DEL IO.SYS
+         DEL COMMAND.COM
+     4.进入A:\,执行SETUP安装DOS,当安装完毕提示重启动时,取出DOS6.21的
+安装盘,插入Windows95的启动盘,然后按回车键启动.
+     5.Windows95启动后,执行:
+         A:\ATTRIB -S -H -R C:\*.SYS
+         A:\ATTRIB -S -H -R C:\COMMAND.COM
+     6.进入C:\,执行:
+         REN IO.SYS IO.DOS
+         REN MSDOS.SYS MSDOS.DOS
+         REN COMMAND.COM COMMAND.DOS
+         REN CONFIG.SYS CONFIG.DOS
+         REN AUTOEXEC.BAT AUTOEXEC.DOS
+         REN MSDOS.W95 MSDOS.SYS
+         REN CONFIG.W95 CONFIG.SYS
+         REN AUTOEXEC.W95 AUTOEXEC.BAT
+     7.编辑C:\MSDOS.SYS,执行:
+         A:\EDIT C:\MSDOS.SYS
+       在[Options]块中加入或修改下一行:
+         BootMulti=1
+     8.传入Windows95系统文件.进入A:\,执行:
+         SYS C:
+     9.取出A:中的软盘,热启动,当出现"Starting Windows 95..."时,按下F4
+键,则引导至DOS系统,注意:这是真正的DOS,而不是Windows95的仿真DOS.这时就
+可以安装其它DOS软件了,如UCDOS,CCED及一些在DOS下运行的游戏.
+
+        		  三 安装Windows 3.X
+     因为Windows 3.X并不是一个真正的操作系统,它实际上是一个DOS程序,所
+以说,只要DOS安装成功,再安装Windows3.X不应存在问题.安装方法也与从前一
+样,但要注意以下问题:
+     1.要在真正的DOS下安装Windows3.X,不能在Windows95的仿真DOS下安装.
+     2.应把Windows3.X安装到不同于中、英文Windows95的目录中.
+     3.Windows3.X的启动也应在真正的DOS下键入WIN命令.
+
+		              四 结束语
+     本文的例子虽比较特殊,也许你面临的情况不一定与本文描述的完全一样,
+但只要理解了本文的思路,相信你一定可以在各操作系统之间游刃有余.
+     最后,笔者想把自己犯下的一个错误同各位探讨一下.笔者用DOS6.21系统
+盘启动机器后,执行SYS C:命令将DOS系统传到C:,重新由硬盘启动后,发现不启
+动Windows95,而直接进入DOS(真正的DOS).随后,又用Windows95启动盘启动机
+器,并执行SYS C:命令将Windows95的系统传到C:,重新用硬盘启动后,发现启动
+了Windows95,但不进入Windows95的窗口环境.笔者先觉得奇怪,后来将备份的
+Windows95的MSDOS.SYS文件拷回C:\,重新启动即正常进入Windows95的窗口环
+境.经对比研究发现:
+     1.用DOS系统盘从A:启动时,C:的系统文件不改名.即C:\MSDOS.SYS仍为
+Windows95的,而不是DOS的,所以传系统时它被DOS的MSDOS.SYS覆盖了,其它的
+几个系统文件也是同等遭遇,导致的结果是不启动Windows95.
+     2.向C:传Windows95系统时,其MSDOS.SYS只有6个字节,而C:原来的
+MSDOS.SYS(Windows95的)长度超过1KB.如果C:\下有MSDOS.SYS,则Windows95
+的SYS命令不传该文件,如无,则将软盘上的MSDOS.SYS传到C:\.由于C:原来的
+MSDOS.SYS记录着Windows95的启动信息,而软盘上的MSDOS.SYS没有这些信息,
+所以机器启动时Windows95不进入窗口环境.对比上述两个MSDOS.SYS文件后发
+现(可用TYPE命令观看Windows95的MSDOS.SYS):软盘上的MSDOS.SYS只有一行
+内容,而C:\原来的MSDOS.SYS内容很多,其中一行为"BootGUI=1"表示启动后进
+入窗口环境,其它行也各有不同的意义,而且还从该文件的注释中得知:Windows95
+的MSDOS.SYS的长度必须大于1024字节.据此,笔者将备份的MSDOS.SYS拷回到
+C:\,重新启动后一切正常. 
+
+
+
+
+
+
+说明:
+   1.附寄软盘中包含有本文的文本文件,名为w.txt
+   2.如做较小改动,可不与作者联系.
+   3.如不采用,烦请电话(或其它方式)通知.作者联系方法:
+      邮编:163411 
+      地址:大庆地质录井公司研究所 王权
+      电话:0459-5694190

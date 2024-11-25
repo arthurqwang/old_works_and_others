@@ -1,0 +1,917 @@
+          第一部分  LASTLINE 简介
+
+    最后防线LASTLINE 是一种计算机安全防御软
+件,它能使您的计算机成为"不倒翁". 当您的计算
+机因被病毒攻击或意外事故而瘫痪,  LASTLINE能
+让您的计算机起死回生,挽回因数据 (包括文件、
+程序、操作系统数据、硬盘数据等)的丢失而蒙受
+的损失.在安装过LASTLINE之后, 只要您的硬盘没
+做过彻底的低级格式化,均有恢复的可能.
+
+1.1 LASTLINE 的主要特点
+ .专为硬盘数据的保护与修复而设计
+ .修复数据安全、可靠、完整、迅速、方便
+ .充分考虑非专业人员的特点,无需专门学习
+ .仅一张LASTLINE软盘可保您所有PC机的安全
+ .无需用软盘为PC机做信息备份
+ .可与各种防毒软硬件联合使用而不发生冲突
+ .具有防毒功能
+ .不使用扩展槽口等任何附加硬件设备
+ .同时提供中、英文版本(无需汉字系统),且二者
+  通用
+ .与同类软件相比,不会因DOS升级而失效
+ .经济实惠,价格低廉
+
+1.2 LASTLINE 的主要功能
+ .看守、保护并修复引导区
+ .保护并修复 FAT和 ROOT
+ .保护.EXE 和.COM 文件
+ .保护并修复操作系统
+ .保护并修复硬盘数据、文件,使硬盘恢复正常
+ .恢复已格式化硬盘(包括DOS无条件格式化)
+ .恢复已删空硬盘
+ .检测病毒,清除引导区和隐扇区内的病毒
+ .软件功能可依用户需要而取舍
+
+1.3 LASTLINE 的运行环境
+     硬件  IBM PC/XT/AT,286,386,486等及各种
+           兼容机的基本配置带硬盘(容量不限),
+           中文版要求EGA或VGA及以上显示器
+     软件  DOS 3.0以上任何版本操作系统
+
+1.4 LASTLINE 软件盘的规格
+     中文版   5英寸1.2M软盘1张 或 3英寸720K
+              软盘一张
+     英文版   5英寸360K软盘1张 或 3英寸720K
+              软盘一张
+
+
+
+         第二部分  LASTLINE 的安装
+
+2.1 LASTLINE的安装过程
+    LASTLINE 的供应者同时提供中、英文两种版
+本,  二者通用,安装过程也相同.由于中文版汉字
+提示很明了, 故不赘述.下面以安装英文版为例说
+明安装过程.
+    首先请您确认计算机当前状态正常,然后再进
+行安装.
+    将LASTLINE软件盘插入合适的驱动器,关好门.
+假设在A:驱,在DOS 命令行上键入
+    A:INSTALL
+回车后,稍候,屏幕显示如下(汉字为注解,不显示,
+下同):
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│                                      │
+│  DOS path is    C:\DOS, right?[Y]    │
+│  DOS路径是C:\DOS,正确吗?[是]         │
+│                                      │
+└───────────────────┘
+若回答N(即否),则屏幕显示如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│                                      │
+│  DOS path is    C:\DOS, right?[N]    │
+│  DOS路径是C:\DOS,正确吗?[否]         │
+│  Enter path including DOS,please:    │
+│  请输入DOS路径:                      │
+└───────────────────┘
+此时应键入包含DOS的路径.
+前一提问若回答Y(即是)或直接回车, 则屏幕显示
+如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│                                      │
+│  DOS path is    C:\DOS, right?[Y]    │
+│  DOS路径是C:\DOS,正确吗?[是]         │
+│  Auto Startup anti-virus software,   │
+│   ALWAYSEE?[Y]                       │
+│  自动起动防病毒软件ALWAYSEE吗?[是]   │
+└───────────────────┘
+若回答Y(即是) 或直接回车,则表示在起动时运行
+防毒软件,回答N,则表示在起动时不运行防毒软件.
+回答后屏幕显示如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+  ┌──────────────────┐
+  │  Auto Startup anti-virus software, │
+  │   ALWAYSEE?[Y]                     │
+  │  自动起动防病毒软件ALWAYSEE吗?[是] │
+  │                                    │
+  │  Wait a while please...            │
+  │  稍等...                           │
+  └──────────────────┘
+  ┍━━ Installing... 正在安装...  ━━┑
+  │■■■■■■■■                    │
+  ┕━━━━━━━━━━━━━━━━━━┙
+稍候,屏幕显示如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│  Necessary files have been copied.   │
+│  必要的文件已拷入.                   │
+│  Now,beginning backup...             │
+│  现在开始信息存贮...                 │
+│  Press any key to continue...        │
+│  按任意键继续...                     │
+└───────────────────┘
+按任意键,屏幕显示如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│  Auto Startup anti-virus software,   │
+│   ALWAYSEE?[Y]                       │
+│  自动起动防病毒软件ALWAYSEE吗?[是]   │
+│                                      │
+│  Wait a while please...              │
+│  稍等...                             │
+└───────────────────┘
+稍候,屏幕显示如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│  BOOT RECORD backup.                 │
+│  引导记录信息存贮.                   │
+│  Confirm that the operational        │
+│    system is normal,please.          │
+│  请确认操作系统正常.                 │
+│  Are you Sure?[Y]                    │
+│  确实正常吗?[是]                     │
+│                                      │
+└───────────────────┘
+    现在请您确认您的计算机系统正常,回答Y或
+回车表示正常.回答后:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│  BOOT RECORD backup.                 │
+│  引导记录信息存贮.                   │
+│  Confirm that the operational        │
+│   system is normal,please.           │
+│  请确认操作系统正常.                 │
+│  Are you Sure?[Y]                    │
+│  确实正常吗?[是]                     │
+│  Successful.                         │
+│  成功.                               │
+│  Over.                               │
+│  完毕.                               │
+│  Press any key to continue...        │
+│  按任意键继续...                     │
+└───────────────────┘
+按任意键,屏幕显示如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│  Processing                          │
+│  正在处理                            │
+│    Logical disk C:                   │
+│    逻辑盘 C:                         │
+│                                      │
+└───────────────────┘
+最后屏幕恢复到安装前的状态.此时安装完毕.
+    现在做热起动,若起动后出现类似下列信息,
+则安装成功.
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│  MAIN BOOT RECORD OK.                │
+│  主引导记录正常.                     │
+│  Logical disk C:  DOS BOOT RECORD OK.│
+│  逻辑盘 C: DOS引导记录正常.          │
+│  Logical disk D:  DOS BOOT RECORD OK.│
+│  逻辑盘 D: DOS引导记录正常.          │
+│  Logical disk E:  DOS BOOT RECORD OK.│
+│  逻辑盘 E: DOS引导记录正常.          │
+│                                      │
+│  Press any key to continue...        │
+│  按任意键继续...                     │
+└───────────────────┘
+按任意键,屏幕显示如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│  Processing                          │
+│  正在处理                            │
+│    Logical disk C:                   │
+│    逻辑盘 C:                         │
+└───────────────────┘
+若在安装时,对提问"Auto  startup  anti-virus
+software, ALWAYSEE?[Y]"的回答为Y,则屏幕继续
+显示
+┌───────────────────┐
+│       LASTLINE Version 2.0           │
+│         LASTLINE 2.0版               │
+│ (C)   Copyright   WANGQUAN     1993. │
+│   版权所有 王 权   1993              │
+│ ALWAYSEE:     The policeman to Virus.│
+│                       病毒警察       │
+│ Alt-V:     To reset job menu tasks.  │
+│                     重置工作菜单     │
+└───────────────────┘
+    若热起动后没有出现类似上述的显示,则可能
+是安装未成功.
+    安装后将在C盘生成子目录LASTLINE.
+    中文版安装过程与英文版相同,由于其汉字提
+示很明了, 故不赘述.
+
+2.2 安装可能出现的问题及解决办法
+(1)热起动没有出现LASTLINE运行的显示
+    正常情况下,安装后,在AUTOEXEC.BAT文件头
+部插入下列内容:
+     @ECHO   OFF
+     C:\LASTLINE\STRCHK1
+         或C:\LASTLINE\STRCHK2
+     ECHO ON
+    若热起动时没有出现LASTLINE运行的显示,则
+可能是上述内容未写入AUTOEXEC.BAT中,只要使用
+文字编辑程序写入即可.
+(2)起动时多次要求口令
+    出现这种情况,一般是因为用户自行设置了软
+口令,解决办法是:将AUTOEXEC.BAT中C:\LASTLINE
+\STRCHK1(或C:\LASTLINE\STRCHK2)改为:
+     C:\LASTLINE\MNGRBOOT/C
+     C:\LASTLINE\FATRSAVE
+     C:\LASTLINE\ALWAYSEE (若原来为C:\
+         LASTLINE\STRCHK2,则无此行)
+(3)安装时多次要求口令
+    原因可能同(2).只要在要求时键入口令,一般
+即可完成安装,但此时一定要保证系统的正确性.
+(4)安装后某逻辑盘不能进入
+    这一般是安装LASTLINE前系统不正常所致(如
+被病毒感染,  用户为加软口令而将正常的引导记
+录移动,等等), 所以在安装之前应保证系统正常.
+(5)安装后起动显示下列信息
+    MAIN BOOT RECORD has been changed!
+    (主引导记录已被修改!)
+    Update with original copy?[Y]
+    (用原始备份修复吗?[是])
+或者
+    Logical disk X:   DOS BOOT RECORD has
+    been changed!
+    (逻辑盘X:的DOS引导记录已被修改!)
+    Update with original copy?[Y]
+    (用原始备份修复吗?[是])
+处理方法见 3.1.2 中之 .1.
+    若出现其它情况, 请与供应者联系,见本手册
+附录.
+
+
+
+       第三部分 LASTLINE 的使用方法
+
+3.1 LASTLINE 的日常使用方法
+    日常情况下,您一般不必使用LASTLINE,因为您
+的计算机已经自动地执行了LASTLINE的例行程序.
+但有时例外,见下述.
+
+3.1.1 安全保存文件
+    当您修改或生成了重要的文件并希望安全保存
+时,您应该在DOS命令行上键入:
+        C:\LASTLINE\FATRSAVE(回车)
+    您可以建立一个名字简单的批命令文件, 如:
+A.BAT,并把它放入PATH命令可搜寻到的目录,这样,
+您只须键入A(回车)即可. A.BAT的内容为:
+      C:\LASTLINE\FATRSAVE
+    您也可用COPY命令将FATRSAVE.EXE 拷入另一
+文件, 如A.EXE.但不可将FATRSAVE.EXE改名,因为
+日常处理程序要调用它.
+    LASTLINE 软件之所以不使用一简单的名字代
+替FATRSAVE, 是因为简单的名字易重复,同时由用
+户自己命名便于记忆.
+
+3.1.2 要求用户处理的事项
+    日常情况下,您也许会碰到下两种现象:
+ .1.显示信息
+    MAIN BOOT RECORD has been changed!
+    (主引导记录已被修改!)
+    Update with original copy?[Y]
+    (用原始备份修复吗?[是])
+或者
+    Logical disk X:   DOS BOOT RECORD has
+    been changed!
+    (逻辑盘X:的DOS引导记录已被修改!)
+    Update with original copy?[Y]
+    (用原始备份修复吗?[是])
+    这些信息来源于MNGRBOOT.EXE.一般是由于引
+导记录被病毒修改(或其它原因)所致, 回答YES或
+直接回车即可.这同时也清除了引导扇区中的病毒
+代码.
+    有时在刚安装之后也会出现这种现象,一般是
+由于您正在使用不很流行的DOS, 或者您的硬盘并
+非用DOS作的格式化,例如您使用的是PCTOOLS. 这
+时您可回答YES,再次起动时不应出现这种现象.
+ .2.显示信息
+    Process FATRSAVE.IMG on X:,please.
+    (请处理X:盘上的文件FATRSAVE.IMG.)
+    运行FATRSAVE.EXE时可能会遇到该信息,不常
+见.
+    这种现象是出于软件自身的需要,一般发生在
+该盘容量很大的情况下,为了提高运行速度和修复
+效果,LASTLINE要求文件FATRSAVE.IMG尽量在该盘
+的前部(在物理上,而不一定是在目录上). 一般只
+要将该文件向前移动一下即可.您不妨这样试试:
+    .在根目录下找一个早期拷入该盘的大些的文
+件,假设为A,将其拷入一个新文件,假设为B
+    .将FATRSAVE.IMG拷入A
+    .删掉FATRSAVE.IMG,注意FATRSAVE.IMG 在该
+盘根目录下,属性为隐含,删除时须改为文档
+    .将A改名为FATRSAVE.IMG
+    .将B改名为A
+    若经上述操作仍未奏效,您再使用磁盘整理程
+序整理一下该盘.如果还未解决, 您可以请求同事
+或对磁盘结构较为了解的人员帮忙.
+    当该盘容量很大且将要满时才安装 LASTLINE
+可能会出现这种现象.所以建议最好在各盘文件不 
+多时, 就安装本软件,但这不是必须,只是建议,您
+完全可以置之不理.
+
+3.2 LASTLINE在修复时的使用方法
+     如果您的计算机出现了操作系统和硬盘数据
+管理方面的故障,  一般情况下您首先要用干净的
+DOS软盘重新起动机器(LASTLINE软盘可作为DOS5.
+0的起动盘,若您能保证当前操作系统完全正常,也
+可不必重新起动,  而只须将LASTLINE软件盘插入
+合适的驱动器即可) ,然后按3.2.1或3.2.2所述步
+骤操作.
+
+3.2.1 简单通用的修复方法
+    您若不想对LASTLINE了解得太多,或为了方便,
+您只须在软驱上依次运行下列三个程序:
+      LASTLIN1
+      LASTLIN2
+      LASTLIN3
+    对上述三个程序的提问,均回答缺省值或直接
+回车.每运行一个程序,检查一下机器,若已恢复正
+常,则停止,否则接着运行下一个程序,直至机器恢
+复正常.
+    运行LASTLIN3时, DOS版本应与机内硬盘的相
+同,所以,若版本不同,则应使用与硬盘上的版本相
+同的DOS起动盘重新起动. LASTLINE软件盘可作为
+DOS5.0的起动盘.
+    运行上述三个程序的具体细节,请您参见本手
+册的章节4.6, 4.7, 4.8.
+    经上述步骤,您的硬盘和操作系统一般就会恢
+复,此时,  您应该使用查毒软件检查并清除病毒,
+或作其它妥善处理.
+    您若想把修复工作做得更好,可阅读下面的章
+节3.2.2.
+
+3.2.2 更好的修复方法
+    针对不同的具体情况, 采用不同的方法,您会
+将修复工作做得更好,有时也更简便.
+    也许您遇到了下列情况:
+      .1.您的计算机已经无法在硬盘上起动
+      .2.您的硬盘已经不能读写数据
+      .3.您的整个硬盘或部分逻辑盘丢失
+      .4.您的某逻辑盘上的文件全部或部分丢失,
+         但硬盘上可起动
+      .5.您要把一空盘恢复到原来状态
+      .6.您要恢复已被DOS格式化(包括无条件格
+         式化)的某逻辑盘
+      .7.您要把某逻辑盘恢复到最后一次起动(或
+         者最后一次运行FATRSAVE)前的状态
+      .8.您要修复文件分配表和根目录
+      .9.您要修复主引导记录和DOS引导记录
+      .10.您要恢复原来的硬盘分区
+    下面给出上述各种情况的处理方法.
+
+1,2,3:
+   可按下列步骤操作.
+    <1>将LASTLINE盘插入一软驱,用干净DOS盘起
+动, LASTLINE软件盘可起动DOS 5.0
+    <2> 进入LASTLINE软件所在的软盘,键入
+       LASTLIN1(回车)
+运行后屏幕可能如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│ Replace MAIN BOOT RECORD?[N]         │
+│ 修复主引导记录吗?[否]                │
+│ Replace DOS BOOT RECORD for logical  │
+│  disk C:?[N]                         │
+│ 为C:盘修复DOS引导记录吗?[否]         │
+│ Replace DOS BOOT RECORD for logical  │
+│  disk D:?[Y]                         │
+│ 为D:盘修复DOS引导记录吗?[是]         │
+│ Successful.                          │
+│ 成功.                                │
+│ Now,DO NOT remove the disk in drive  │
+│   a: and reboot...                   │
+│ 不要移开A:驱中的盘,热起动...         │
+│ Press any key to continue...         │
+│ 按任意键继续...                      │
+└───────────────────┘
+    上述问题若回答Y(键入Y即可,不须回车) ,则
+修复主引导记录或该盘的引导记录,N则越过.若曾
+修复过引导记录, 则修复完成后须重新起动机器,
+按任意键即热起动,此时不要移开A驱中的起动盘.
+    一般情况下,可全部回答为Y(或回车).
+    <3> 检查各逻辑硬盘是否正常,若已恢复正常
+则修复完毕, 否则, 查看哪个盘不正常并记下,进
+入LASTLINE软件所在的软盘,键入
+        LASTLIN2(回车)
+运行后屏幕可能如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│        WARNING!    WARNING!          │
+│         警 告       警 告            │
+│ Perhaps,some files may be lost       │
+│  when you answer YES.                │
+│ 若回答YES,可能会丢失一些文件.        │
+│ Update FAT and ROOT for logical      │
+│  disk C:,Sure?[Y]                    │
+│ 为逻辑盘 C:恢复文件分配表和根目录,   │
+│  肯定吗?[是]                         │
+│ Reparing...                          │
+│ 正在修复...                          │
+│ Successful.                          │
+│ 成功.                                │
+│ Update FAT and ROOT for logical      │
+│  disk D:,Sure?[N]                    │
+│ 为逻辑盘 D:恢复文件分配表和根目录,   │
+│  肯定吗?[否]                         │
+│                                      │
+│ Press any key to contonue...         │
+│ 按任意键继续...                      │
+└───────────────────┘
+    将询问"Update FAT and ROOT for  logical
+disk X:,Sure?[Y] ",X为C, D,E, F...,该询问意
+为:"为逻辑盘  X:恢复文件分配表和根目录,肯定
+吗? [是]". 此时,若X:盘不正常(已由用户记下),
+则回答Y(键入Y即可,不要回车) ,否则键入N,直接
+回车代表Y.  若用户不怕丢失开机后生成文件,则
+全部回答为Y或回车.
+    <4> 移开A:驱中的盘,热起动, 若能从硬盘起
+动,则修复完毕,否则用软盘起动,再进入LASTLINE
+所在的软盘,键入
+       LASTLIN3(回车)
+    运行该程序时, DOS的版本应与机内硬盘的相
+同,所以,若版本不同,则应使用与硬盘上的版本相
+同的DOS起动盘重新起动.LASTLINE 软件盘可作为
+DOS5.0的起动盘.
+    经上述步骤,您的硬盘一般就会恢复,此时,您
+应该使用查毒软件检查并清除病毒,或作其它妥善
+处理.
+
+4,5,6,7,8:
+    <1>将LASTLINE软件盘插入软驱并重新起动.
+    <2>进入LASTLINE所在的软盘,运行LASTLIN2,
+即键入LASTLIN2(回车). 显示如情况1,2,3中的第
+<3>步. LASTLIN2会询问"Update FAT  and  ROOT
+for logical disk X:,Sure?[Y]",X为C,D,E... ,
+该询问意为:"为逻辑盘 X:  恢复文件分配表和根
+目录, 肯定吗?[是]".此时, 若X:盘为您要修复的
+盘,则回答Y(键入Y即可,不要回车),否则键入N,直
+接回车代表Y.
+    若用户不怕丢失开机后生成文件,则可全部回
+答为Y或回车.
+    经上述步骤,您的硬盘一般就会修复,此时,您
+应该使用查毒软件检查并清除病毒,或作其它妥善
+处理.
+
+9,10:
+    <1>将LASTLINE软件盘插入软驱并重新起动.
+    <2>进入LASTLINE所在的软盘,运行LASTLIN1,
+即键入LASTLIN1(回车). 提问时若回答Y(键入Y即
+可,不须回车),则修复(或恢复)主引导记录或该盘
+的引导记录,回答N则越过.若曾修复过引导记录,
+则修复完成后须重新起动机器,按任意键即热起动,
+此时不要移开A:驱中的起动盘.
+    <3>起动后还应检查各盘,若有逻辑盘不正常,
+则应接着在软驱中运行LASTLIN2,详见上述.
+
+3.3 LASTLINE的其它使用方法
+    .11.您要了解当前系统的引导记录是否正确
+    .12.您要重新存贮引导记录信息
+    .13.您将硬盘做了碎片整理
+    .14.您清洗了硬盘,重新安装了操作系统, 并
+        准备承认这次清洗和安装
+    .15.您更新了DOS版本
+
+11:
+    键入 C:\LASTLINE\MNGRBOOT/C(回车) 即可,
+若某引导扇区有变化则给出警告,并询问是否改正,
+回答Y或回车意为改正,N为不改.
+12:
+    您若修改了引导记录 (比如想在其中加入口令
+检查代码),LASTLINE在日常处理时会发觉, 如果您
+要求LASTLINE承认您的修改,可以这样做:
+    键入 C:\LASTLINE\MNGRBOOT/B(回车) 即可,
+此时要保证系统的正确性.
+13:
+    键入 C:\LASTLINE\FATRSAVE 即可.
+14,15:
+    此时应重新安装LASTLINE,见本手册  第二部
+分LASTLINE的安装.
+    如果您遇到了其它情况,可阅读本手册第四部
+分LASTLINE的文件及各自的功能,若仍未解决问题,
+请与作者或供应者联系.
+
+3.4 LASTLINE 的清除
+    见本手册4.11 .
+
+    第四部分 LASTLINE 的文件及各自的功能
+
+4.1 FATRSAVE.EXE
+     用于各逻辑硬盘文件分配表和根目录的信息
+存贮,运行该程序将在各逻辑盘的根目录下生成文
+件 FAT&ROOT.IMG, 该文件为隐含的,不要删除它.
+    运行该程序一次,  即可将最新的各逻辑硬盘
+文件分配表和根目录的信息存贮一次. 实际上,每
+次起动,该程序都被运行了一次, 它是LASTLINE日
+常处理程序之一.日常处理时,它被STRCHK1.EXE或
+STRCHK2.EXE调用.所以在生成了重要的新文件后,
+应运行该程序,以刷新各逻辑硬盘文件分配表和根
+目录的信息,以利于在硬盘文件修复时新文件不被
+丢失.运行该程序在DOS命令行上键入:
+        C:\LASTLINE\FATRSAVE(回车)
+即可. 您也可以建立一个名字简单的批命令文件,
+如A.BAT,并把它放入PATH命令可搜寻到的目录,这
+样,当您生成了重要的新文件后,只须键命令A即可.
+A.BAT的内容为:
+      C:\LASTLINE\FATRSAVE
+    也可将FATRSAVE.EXE拷入另一文件,如A.EXE.
+但不可将FATRSAVE.EXE改名,因为日常处理程序要
+调用它.
+    之所以不使用一简单的名字代替FATRSAVE,是
+因为简单的名字易重复,  同时由用户自己命名便
+于记忆.
+    运行该程序可能有下列信息:
+    Process FATRSAVE.IMG on X:,please.
+    (请处理X:盘上的文件FATRSAVE.IMG.)
+处理方法见 3.1.2 中之 .2.
+    若某逻辑盘上没有属性为文档的文件存在,则
+FATRSAVE.EXE不处理该盘,您会看到在运行该程序
+时此盘被越过.
+
+4.2 MNGRBOOT.EXE
+    用于各逻辑硬盘DOS引导记录及主引导记录的
+管理,可使用下列选项:
+    /? 帮助
+    /C 检测各逻辑硬盘DOS引导记录及主引导记录
+    /B 存贮各逻辑硬盘DOS引导记录及主引导记录
+       的信息
+    若无选项, 则修复各逻辑硬盘DOS引导记录及
+主引导记录,其作用与LASTLIN1.EXE相同.
+    在每次起动机器时,该程序都被自动执行了一
+次,此时使用了/C选项.日常处理时,它被STRCHK1.
+EXE或STRCHK2. EXE调用.
+    当使用了/C选项,可能会出现下列信息:
+    MAIN BOOT RECORD has been changed!
+    (主引导记录已被修改!)
+    Update with original copy?[Y]
+    (用原始备份修复吗?[是])
+或者
+    Logical disk X:   DOS BOOT RECORD has
+    been changed!
+    (逻辑盘X:的DOS引导记录已被修改!)
+    Update with original copy?[Y]
+    (用原始备份修复吗?[是])
+处理方法见 3.1.2 中之 .1.
+
+4.3 ALWAYSEE.COM
+    用于看守引导区及.EXE或.COM文件等,运行后
+驻留内存,按Alt-V可重新设置,当按下Alt-V键后,
+将弹出下列任务菜单(无汉字):
+┌──────────────────┐
+│          ALWAYSEE job menu         │
+│          ALWAYSEE 工作菜单         │
+│┌─┬───────────┬──┐│
+││  │     Task type        │    ││
+││  │     任务类型         │    ││
+│├─┼───────────┼──┤│
+││ 1│Low-format harddisk   │ √ ││
+││  │硬盘低级格式化警告    │    ││
+││ 2│Resident              │    ││
+││  │驻留警告              │    ││
+││ 3│Normal write protect  │    ││
+││  │常规写保护            │    ││
+││ 4│Check executable files│ √ ││
+││  │检查可执行文件        │    ││
+││ 5│Check boot viruses    │ √ ││
+││  │检查引导区病毒        │    ││
+││ 6│Protect HDISK BOOT    │ √ ││
+││  │保护硬盘引导区        │    ││
+││ 7│Protect FDISK BOOT    │    ││
+││  │保护软盘引导区        │    ││
+││ 8│Protect.EXE,.COM files│    ││
+││  │保护.EXE和.COM文件    │    ││
+│└─┴───────────┴──┘│
+│  1-8:Task switch(ON--√)           │
+│      任务开关(开--√)              │
+│  Esc:To exit to DOS                │
+│      退回DOS                       │
+│  Alt-U:Self-cancelling from memory │
+│        从内存中自卸载              │
+└──────────────────┘
+    出现上菜单后,按数字键1--8, 可删或加任务
+项,Esc键退回DOS系统.  Alt-U可将ALWAYSEE从内
+存中卸载.
+    当有可疑的写盘操作时,ALWAYSEE会给出警告,
+并要求指出处理意见,  S:停止,C:继续,B:重新引
+导.
+    ALWAYSEE的存在, 会影响磁盘操作速度,必要
+时可卸载. 为了尽量减少内存占用量,ALWAYSEE不
+使用中文.
+
+4.4 STRCHK1.EXE和STRCHK2.EXE
+    该二程序为日常处理程序, 执行STRCHK1.EXE
+相当于依次执行:
+       MNGRBOOT/C
+       FATRSAVE
+       ALWAYSEE
+    执行STRCHK2.EXE相当于依次执行:
+       MNGRBOOT/C
+       FATRSAVE
+    使用STRCHK1和STRCHK2主要是为了方便.
+
+    上面的程序均存于C:\LASTLINE及LASTLINE软
+盘上.而下面的程序在安装时不拷入C:\LASTLINE,
+它们只存在于LASTLINE软盘上.
+
+4.5 INSTALL.EXE
+    LASTLINE 的安装程序, 详见本手册第二部分
+"LASTLINE的安装", 此略.
+
+4.6 LASTLIN1.EXE
+    用于修复各逻辑硬盘DOS引导记录及主引导记
+录,它只能在软盘上运行, 运行后屏幕可能如下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│ Replace MAIN BOOT RECORD?[N]         │
+│ 修复主引导记录吗?[否]                │
+│ Replace DOS BOOT RECORD for logical  │
+│  disk C:?[N]                         │
+│ 为C:盘修复DOS引导记录吗?[否]         │
+│ Replace DOS BOOT RECORD for logical  │
+│  disk D:?[Y]                         │
+│ 为D:盘修复DOS引导记录吗?[是]         │
+│ Successful.                          │
+│ 成功.                                │
+│ Now,DO NOT remove the disk in drive  │
+│  a: and reboot...                    │
+│ 不要移开A:驱中的盘,热起动...         │
+│ Press any key to continue...         │
+│ 按任意键继续...                      │
+└───────────────────┘
+    上述问题若回答Y, 则修复主引导记录或该逻
+辑盘的DOS引导记录,N则越过. 若曾修复过引导记
+录, 则须重新起动机器,按任意键即热起动.
+    一般情况下,可全部回答为Y(或回车).
+
+4.7 LASTLIN2.EXE
+    该程序用于修复各逻辑硬盘的文件分配表和
+根目录,它只能在软盘上运行,运行后屏幕可能如
+下:
+    ┌───────────────┐
+    │     LASTLINE Version 2.0     │
+    │       LASTLINE 2.0版         │
+    │ (C) Copyright WANGQUAN  1993.│
+    │     版权所有 王 权   1993    │
+    └───────────────┘
+┌───────────────────┐
+│        WARNING!     WARNING!         │
+│         警 告        警 告           │
+│ Perhaps,some files may be lost       │
+│  when you answer YES.                │
+│ 若回答YES,可能会丢失一些文件.        │
+│ Update FAT and ROOT for logical      │
+│  disk C:,Sure?[Y]                    │
+│ 为逻辑盘 C:恢复文件分配表和根目录,   │
+│  肯定吗?[是]                         │
+│ Reparing...                          │
+│ 正在修复...                          │
+│ Successful.                          │
+│ 成功.                                │
+│ Update FAT and ROOT for logical      │
+│  disk D:,Sure?[N]                    │
+│ 为逻辑盘 D:恢复文件分配表和根目录,   │
+│  肯定吗?[否]                         │
+│ Press any key to contonue...         │
+│ 按任意键继续...                      │
+└───────────────────┘
+    运行该程序时,用户将得到警告" 若回答YES,
+可能会丢失一些文件",这是因为LASTLIN2 使用的
+FAT和ROOT信息由FATRSAVE产生,所以LASTLIN2 可
+将FAT和ROOT恢复到最后一次运行FATRSAVE时的状
+态. 虽然丢失的文件可能是很少一部分,但我们建
+议,  当您在硬盘上生成或修改了较多的或重要的
+文件后,最好运行一次FATRSAVE.  当然,在下次开
+机时会自动运行FATRSAVE, 但是,  假设您生成或
+修改了一些文件后,没有运行一次FATRSAVE, 而恰
+好此时该逻辑硬盘的FAT和ROOT被(病毒)破坏, 那
+么,LASTLIN2在恢复该逻辑硬盘时, 会将这些文件
+丢失.
+    运行LASTLIN2时, 您要对是否修复做出选择,
+选择Y则修复, 否则越过. 在您运行LASTLIN2之前,
+您最好检查一下硬盘,  确定哪个逻辑盘的文件分
+配表或根目录被破坏,这样,在运行LASTLIN2时,只
+修复被破坏的文件分配表和根目录,以可免除在其
+它逻辑硬盘上丢失文件的可能.
+
+4.8 LASTLIN3.EXE
+    用于修复DOS的核心.运行该程序时,DOS的版本
+应与机内硬盘的相同, 所以,若版本不同,则应使用
+与硬盘上的版本相同的DOS起动盘重新起动.
+    LASTLINE软件盘可作为DOS5.0的起动盘.
+    运行该程序时,显示如下:
+┌────────────────────┐
+│  Insert DOS-SYSTEM-DISK in drive A:,   │
+│  please.                               │
+│  请在A:驱中插入DOS系统盘.              │
+│  Its version must be equal to HARD-    │
+│  DISK's,                               │
+│  其版本必须与硬盘上的相同.             │
+│  (LASTLINE disk may be SYSTEM-DISK     │
+│   of DOS 5.0)                          │
+│  (LASTLINE盘可做为DOS5.0的系统盘)      │
+│  If the active DOS(being running) is   │
+│  different from HARD-DISK's,You must   │
+│  reboot with the same DOS in drive A:, │
+│  then run LASTLIN3 again.              │
+│  若当前的DOS(正在运行的)与硬盘上的不   │
+│  同,则必须用相同的版本重新起动, 然后   │
+│  再次运行LASTLIN3.                     │
+│  Reboot?[N]                            │
+│  需重新起动吗?[否]                     │
+└────────────────────┘
+    此时,在A:驱插入版本与硬盘相同的DOS引导盘,
+若LASTLINE盘在A:驱中,可将其拿出.再按提示操作
+即可.
+
+4.9 PRMPT.EXE
+    为LASTLINE软件自用程序,用户无须关心. 中
+文版无该文件.
+
+4.10 LSTH.INF
+    为LASTLINE软件自用数据文件,用户无须关心.
+英文版无该文件.
+
+4.11 DELLL.EXE
+    为LASTLINE的自清除程序, 运行该程序时屏幕
+显示如下:
+
+┌───────────────────┐
+│       LASTLINE Version 2.0           │
+│         LASTLINE 2.0版               │
+│ (C)   Copyright   WANGQUAN     1993. │
+│   版权所有 王 权   1993              │
+│       DELLL:Eraser for LASTLINE.     │
+│             LASTLINE清除器           │
+│Remove LASTLINE from HARDDISK,Sure?[N]│
+│从硬盘清除LASTLINE,肯定吗?[否]        │
+└───────────────────┘
+若想清除LASTLINE则键入Y,否则键入其它键.
+    从硬盘清除LASTLINE后, 其占用的所有硬盘空
+间被全部释放.虽然您不再使用它,但当您的硬盘各
+引导记录遭破坏时,您仍然可使用修复程序LASTLIN1
+修复.
+    该程序无中文版.
+
+4.12 README
+    该文件内容就是本用户手册, 您可以将它打印
+出来,如果您有汉字打印机,只要打入下命令:
+    COPY X:README LPT1
+X为LASTLINE所在的驱动器.
+    若本文件与用户手册有不同之处, 以本文件为
+准.
+    本文件只存在于LASTLINE中文版软盘中.
+
+        第五部分 LASTLINE的功能取舍
+
+    有些情况下,您可能想改变安装时的日常功能
+设置,实际上,日常处理程序为独立的三个:
+    MNGRBOOT.EXE  引导记录信息管理
+    FATRSAVE.EXE  文件分配表,根目录信息存贮
+    ALWAYSEE.COM  可疑写操作看守
+    它们的功能在第四部分描述,您可以在C:盘根
+目录下的AUTOEXEC.BAT中,用它们的任意组合替代
+STRCHK1或STRCHK2,从而满足您的要求, 但最好将
+MNGRBOOT.EXE置于FATRSAVE.EXE前面.
+    您甚至可以在安装LASTLINE后,再将其清除.
+虽然您不再使用它,但当您的硬盘各引导记录遭破
+坏时,您仍然可使用修复程序LASTLIN1修复.
+
+
+
+
+                声明及附录
+
+    .最后防线LASTLINE软件正版盘标签上有作者
+亲手签名       ,  否则为非正版盘,若发现请与
+作者联系,非正版盘有潜在危险.
+    .本软件正版盘用激光等手段加密, 禁止非法
+拷贝, 若因解密而带来损失,概不负责.
+    .若正版盘损坏,可与供应者调换,将坏盘寄给
+供应者即可,切记不要撕下标签.
+    .供应者及作者联系事项
+      邮政编码: 163357
+      地址:  黑龙江省大庆市红岗区杏五井西街
+             6-6号利德地球物理技术服务公司
+      联系人: 王  权
+      电话:(0459)-412464-3461 或
+           (0459)-483600-3461 
+
+
+
+
+
+
+
+
+                 目    录
+
+第一部分  LASTLINE 简介.................
+  1.1 LASTLINE 的主要特点...............
+  1.2 LASTLINE 的主要功能...............
+  1.3 LASTLINE 的运行环境...............
+  1.4 LASTLINE 软件盘的规格.............
+第二部分  LASTLINE 的安装...............
+  2.1 LASTLINE的安装过程................
+  2.2 安装可能出现的问题及解决办法......
+第三部分 LASTLINE 的使用方法............
+  3.1 LASTLINE 的日常使用方法...........
+     3.1.1 安全保存文件.................
+     3.1.2 要求用户处理的事项...........
+  3.2 LASTLINE在修复时的使用方法........
+     3.2.1 简单通用的修复方法...........
+     3.2.2 更好的修复方法...............
+  3.3 LASTLINE的其它使用方法............
+  3.4 LASTLINE的清除....................
+第四部分 LASTLINE 的文件及各自的功能....
+  4.1 FATRSAVE.EXE......................
+  4.2 MNGRBOOT.EXE......................
+  4.3 ALWAYSEE.COM......................
+  4.4 STRCHK1.EXE和STRCHK2.EXE..........
+  4.5 INSTALL.EXE.......................
+  4.6 LASTLIN1.EXE......................
+  4.7 LASTLIN2.EXE......................
+  4.8 LASTLIN3.EXE......................
+  4.9 PRMPT.EXE.........................
+  4.10 LSTH.INF.........................
+  4.11 DELLL.EXE........................
+  4.12 README...........................
+第五部分 LASTLINE的功能取舍.............
+声明及附录..............................

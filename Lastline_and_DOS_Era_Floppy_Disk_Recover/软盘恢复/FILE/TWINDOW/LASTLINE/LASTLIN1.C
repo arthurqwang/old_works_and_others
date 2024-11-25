@@ -1,0 +1,5 @@
+main()
+  {
+    system("mngrboot");
+  }
+

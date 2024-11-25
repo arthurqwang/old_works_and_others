@@ -1,0 +1,442 @@
+<HTML>
+<TITLE>GIF Construction Set Guide</TITLE>              
+<BODY>
+<CENTER>
+<H2>                 GIF Construction Set for Windows & Windows 95
+<A NAME="SYSC">                                  使用手册</A>
+      
+</H2><HR SIZE=2 WIDTH=30%>
+                           编译:王  权 郭冬梅 周智明<BR>
+
+                           大庆石油管理局信息中心<BR>
+                           大庆石油管理局录井公司<BR> 
+       
+                                   1996.9<BR>
+<HR>
+<A HREF="#INDEX">目录</A>
+</CENTER>
+
+<A NAME="INDEX">
+<UL>
+<TABLE BORDER=10>
+<TR>
+<TD VALIGN=TOP WIDTH="10%">
+<LI><A HREF="#A1">编写说明</A>
+<LI><A HREF="#A2">第一章 介绍 </A>
+<LI><A HREF="#A3">第二章 安装</A>
+<LI><A HREF="#A4">2.1 获取软件</A>
+<LI><A HREF="#A5">2.2 配置要求</A>
+<LI><A HREF="#A6">2.3 安装软件</A>
+<LI><A HREF="#A7">第三章 牛刀小试</A>
+<LI><A HREF="#A8">3.1 一个简单动画的例子</A>
+<LI><A HREF="#A9">3.2 怎样做得更好</A>
+<LI><A HREF="#A10">第四章 详细说明</A>
+<LI><A HREF="#A11">4.1 块的概念</A>
+<LI><A HREF="#A12">4.2 运行GIF Construction Set</A>
+<LI><A HREF="#A13">4.3 编辑头块</A>
+</TD>
+<TD VALIGN=TOP WIDTH="10%">
+<LI><A HREF="#A14">4.4 编辑图像块</A><BR>
+<LI><A HREF="#A15">4.5 编辑注释块</A><BR>
+<LI><A HREF="#A16">4.6 编辑文本块</A><BR>
+<LI><A HREF="#A17">4.7 编辑控制块</A><BR>
+<LI><A HREF="#A18">4.8 编辑循环块</A><BR>
+<LI><A HREF="#A19">4.9 插入块</A><BR>
+<LI><A HREF="#A20">4.10 合并块</A><BR>
+<LI><A HREF="#A21">4.11 抽取块</A><BR>
+<LI><A HREF="#A22">4.12 删除块</A><BR>
+<LI><A HREF="#A23">4.13 管理块</A><BR>
+<LI><A HREF="#A24">4.14 观看GIF文件</A><BR>
+<LI><A HREF="#A25">4.15 生成新的GIF文件</A><BR>
+<LI><A HREF="#A26">4.16 打开和存储GIF文件</A><BR>
+<LI><A HREF="#A27">4.17 输出GIF文件</A><BR>
+</TD>
+<TD VALIGN=TOP WIDTH="10%">
+<LI><A HREF="#A28">4.18 关闭GIF文件</A><BR>
+<LI><A HREF="#29">4.19 将电影转换成GIF文件</A><BR>
+<LI><A HREF="#30">4.20 Setup对话框</A><BR>
+<LI><A HREF="#A31">4.21 About对话框和Windows显示驱动程序</A><BR>
+<LI><A HREF="#A32">4.22 关于块名块</A><BR>
+<LI><A HREF="#33">4.23 生成大标题</A><BR>
+<LI><A HREF="#A34">4.24 生成渐变画面</A><BR>
+<LI><A HREF="#A35">4.25 使用动画工具</A><BR>
+<LI><A HREF="#A36">4.26 关于动画GIF的几个问题</A><BR>
+<LI><A HREF="#A37">4.27 生成透明的GIF文件</A><BR>
+<LI><A HREF="#A38">4.28 生成隔行显示GIF文件</A><BR>
+<LI><A HREF="#A39">4.29 把GIF Construction Set做为一个GIF文件浏览器使用</A><BR>
+<LI><A HREF="#A40">4.30 有关GIF construction Set的几个问题</A><BR>
+</TD>
+</TR>
+</TABLE>
+</UL>
+<CENTER><A NAME="A1">编写说明　　　　</A></CENTER><P>
+　　本手册是根据 GIF Construction Set for Windows & Windows 95 V1.0N的软件附带文档编译的.由
+于原来的英文文档有些地方不太适合我们的习惯,而且有时轻重不分,不易于掌握,因此,本手册没有
+完全依原手册照翻,而是经过了编者的重新组织,因原手册中存有一定的错误,虽经编者改正,但仍可
+能会有遗漏,且编译时亦可能存有不当之处,烦劳斧正.Tel:5694190<P>
+<CENTER>编者　　　　<BR>
+1996.9　　　　<P>
+
+<A NAME="A2">第一章　介绍　　　　</A><BR></CENTER>
+　　GIF Construction Set是一个处理多块GIF文件(如GIF89a格式)的有力工具.它帮助你制作含有多幅
+图像,文本注释以及控制等各种类型块的GIF文件.对于制作动画GIF文件更是大有帮助.<BR>
+主要功能包括:<BR>
+　·为Netscape生成循环的动画GIF文件<BR>
+　·生成透明的GIF文件<BR>
+　·生成隔行显示的GIF文件<BR>
+　·加减并编辑注释块<BR>
+　·加入文本块,该文本不损坏原图<BR>
+　·生成包含多幅图的GIF文件<BR>
+　·做为GIF文件的浏览器<BR>
+　·帮助WWW客户观看GIF文件<BR>
+　　你可以用它随心所欲地生成或修改GIF文件中的各类块.<BR>
+　　GIF Construction Set是一个共享软件,由加拿大的Alchemy Mindworks Inc.公司编制.<P>
+<CENTER><A HREF="#SYSC">[返回上页]</A><P>
+<A NAME="A3">第二章　安装　　　　</A></CENTER>
+<A NAME="A4">2.1 获取软件</A><BR>
+　　你可以从局信息中心的10.65.1.97主机的\software\PIC目录下得到软件.有两个.EXE文件:gifcon.exe
+gifcon32.exe.前者为Windows3.X所用,后者为Windows95所用,有一点说明:即使你在Windows3.X上安装
+了win32s,也不可以用gifcon32.exe. 它是专为Windows95设计的.
+　　用FTP将gifcon.exe或gifcon32.exe传到本地,你就获取了软件,不过这是非正式版,软件会定期提示你
+注册,否则过期后,你将受到幽灵的折磨.<BR>
+<A NAME="A5">2.2 配置要求</A><BR>
+　　至少4M内存,8M以上性能可达到最佳状态<BR>
+<A NAME="A6">2.3 安装软件</A><BR>
+　　使用程序管理器菜单File-Run,执行你下载的文件gifcon.exe或gifcon32.exe,按照提示进行即可完成安
+装.安装程序将生成一个group,名为GIF Construction Set,其中包括8个程序项.<P>
+<CENTER><A HREF="#SYSC">[返回上页]</A><P>
+<A NAME="A7">第三章 牛刀小试　　　　</A></CENTER>
+　　安装完之后,您一定急着试一试,Follow me!<BR>
+<A NAME="A8">3.1 一个简单动画的例子</A><BR>
+　　1 用画笔(Penbrush)画4个图像,大小要一致,小于100×100像素,存成.BMP文件,如A.BMP,B.BMP,
+C.BMP,D.BMP.在四个.BMP文件中的图像均为一个圆点,且从A到D依次加大.<BR>
+　　2.在GIF Construction Set组中,双击程序项GIF Construction Set,将出现它的主窗口.
+　　3.点菜单File中的New项,则在编辑区出现一行字,这是文件头,是"New"自动生成的.
+　　4.按Insert按钮,再按Insert板上的Loop按钮,则在编辑区出现"Loop".
+　　5.按Insert按钮,再按Insert板上的Control按钮,则在编辑区出现"Control"行.
+　　6.在编辑区内双击"Control"行,将出现Control窗口,将其中的Delay设置为20,按OK钮.
+　　7.按Insert按钮,再按Insert板上的Image钮,则出现一个文件选择对话框,选A.BMP文件(主意路径).
+依次按缺省按钮,直至编辑区出现一行描述A.BMP的文字.<BR>
+　　8.重复第5-7步,插入B.BMP,C.BMP和D.BMP.
+　　9.按View按钮,你将看到一个动画显示,按鼠标右键或Esc键返回.<BR>
+　　10 用File菜单的Save或Save as存盘得到的一个GIF文件,这即是一个符合GIF89a格式的图像文件,
+你可以把它拷到任何地方.它脱离于原来的A.BMP等文件.<BR>
+　　Aha!就这么简单!相信你一定学到手了.<BR>
+<A NAME="A9">3.2 怎样做得更好</A><BR>
+　　3.1中的例子十分简单.其实要做一个好的动画,功夫还在你的创作水平上,也就是说,只有把每一
+个画面都做好,注意动作的连贯性,精雕细刻,才能出好作品.你可以使用图像编辑工具来制作精美的画
+面,比如,Photo styler,CorelDraw,Photoshop,3DS等等,当然Windows提供的画笔(Penbrush)也可以.<P>
+<CENTER><A HREF="#SYSC">[返回上页]</A><P>
+<A NAME="A10">第四章 详细说明　　　　</A></CENTER><BR>
+<A NAME="A11">4.1 块的概念</A><BR>
+　　通常情况下,GIF文件中包含两种块:头和图像.但是在GIF89a文件中可以包含多个图像块和一些
+可选块,它们是:<BR>
+　　1.注释块(Comment Blocks) 注释块包含有对图像的描述,以及作者版权声明等等,你可以在注释块
+中说明你要说的一切,在观看图像时,注释块不会被显示出来.<BR>
+　　2.文本块(Plaintext Blocks) 在图像上面可以叠放文本.它的位置和颜色均可指定,与其它的图像编
+辑软件不同,这里的文本不会破坏其下面的图像,而是浮在上面的.<BR>
+　　3.控制块(Control Blocks) 在控制块内,你可对图像加以控制,可以指定显示时间,可以指定图像是
+否"透明".你可以说明被控制图像中的某一种颜色是透明的,即在显示这幅图时,被指定为透明的颜色
+不被显示,代之以其下面的图中的颜色.透明的功能也适用于文本块.<BR>
+　　4.应用块(Application Blocks) 它是一个单一的图像或文本,如第三章的A.BMP.在GIF Construction Set
+中不能生成或编辑这些单个图像.<BR>
+　　5 循环块(Loop Blocks) 它用于循环显示多图像GIF文件中的各个图像(包括文本),
+一般用于WWW的页面中.一个GIF89a文件中,只允许有一个循环块,且它永远在头部之后.<BR>
+　　6 块名块(Block name Blocks) 它是GIF Construction Set特有的.其中包含了
+各图像块的名字.可以省略.<BR>
+  每一个GIF文件都是以头块开始的,头块中定义了GIF文件在屏幕上所占的面积和
+一个全局调色板.了解GIF文件中的调色板很重要.一个调色板定义了在一个GIF文件中
+所有图像和文本所使用的颜色.全局调色板是所有图像和文本共用的,然而,某些图像
+块可以拥有自己的调色板,这就是局部调色板.
+  由于大部分显示设备都采用彩色映射机制,在同一时刻只能使用同一个调色板,所
+以如果一个GIF文件中的各个图像都使用局部调色板,那么你将会看到一幅糟糕的抽像
+画,你要自食恶果.因此,制作合成GIF图像时,应让所有的图像都使用全局调色板,除非
+你非得使用局部调色板不可. GIF Construction Set提供了把图像颜色转成全局调
+色板的功能.
+<CENTER><A HREF="#SYSC">[返回上页]</A></CENTER>
+<A NAME="A12">4.2 运行GIF Construction Set</A>
+   当你启动GIF Construction Set时,你将看到在你的硬盘中\GIFCON目录下的所
+有GIF文件的列表,你可以像使用普通Windows文件选择框那样选择文件.
+   如果你点击某一GIF文件,你会看到它的小样.
+你打开一个GIF文件后,在编辑区内就会列出其中的各个块,起始块为头块,单击某一
+块,则会显示其小样,双击某一块,则进入编辑窗口,也可以使用在按钮条中按Edit钮
+去编辑各个块.
+<A NAME="A13">4.3 编辑头块</A>
+  你可以修改下列域:
+   1 Screen Width and screen depth:这是GIF文件显示在屏幕上的范围,为
+大于0的值,它不影响GIF文件中的各个图像的显示范围,但在View时,它影响图形的显
+示位置.在存盘时,它们会自动被设置成包括所有图文的最小范围,所以不用理会它.
+   2 Background:显示时背景的颜色,可按colour钮选择颜色.
+   3 Global palette:全局调色板,选它时使用全局调色板,你可以把某一GIF文件
+中的颜色存为全局调色板或局部调色板,需要时可以再装入,在Load钮右边标有当前调
+色板的大小.
+   storted标志允许你在头块中设置已有调色板的状态,它不影响GIF Construction 
+Set显示结果,但也许与其它显示程序有关.
+   生成新的GIF文件时,头块将自动生成.其颜色浓度(即颜色数)可用GIF Construction 
+Set的setup按钮指定.
+<CENTER><A HREF="#SYSC">[返回上页]</A></CENTER>
+<A NAME="A14">4.4 编辑图像块</A>
+  包括下列域:
+   1 Left and top:图像的左上角坐标,单位是像素.
+   2 Interlaced:选择时图像将隔行显示,在WWW页面中经常使用这一功能.注意:只
+有在Setup对话框(按Setup按钮即出)中使该项有效(Enabled),它才会起作用.
+   3 Local palette:局部调色板.你可以让任何一个图像块使用局部调色板,缺省
+条件下各图像块使用局部调色板,你可以在编辑头块时存储或装入调色板,但要小心,也
+许你的图像颜色会被弄乱.只有当Local palette选项被选时,Save和Load钮才可用,当
+前调色板的颜色数被标在Local pallete选项之下.
+   4 Block title:图像块的名字,缺省名为文件名.只有在Setup对话中让相应项选
+中,此功能才可用.
+<A NAME="A15">4.5 编辑注释块</A>
+  注释块完全由文本组成.一个注释块可以最多包含32767个字符,在注释块编辑对话
+框中,你可以加入删除和修改注释文字.Format钮可以让你选择字体.
+<A NAME="A16">4.6 编辑文本块</A>
+  文本块中包括文本及一些有关显示的信息.文本的编辑和注释块一样.
+文本对话框中包括下列域:
+  1 Textleft and text top:它们定义文本的显示位置,它们的值是文本块的左上
+角坐标,单位是像素.
+  2 Grid wide and grid deep:文本块的宽和高,是一个矩形区域,单位是字符和行.
+例如每行10个字符,共12行.超出的文本不被显示.
+  3 Cell wide and cell deep:每个字符的宽和高,在有些GIF浏览器中需要它们,
+但GIF Construction Set不使用它,大部分GIF浏览器使用固定的8磅字.
+  4 Forground and background:文本块的前景色和背景色.可以用Colour钮选定,
+也可用滴眼管在前一个图像上选定.如果在文本块前没有图像,则滴眼管不可用.
+<A NAME="A17">4.7 编辑控制块</A>
+  包括下列各域:
+   1 Transparent Colour:选择透明色你可用Colour钮或滴眼管选择透明色,当显示
+图像时,它的透明色将不被显示出来,而代之以其下面的图的颜色.
+   2 Wait for user input:如选择它当显示幅图像时,等待用户击键和鼠标动作,否
+则不显示下一幅图.
+   3 Delay:图像停留的时间,单位为百分之一称,如果Wait for usr inpnt被选,则当
+用户击键和按鼠标时,显示下一幅图.
+   4 Remove by:一般选None即可.
+<A NAME="A18">4.8 编辑循环块</A>
+   只有一个域,它指定一个图像的重复次数.在一个GIF文件中,只能有一个循环块,永
+远跟在头块之后.
+<A NAME="A19">4.9 插入块</A>
+   用Insert钮可插入各种格式的图像块及其它各类块,如文本块等.你可以一次插入多
+个图像块.在Open对话框中,你可以用shift或Ctrl键与鼠标联合操作选中多个块,然后
+一起插入.
+   如果你插入的图像的调色板与当前的全局调色板不同,那么,将要求你处理这个新的
+调色板,可选项有:
+    1 Use a local pallete for this image:使用本图的调色板.它不会改变你原图
+的颜色,但在这幅图上的文本块将不可显示.在大多数情况下,使用这个选项是不明智的.
+如果你插入的是一幅真彩色图像,则被自动转成256色.
+    2 use local grey pallete for this image:使用灰度调色板.
+    3 Remap this image to the global pallete:将图像中的颜色重新映象到全局调
+色板,对于机器生成的图象而言,这个选择可取的,但对于照片来说,不要这样做,因为照
+片上的每一种颜色被将映射成全局调色板中最接近的颜色,而不是原来的颜色,这将导致
+照片失真.
+    4 Dither this image to global pallete:将图像中的颜色经过抖动再映射到全
+局调色板中,对于照片这个选项最好.
+    5 Use this image as the global pallete:把该图像的颜色做为全局调色板,当只
+有一个图像时,这个选项是可用的,如果你插入的是真彩色图像,则它被转成256色(经过
+抖动处理).
+    6 Use it as is:保持原样,此时GIF Construction Set不对图像的颜色进行检查和
+校正,如果你了解这幅图像的颜色与当前全局调色板的变换关系,你就可以用这个选项.
+但最好别用.了解上述的变换关系是很麻烦的.
+    如果你插入其它块,如控制块,注释块或文本块,请见前面的内容.
+<A NAME="A20">4.10 合并块</A>
+    在File菜单中的Merge功能允许你把其它GIF文件中的原有的块合并到当前文件中,
+它们就被放在当前块之后,如果调色板有冲突,则你会得到提示.你可以把另一个多图GIF
+文件中的所有图像引入,然后删掉你不想要的块.
+<A NAME="A21">4.11 抽取块 </A>
+    Extract功能允许你把一个GIF文件中的一个或多个块抽取出来，并存入一个新文件
+中.用鼠标选中一个或多个块,然后用File菜单中的Save或Save as项存贮成新文件.在新
+文件中,头块的范围会自动修改，而其它参数与原头块相同.
+<A NAME="A22">4.12 删除块</A>
+    用Delete钮可删除当前块.
+<A NAME="A23">4.13 管理块</A>
+    按Manager钮进入管理对话框,它一般用于批量地加入或删除控制块.
+    根据你的选择,Manager将处理不同的图像或控制块.包括下列选项:
+    1 Insert Before Selected Image:在被选图像块前插入控制块.
+    2 Insert Where Required:如果在被选图像前没有控制块则插入一个控制块.
+    3 Set All Existing Controls:改变所选的每一个控制块的参数,注意不仅是图像
+块的控制块,也包括文本块的控制块.
+    4 Delete Selected Controls:删除被选的控制块,对其它块无影响.
+    5 Image Block Position options:图像块位置选项,它允许你设置所有被选图像块
+的左上角坐标,如果你指定为Absolute option(绝对选项)则所有块都被设成指定的值,
+否则被设成基于第一幅图的相对值.
+      在Manager对话框中,你可以用Ctrl或Shift键与鼠标左键联用而选择多个块.
+<A NAME="A24">4.14 观看GIF文件</A>
+    使用View按钮,可以在全屏显状态下观看GIF文件,观察的区域由文件中的头块定义,
+如果图像大于屏幕,则居中显示,图像出现的顺序与GIF文件中的存储顺序相同.你可以按
+鼠标右键或ESC键中断显示.
+    如果在头块中定义的范围大于屏幕则会出现滚动条.
+<A NAME="A25">4.15 生成新的GIF文件</A>
+    在File菜单中选New.一个空GIF文件总是包括一个头块,你可用Insert和Merge功能
+插入块.
+<A NAME="A26">4.16 打开和存储GIF文件</A>
+    任何GIF87a或GIF89a的文件都可以被打开,GIF87a将自动转成GIF89a,双击文件名,
+或通过File菜单的Open可以打开文件.
+    Save和Save as将文件存成GIF89a格式.
+    如果你在Save as对话框中选择了Write Thumbnail选项,则伴随着GIF文件的生成,
+会生成一个以THN为扩展名的文件,它存贮着各个GIF文件小样,它可以被Alchemy Mind
+works公司的其它应用程序使用.
+    如果你的GIF Construction Set软件没有注册,那么,在你生成的文件中将包含注
+释块,一旦你注册,它将不在出现.
+<A NAME="A27">4.17 输出GIF文件</A>
+    输出功能将生成一个新的,单一图像的GIF文件,其中包括有多个图像,它输出的是 
+你在屏幕上看到的,注意它将忽略那些被移到背后的图像.
+<A NAME="A28">4.18 剪切拷贝或恢复块</A>
+    你可以使用Edit菜单的相应功能把当前块剪切或拷贝到Windows的剪切板中,拷到
+剪切板的块将以OEM文本的格式存贮为16进制的结构.文本块和注释块被存为文本,图像
+块将被存为独立于设备的Windows点位图.也可以把剪切板中的图像恢复到GIF constr
+uction Set的File文件中,它将以一个图像块的形式出现.
+<A NAME="A29">4.19 关闭GIF文件</A>
+    使用File菜单中的Close功能来关闭当前的GIF文件.
+<A NAME="A30">4.20 将电影转换成GIF文件</A>
+    可以将一个AVI视频文件转为动画GIF文件,用这个功能有两个后果:GIF文件很大,
+生成时间很长.
+    可使用File菜单中的MovietoGIF功能来转换,这需要对颜色加以调整,下列这些选
+项是为此目的的:
+    1 Dither to the Netscape 216-colour pallete:把颜色经抖动处理后转为Netsc
+ape的216色调色板.如果是在一个运行Netscape的机器上使用256色驱动程序观看,那么
+这个选项是最安全的,即使在最廉价的计算机上,也可以在WWW页面上显示出较好的画面.
+    2 Remap to the Netscape 216-colour pallete:重新映射成Netscape 216色调色
+板,这个选项最适合于以线造型的电影,如那些由动画软件制作的动画片,如果你想让它
+看起来好一些,则可能需要能显示256色的机器.
+    3 Dither to the 256-colour orthogonal pallete:处理成256色正交调色板.与
+Netscape 216色相比,它的效果较好,尤其是针对彩色电影.你的机器必须有能显示致少
+32768种彩色或更好的显示卡.如果是256色,则在Netscape中可能发生颜色漂移现象.
+    4 Remap to the 256-colour orthogonal pallete:重新映射成256色正交调色板,
+它适于线型的电影,如动画片.需要32768色以上的显示卡,256色显示卡会很糟糕.
+    5 Use source image pallete:用原画面的调色板,选用该选项时,原画面不经任何
+处理.对于电影而言,毫无疑问,这是最好的选择,但它要求配有32768色以上的显示卡,使
+用256色的显示卡会发生颜色漂移现象,这个选项也是最省时间的转换,因为不需要做任
+何处理,但是,如果原电影为真彩色的,则不能使用该选项.
+    注意:把电影转成GIF文件将生成很多块,如果在转换中发生内存不足或存贮错误,则
+可增加Setup对话框中的Maximum Blocks的值,最好大于1024.
+<A NAME="A31">4.21 Setup对话框</A>
+    Setup对话框可按Setup钮呼出,也可在File菜单中点击Setup.Setup对话框包括下列
+各域:
+    1 Display Interlaced:隔行显示选项选上时,图像块的隔行显示功能才可实现.
+    2 Draw Frame Guides:边线框选项,右此项选上可在View时看到紫色的框.
+    3 Use Image Offsets:图像偏移选项.不选时,图像将显示在屏幕中央.
+    4 Dither View Background:背景抖动选项,如果你的显示器可显示256种颜色以上,
+则此项无作用,若只能显示256种颜色或更少,那么,这个选项选中时,将引起显示的背景
+颜色经抖动处理,使它形成在头块中定义的颜色.在不选这个选项时,指定的背景色将不
+经抖动处理,而直接使用全局凋色板的一个最接近的颜色做背景,你可以在按钮条中按
+About钮来得知当前显示器支持的颜色数.
+    5 True transparency:真透明选项,选中时,你可以得到效果好的透明图,但要求显
+示器支持颜色数多于256色,如果不选此项或只有256色时,则GIF consfrucfion set将
+使用Windows的GDI来处理透明图.如果你的机器使用16色或256色,则此选择无作用.
+    6 Write directory block:写目录块选项,若选中,则在存文件时,会在所有块之后
+写入各图像块的标题.它有利于跟踪动画图中的各幅图像.在WWW页面上,此项无作用.
+    7 Interlaced play:隔行显示延时值,单位是毫秒.
+    8 Dithercontrast and dither brightness:对比度及亮度抖动处理选项,它只在图
+像块的引入时起作用,如果你把一幅图引入到一个2色的GIF文件时,原有颜色将通过抖动
+处理转成两种颜色.这与你的调色板选项有关,这个域可用于调节抖动处理的效果.
+   9 Max blocks:最大块数,当一个GIF文件被创建时,一个固定的的块数也被分配.缺省
+值为255,可以加大,注意:你所做的改变只有下一次创建或打开文件时才起作用.
+    注意:增大这个值,将需要更多的内存,会降低GIF Construction Set的速度.
+   10 Default pallete:缺省调色板.这个值将影响被创建的GIF文件的调色板的大小.
+包括下列选项:
+     ·256 colour: 256色
+     ·256 colour with grey: 256色及32级灰色
+     ·216 colour/Netscape: Netscape的216色
+     ·32,64 and 128 colours: 32,64,128色
+     ·16 colours: Windows的16色
+     ·2 colours: 黑白色
+   11 Adjust Header on Save:在存储时自动调节文件头块,若选中,当你存盘时,头块
+的范围会自动调节成包括所有图的最小范围,选中它是个好主意.
+   12 Check Animations:检查动画选项.若选中,则当你存储一个有多幅图的文件时,会
+得到警告.这是专为Netscape设计的.如果你存的是非动画图像,则可忽略这个警告.
+   13 Registeration name:注册名字,如果你想注册的话,则可在此域内键入你的名字,
+并按Accept钮,这时将出现一个对话框要求你键入关键字,然后按OK钮.
+    一旦你成功地注册,你将不会再见到讨钱的窗口出现,而且我们的幽灵也不会再来折
+磨你.
+<A NAME="A32">4.22 About对话框和Windows显示驱动程序</A>
+    如果你还未注册,按钮条中About钮被按下时,会出现一个讨钱窗口和一个灰色对话框,
+一个对话框还告诉你几个有关你的机器的参数,如剩余内存,当前显示器的颜色数,如果在
+16色状态下,使用GIF Construction Set将使图像很难看,你必须把它升为256色以上.
+<A NAME="A33">4.23 关于块中块</A>
+    块中块用存储GIF文件中各个源图象的标题等,缺省条件下,名字由文件名充当.
+<A NAME="A34">4.24 生成大标题</A>
+    大标题(Banner)是一种包含文字的GIF文件,实际上是一个把文字形成图像的GIF文件,
+显示可以从右到左移动,达到动画效果.
+    大标题可以被制作成三种效果的动画图像.
+     ·简单型(Simple):只形成文字为前景色,背景为背景色
+     ·阴影型(Shadow):带有阴影,可定义阴影的颜色
+     ·浮雕型(Embossed):用前景色和背景色形成浮雕的样子
+    大标题总是使用当前的调色板,如果选择两色调色板,则只有简单型的大标题才可用.
+    Roll选项决定在显示时,大标题是否从右到左滚动.
+    Cells选项决定形成滚动效果的各个图像的个数.
+    Loop选项决定滚动是否重复.
+    Offset control决定文字与影子的距离,也影响浮雕的厚度.
+    Font钮用于选择字体.
+    Transparent Backgrourd选项决定标题的背景色是否透明.这一特性在试验时(即按
+下Test钮观察)是不起作用的.
+    Foreground Background Shadow钮用于设置大标题的各部分的颜色.
+    Test钮,起预视的作用.
+<A NAME="A35">4.25 生成渐变画面(Transition)</A>
+    渐变画面的功能将使用你的图像很有意思,用Select钮选择需渐变的图像文件,注意
+渐变功能不修改你原来文件,而是生成新的文件.
+    你可以生成下列形式的渐变画面:
+      1 Adam Seven Interlace:这个形式使你的画面渐渐地出现或消失.
+      2 Horizontal split:水平分割,你的画面被水平分割,一半从左边出来,一半从右
+边出来.
+      3 Sandstorm:你的画面将一次一点地画出,点的位置是随机的.
+      4 Tile:画面以小方块的方式随机画出
+      5 Vertical split:垂直分割,与水平分割类似.
+      6 Wipe in Form Bottom:画面从下面出来.
+      7 Wipe in Form Left:从左出.
+      8 Wipein Form Right:从右出.
+      9 Wipe in Form top:从顶出.
+     Select钮用于选样本图像,可以是任意格式,只要GIF construction Set支持它.
+     Cells选项决定画面的个数.
+     Delay选项决定每个画面的停留时间,单位是百分之一秒.
+     Loop选项决定是否循环显示.
+     Transparent Background选项决定是否透明.
+     Remap to Default pallete选项决定你的画面颜色是否重新映射到缺省调色板.
+     Background colour钮设置背景颜色.
+     Test钮用于预视.
+     Pause After Cycle选项决定在循环之间是否暂停.
+     Appear和Disappear选项决定包括出现,消失或是二者兼有,必须有其中之一被选中.
+<A NAME="A36">4.26 使用动画工具(Animation Wizard)</A>
+    这是一个制作动画的好工具,它可以为你自动生成动画文件需要的各种块.
+    在File菜单中选Animation wizard即可使用它.
+    你将被提问几个问题:
+     1 是为WWW的作动画吗?
+       如果回答yes,则它将为你选一个适合Netscape的调色板.
+     2 是照片品质的图像还机器或人工绘制的图像?
+       前者将使用颜色多的调色板,后者使用颜色少的调色板,比如Windows的16色调
+色板.
+<A NAME="A37">4.27 关于动画GIF文件的几个问题</A>
+     1 目前只有Netscape2.0以上版本和微软的Explorer3.0以上版支持动画功能.
+     2 在Netscape中,等待用户击键的功能无效.
+     3 在Netscape中,动画的页面将永远也不会结束,其Stop钮一直是闪烁状态.
+<A NAME="A38">4.28 生成透明的GIF文件</A>
+    在图像块前加一个控制块,并使控制块的Transparent选项选中,再指定透明的颜色,
+即实现了图像的透明功能,下面是一个完整的步骤:
+      1 运行GIF Construction Set
+      2 在File菜单中选New
+      3 按Insert钮插入两幅图
+      4 选第1幅图
+      5 插入控制块,并把其中的Transparent选项选中,然后用滴眼管在第2幅上选要
+透明的颜色
+      6 按View钮
+      7 存盘
+<A NAME="A39">4.29 生成隔行显示GIF文件</A>
+    这很简单,打开GIF文件,编辑某一个图像块,选中Interlace选项.
+<A NAME="A40">4.30 把GIF Construction Set做为一个GIF文件浏览器使用</A>
+    执行
+      gifcon.exe /V 图像文件名
+    可观看图像
+    执行
+      .gifcon.exe /V/Q 图像文件名
+    可观看,且当你按ESC键或鼠标2键时退出.
+<A NAME="A40">4.31 有关GIF Construction Set的几个问题</A>
+    1 在\windows目录下有一个文件为GIFCON.INI它是GIF Construction Set的初始
+化文件
+    2 当你用GIF Construction Set插入一幅图时,它有时会中断,可能是因为你正用
+另一个编辑软件编辑这个图像文件,关掉它就可以了.
+    3 如果你的动画文件在Netscape中不动,请把Netscape的Cache加大到2000K字节
+以上.
+    4 GIF Construction Set在存文件时可能会生成.THN文件,该文件为GIF Construction 
+Set专用,可以删除它,它与生成的GIF没有联系.
+    5 Export与Save不同,如果你做了一个动画文件,那么使用Export存储的结果是,动
+画不动,而Save则不然.
+    6 如果你在Windows95上,使用GIF Construction Set,则应使用32位版本,它的打包
+文件名为gifcon32.exe.
+</BODY>
+</HTML>

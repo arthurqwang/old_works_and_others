@@ -1,0 +1,25 @@
+
+#include "graphics.h"
+main()
+
+{
+int driver,mode,n=0,m=0,b=90,v=0,c=0;
+driver=DETECT;
+mode=0;
+initgraph(&driver,&mode,"");
+while (m<100){
+setcolor(9);
+n+=8;
+m+=3;
+c+=5;
+arc(m+100,n,0,360,c);}
+while (m>8){
+setcolor(5);
+n-=8  ;
+m-=3 ;
+c+=5;
+arc(m+200,n,0,360,c);}
+getch();
+restorecrtmode();
+}
+

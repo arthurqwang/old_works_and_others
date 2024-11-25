@@ -1,0 +1,54 @@
+<maxims  >
+Press 1,2, or 3
+for a pithy maxim.
+<menu    >
+Use arrow keys to move the cursor bars.
+Use enter to make the selection.
+<poemmenu>
+恩爱戴帽徽章程度量程度量程
+度量程度量程度量程度量程度
+嚓啪嚓啪啪啪啪啪啪啪
+数词典范畴畴畴畴畴围剿
+匪军务虚拟稿费钱包围攻关
+<poems   >
+啪嚓啪啪啪啪啪啪啪啪啪啪
+啪啪啪啪啪啪啪啪啪啪啪
+Use + to bring poem forward
+Use - to push poem back
+<name    >
+Enter the name of the person
+who is placing the order.
+<address >
+Enter the address of the
+person who is placing the
+order.
+<state   >
+The State May be one of these:
+VA,NC,SC,GA,FL
+<phone   >
+Enter the phone number
+of the person who is
+placing the order.
+<amount  >
+Enter the amount
+of the order.
+<notepad >
+----Cursor Movement --- ------Page Movement-------
+arrows=move text cursor Ctrl-Home=Beginnig of File
+Ctrl-T=Top of window    Ctrl-End =End of File
+Ctrl-B=Bottom of window PgUp     =Previous Page
+Ctrl->=Next word        PgDn     =Next Page
+Ctrl-<=Previous word
+Home  =Beginning of Line ----------Editor Control-----
+End   =End of line       Scroll Lock=No Auto Reform
+
+----Block Controls----- ---------Editor Commands-----
+F4=Form Paragraph       F2 or Esc=Done
+F5=Mark Block Beginning F3       =Erase File
+F6=Mark Block End       Ins      =Toggle Insert mode
+F7=Move Block           Del      =Delect Char
+F8=Copy Block           <-       =Rubout
+F9=Delete Block         Ctrl-D   =Delete word
+F10=Unmark Block        Alt-D    =Delete Line
+<end>
+

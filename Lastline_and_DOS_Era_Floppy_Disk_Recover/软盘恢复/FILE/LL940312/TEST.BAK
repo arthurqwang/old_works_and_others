@@ -1,0 +1,18 @@
+#include <graphics.h>
+void far setrgbcolor(int,int,int,int);
+void title(void)
+  {
+    int graphdrive=DETECT,mode,i,j;
+/*    int graphdrive=EGA,mode=EGAHI,i,j;*/
+    if(registerfarbgidriver(EGAVGA_driver_far)<0) exit(1);
+    if(registerfarbgifont(triplex_font_far)<0) exit(1);
+    if(registerfarbgifont(small_font_far)<0) exit(1);
+    initgraph(&graphdrive,&mode,"");
+    setrgbcolor(1,255,255,255);
+
+    bar(0,0,640,480);
+  }
+main()
+{
+   title();
+}

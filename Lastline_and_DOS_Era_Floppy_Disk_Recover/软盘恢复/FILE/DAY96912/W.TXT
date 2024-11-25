@@ -1,0 +1,97 @@
+                   制作WWW动画页面              
+            大庆录井公司(163411)  王权  张斌
+           
+一 介绍
+    如果你浏览过白宫的主页,你一定会记得那两面飘动的星条旗.它们为白宫的
+主页增色不少.确实,漂亮的首页让人赏心悦目,一个小小的技巧也可能吸引很多浏
+览者.正是这个原因,每一个WWW首页的设计者都十分重视页面的美观.
+    本文将向读者介绍一种制作动画图像的工具-- GIF Construction Set for 
+Windows & Windows 95.出于简便,暂且称之为GIFCON.
+    大家知道,目前在WWW上应用最广泛的图像格式是GIF,以前的GIF图像都是静止
+的、单一的,但一种新的高版本GIF格式标准--GIF89a突破了这些限制,它允许在一
+个GIF文件中包含多个块,诸如图像块、文本块、注释块以及控制块等,而且各类块
+的数量是不受限制的.
+    在GIF89a文件中,各个块都占有独立的存储位置,不会互相覆盖.例如,在一个
+图像上写文本不会破坏下面的图像,就向文本漂浮在图像上一样.另外,控制块可以
+设置每个图像块的显示时间和显示方式,这对实现图像特技功能很有帮助.
+    GIFCON就是一种制作GIF89a格式文件的有力工具,尤其擅长于动画制作,其主
+要功能如下:
+  ·为Netscape生成动画图像
+  ·生成隔行显示的图像
+  ·生成包含多幅图的GIF文件
+  ·生成透明图
+  ·加减并编辑注释块
+  ·加入文本块,该文本不损坏原图
+  ·做为GIF文件的浏览器
+  你可以用GIFCON随心所欲地生成或修改GIF文件中的各类块.
+  GIFCON是一个共享软件,由Alchemy Mindworks Inc.公司开发.
+
+二 软件的获取和安装
+   下列的URL为你提供GIFCON的当前版本:
+     http://www.mindworkshop.com
+   有16位版本和32位版本可供选择.前者为Windows 3.X所用,对应的打包文件名为
+gifcon.exe;后者是专为Windows 95设计的,打包文件名为gifcon32.exe.
+   将gifcon.exe或gifcon32.exe下载到本地即获得了软件.
+   使用程序管理器菜单File-Run,执行gifcon.exe或gifcon32.exe,按照提示进行
+即可完成安装.安装程序将生成一个group,名为GIF Construction Set,其中包括8
+个程序项.安装之后别忘了注册!
+   系统配置要求至少4M内存,8M以上性能可达到最佳状态.
+
+三 牛刀小试
+  现在,我想您一定急着试一试,下面的例子会领你入门.
+  例一: 一个简单动画
+  1 用画笔(Penbrush)画4个图像,大小要一致,小于100×100像素,存成.BMP文件,
+如A.BMP,B.BMP,C.BMP,D.BMP.在四个.BMP文件中的图像均为一个圆点,且从A到D依次
+加大.
+  2 在GIF Construction Set组中,双击程序项GIF Construction Set,将出现它的
+主窗口.
+  3 点菜单File中的New项,则在编辑区出现一行字,这是文件头,是"New"自动生成的.
+  4 按Insert按钮,再按Insert板上的Loop按钮,则在编辑区出现"Loop".
+  5 按Insert按钮,再按Insert板上的Control按钮,则在编辑区出现"Control"行.
+  6 在编辑区内双击"Control"行,将出现Control窗口,将其中的Delay设置为20,按
+OK钮.
+  7 按Insert按钮,再按Insert板上的Image钮,则出现一个文件选择对话框,选A.BMP
+文件(注意路径).依次按缺省按钮,直至编辑区出现一行描述A.BMP的文字.
+  8 重复第5-7步,插入B.BMP,C.BMP和D.BMP.
+  9 按View按钮,你将看到一个动画显示,按鼠标右键或Esc键返回.
+  10 用File菜单的Save或Save as存盘得到的一个GIF文件,这即是一个符合GIF89a
+格式的图像文件,你可以把它用在任何地方(如Netscape).它脱离于原来的A.BMP等
+文件.
+   这个例子十分简单.其实要做一个好的动画,功夫还在你的艺术创作水平上,也就
+是说,只有把每一个画面都做好,注意动作的连贯性,精雕细刻,才能出好作品.你可以
+使用图像编辑工具来制作精美的画面,比如,Photo styler,CorelDraw,3DS等等,当然
+Windows提供的画笔也可以.
+   下边的例子将展示GIFCON的另两个出色功能.
+   例二: 渐入渐出的图像
+   1 在Edit菜单中选Transition.  
+   2 在Edit Transition对话框的Transition下拉列表中选Sandstorm.
+   3 按Select按钮.
+   4 选择一个图像文件.
+   5 在Edit Transition对话框中按OK按钮.
+   6 在GIFCON的主窗口上,按View按钮观看.
+   7 在File菜单中用Save存盘.
+   例三: 移动的大标题(Banner)
+   1 在Edit菜单中选Banner,进入Edit Banner对话框.
+   2 在Edit Banner对话框内改变下列设置:
+     Text colour(文本颜色) 
+     Backgroud(背景颜色) 
+     Font(字体) 
+     Type(类型)
+     Banner text(标题内容)
+   3 按Test按钮可测试一下,如满意则按OK按钮.
+   4 在GIFCON的主窗口上,用菜单File中的Save存盘.
+   GIFCON能制作各种各样的GIF89a图像,上述三例只是它的一部分功能.你可以查阅附
+带的文档,以便深入了解它.虽然可以利用JAVA Applet实现动画,但使用GIFCON要简单
+得多.
+
+四 有关的几个问题
+    1 GIFCON本身并不能编辑图像,可用其它工具完成这部分工作.
+    2 如果你的动画图像在Netscape中不动,请把Netscape的Cache加大到2000K字节
+以上.
+    3 在Netscape中,如果页面上有GIF89a的图像,则Stop的红灯将一直闪烁不熄.
+
+
+
+
+
+** 附带的软盘中有文件w.txt,为本文内容

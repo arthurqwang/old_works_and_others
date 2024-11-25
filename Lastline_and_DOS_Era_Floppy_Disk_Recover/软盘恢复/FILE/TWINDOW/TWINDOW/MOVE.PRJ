@@ -1,0 +1,5 @@
+move
+testmove(twindow.h,keys.h)
+tw3(twindow.h,keys.h)
+ibmpc.obj
+

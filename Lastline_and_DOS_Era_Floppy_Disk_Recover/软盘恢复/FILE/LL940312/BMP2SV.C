@@ -1,0 +1,27 @@
+#include <stdio.h>
+main(int argc,char * argv[])
+{
+   FILE *fp1,*fp2;
+   unsigned char a[0x100];
+   if((fp1=fopen(argv[1],"rb"))==NULL)
+     {
+	printf("Source file not found.\n");
+	exit(0);
+     }
+   if((fp2=fopen(argv[2],"wb"))==NULL)
+     {
+	printf("Can't create target file.\n");
+	exit(0);
+     }
+   fread(a,0x76,1,fp1);
+   fprintf(fp2,"WQ");
+   fwrite(a+0x12,8,1,fp2);
+   while(!feof(fp1))
+   {
+      fread(a,1,1,fp1);
+      fwrite(a,1,1,fp2);
+   }
+   fclose(fp1);
+   fclose(fp2);
+}
+

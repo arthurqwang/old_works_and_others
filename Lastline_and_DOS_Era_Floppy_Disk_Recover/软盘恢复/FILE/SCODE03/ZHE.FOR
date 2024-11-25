@@ -1,0 +1,15 @@
+		SUBROUTINE ZHE(X,M,H,N,A,K)
+		COMPLEX   X(M),H(N),A(1000)
+		K=M+N-1
+		DO 1 I=1,K
+1		A(I)=(0.,0.)
+		DO 2 I=1,K
+		DO 3 J=1,N
+		IJ=I-J+1
+		IF (IJ.LT.1) GOTO 2
+		IF (IJ.GT.M) GOTO 3
+		A(I)=X(IJ)*H(J)+A(I)
+3		CONTINUE
+2		CONTINUE
+		END
+

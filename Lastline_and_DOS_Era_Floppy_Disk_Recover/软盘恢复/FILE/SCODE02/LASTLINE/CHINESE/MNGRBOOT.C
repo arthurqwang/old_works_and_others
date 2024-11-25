@@ -1,0 +1,851 @@
+/*MNGRBOOT.C  CHINESE VERSION 2.0  1994 1 19*/
+/*Passed DOS 3.3a,DOS5.0,DOS 6.0 */
+/*Passed computer type :GW286,DELL 433DE(486,1000M HD)*/
+/*     Noname 286,ANTAI 286,AST 286,AT&T 386,COMPAQ 386/33(25)*/
+/********************************************************/
+#include "twingra.h"
+#include <fcntl.h>
+#include <io.h>
+#include <conio.h>
+#include <string.h>
+#include <bios.h>
+#include <dos.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#define BPS 512
+#define HEAD (int)part[i]&0xff
+#define SECTOR (int)part[i+1]&0xff
+#define TRACK (int)part[i+2]&0xff
+#define THISDISKEXIST (((int)part[i]&0xff)!=0)||(((int)part[i+1]&0xff)!=0)||(((int)part[i+2]&0xff)!=0)
+#define DISKRESET biosdisk(0,drive,0,0,0,0,0)
+void readmainboot(int drive);
+void readdosboot(int drive,int head,int sector,int track,int isector);
+void writemainboot(int drive);
+void writedosboot(int drive,int head,int sector,int track,int isector);
+void loadmainboot(int drive);
+void loadmainbootagain(int drive);
+void loaddosboot(int drive,int isector);
+void loaddosbootagain(int drive,int isector);
+void savemainboot(int drive);
+void savemainbootagain(int drive);
+void savedosboot(int drive,int isector);
+void savedosbootagain(int drive,int isector);
+int loadparttable(int drive);
+int loadparttableagain(int drive);
+int  readparttable(int way);
+void saveparttable(int drive);
+void saveparttableagain(int drive);
+void infwq(void);
+unsigned check_lock(int drive);
+void get_BK(void);
+void check_sec(void);
+int getdosnum(void);
+void reboot(void);
+void puticon(int lgdrive);
+char part[BPS],boot[BPS];
+int  BKTRACK,BKHEAD;
+extern int high_of_char,CCILB;
+WINGRA *inf,*icon;
+void main(int argc,char *argv[])
+ {
+   short unsigned int drive=0x80,isector,i,key;
+   title();
+   icon=open_win(8,10,12,70,1,0);
+   inf=open_win(14,10,24,70,1,1);
+   if((argc==2 && strcmp(strupr(argv[1]),"/C") &&
+       strcmp(strupr(argv[1]),"/B") && strcmp(strupr(argv[1]),"/?"))||(argc>2))
+     {
+       puthz(icon," 非法格式 ",14,1);
+       high(95,high_of_char*10+5,190,high_of_char*10+7,3,1);
+       puthz(inf,"    用法:    MNGRBOOT [ [/C] or [/B] or [/?] ]\n",14,1);
+       puthz(inf,"按任意键继续...",15,1);
+       getch();
+       printf("\x7");
+       exit(1);
+     }
+   get_BK();
+   if(argc==1)
+     {
+      int sig=0;
+      check_sec();
+      puthz(icon,"修复引导记录",14,1);
+      high(95,high_of_char*10+5,205,high_of_char*10+7,3,1);
+      puticon(0);
+      puthz(inf," 是否修复主引导记录?[Y]\b\b",14,1);/*Replace MAIN BOOT RECORD?[Y]\b\b*/
+k1:   key=getch();
+      printf("\x7");
+      if(!((toupper(key)=='N')||(toupper(key)=='Y')||(key==13)))
+          goto k1;
+      if(toupper(key)!='N')
+        {
+          sig=1;
+          loadmainboot(drive);
+          writemainboot(drive);
+	  puthz(inf,"\n修复完毕.\n",14,1);/*Successful.*/
+        }
+      else
+        puthz(inf,"N\n",14,1);
+      if(!loadparttable(drive))
+        readparttable(0);
+      i=1;isector=8;
+      while((THISDISKEXIST)&&(isector>1))
+        {
+	  puticon(10-isector);
+	  puthz(inf," 是否修复 ",14,1);
+	  boot[0]=75-isector;
+	  boot[1]=':';
+	  boot[2]=0;
+	  puthz(inf,boot,15,1);
+	  puthz(inf," 盘的DOS引导记录?[Y]\b\b",14,1);/*Replace DOS BOOT RECORD for logical disk %c:?[Y]\b\b  盘的DOS引导记录?*/
+k2:       key =getch();
+	  printf("\x7");
+          if(!((toupper(key)=='N')||(toupper(key)=='Y')||(key==13)))
+             goto k2;
+          if(toupper(key)!='N')
+            {
+              sig=1;
+              loaddosboot(drive,isector);
+              writedosboot(drive,HEAD,SECTOR,TRACK,isector);
+	      puthz(inf,"\n 修复完毕.\n",14,1);/* Successful.*/
+            }
+          else
+            puthz(inf,"N\n",14,1);
+          isector--;i+=3;
+        }
+      if(sig==1)
+        {
+	 puthz(inf,"\n请不要移开A驱中的 LASTLINE 盘,现在需要热启动...",15,1);/*Now, DO NOT remove the disk in drive A: and reboot...*/
+	 getch();
+         printf("\x7");
+         printf("\n");
+         reboot();
+        }
+      else
+	puthz(inf,"按任意键继续...",15,1);
+      getch();
+      printf("\x7");    /*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+   }
+   if(!strcmp(strupr(argv[1]),"/C"))
+     {
+       char tpart[BPS],tboot[BPS];
+       int sig=0;
+       puthz(icon,"检测引导记录",14,1);
+       high(100,high_of_char*10+5,200,high_of_char*10+7,3,1);
+       puticon(0);
+       readmainboot(drive);
+       memcpy(tpart,part,BPS);
+       loadmainboot(drive);
+       if(memcmp(tpart,part,BPS))
+         {
+          printf("\x7\x7\x7");
+	  puthz(inf,"  主引导记录已被修改!\n",14,1);
+	  puthz(inf,"  是否修复?[Y]\b\b",14,1);/*MAIN BOOT RECORD has been changed!*//*Update with original copy? [Y]*/
+kkk:      key=getch();
+	  printf("\x7");
+          if(!((toupper(key)=='N')||(toupper(key)=='Y')||(key==13)))
+             goto  kkk;
+          if(toupper(key)!='N')
+            {
+              sig=1;
+              writemainboot(drive);
+	      puthz(inf,"\n  修复完毕.\n",14,1);/*Successful.*/
+            }
+          else
+            puthz(inf,"N\n",14,1);
+         }
+       else
+	puthz(inf,"主引导记录正常.\n",14,1);/*MAIN BOOT RECORD OK.*/
+       if(!loadparttable(drive))
+         readparttable(0);
+       i=1;isector=8;
+       puthz(inf,"DOS 引导记录状态:\n   ",15,1);
+       while((THISDISKEXIST)&&(isector>1))
+         {
+	  puticon(10-isector);
+	  readdosboot(drive,HEAD,SECTOR,TRACK, isector);
+          memcpy(tboot,boot,BPS);
+          loaddosboot(drive,isector);
+          if(memcmp(tboot,boot,BPS))
+           {
+	     printf("\x7\x7\x7");
+	     puthz(inf,"\n  逻辑盘 ",14,1);
+	     tboot[0]=75-isector;
+	     tboot[1]=':';
+	     tboot[2]=0;
+	     puthz(inf,tboot,14,1);
+	     puthz(inf," 已被修改,是否修复?[Y]\b\b",14,1);/*Logical disk %c:     DOS BOOT RECORD has been changed!\n", 75-isector  DOS引导记录已被修改*/
+							  /*Update with original copy? [Y]*/
+k3:          key=getch();
+             printf("\x7");
+             if(!((toupper(key)=='N')||(toupper(key)=='Y')||(key==13)))
+               goto k3;
+             if(toupper(key)!='N')
+               {
+                 sig=1;
+                 writedosboot(drive,HEAD,SECTOR,TRACK, isector);
+		 puthz(inf,"\n  修复完毕.",14,1);/*修复完毕Successful.*/
+               }
+             else
+	       puthz(inf,"N",14,1);
+           }
+	  else
+	    {
+	     tboot[0]=75-isector;
+	     tboot[1]=':';
+	     tboot[2]=0;
+	     puthz(inf,tboot,11,1);
+	     puthz(inf,"正常 ",14,1);
+	    }          /*逻辑盘 Logical disk %c:     DOS BOOT RECORD OK.\n", 75-isector*/
+           isector--;i+=3;
+         }
+       if(sig==1)
+        {
+	 puthz(inf,"\n  现在,你应重新启动计算机,检查并清除病毒.\n",15,1);
+	 puthz(inf,"  按任意键热启动...",15,1);/*Now,you should reboot,then check virus for hard disk.*/
+						/*Press any key to reboot...*/
+	 getch();
+         printf("\x7");
+         printf("\n");
+         reboot();
+        }
+/*       else
+	 puthz(inf,"\n按任意键继续...",15,1);*//*Press any key to continue...*/
+     }
+
+   if(!strcmp(strupr(argv[1]),"/B"))
+     {
+       if(check_lock(drive)==0) exit(1);
+       puthz(icon,"引导记录信息存贮",14,1);
+       high(95,high_of_char*10+5,237,high_of_char*10+7,3,1);
+       puthz(inf,"  请确认现在的操作系统正常否.\n",14,1);
+       puthz(inf,"  确实正常吗?[Y]\b\b",14,1);
+			 /*BOOT RECORD backup.*/
+			 /*Confirm that the operational system is normal,please.*/
+			 /*Are you sure?[N]*/
+k4:    key=getch();
+       printf("\x7");
+       if(!((toupper(key)=='N')||(toupper(key)=='Y')||(key==13)))
+          goto k4;
+       if(toupper(key)=='N')
+	  {
+	   puthz(inf,"N\n",14,1);
+	   puthz(inf,"\n  按任意键继续...",15,1);
+				    /*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	   getch();
+           printf("\x7");
+           exit(0);
+	  }
+       puthz(inf,"Y\n",14,1);
+       readmainboot(drive);
+       savemainboot(drive);
+       i=1;isector=8;
+       if (!readparttable(1))
+         {
+	   puthz(inf,"\n未找到硬盘分配信息\n",14,1);
+	   puthz(inf,"按任意键继续...",15,1);
+			       /*Can't find partition information.*/
+			       /*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	   getch();
+           printf("\x7");
+           exit(1);
+         }
+       saveparttable(drive);
+       while((THISDISKEXIST)&&(isector>1))
+         {
+           readdosboot(drive,HEAD,SECTOR,TRACK,isector);
+           savedosboot(drive,isector);
+           isector--;i+=3;
+         }
+       puthz(inf,"  存贮完毕.",14,1);
+		/*Successful.\n  Over.*/
+       puthz(inf,"\n  按任意键继续...",15,1);
+       getch();
+       printf("\x7");
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+     }
+
+   if(!strcmp(argv[1],"/?"))
+     {
+       if(check_lock(drive)==0) exit(1);
+       puthz(icon,"MNGRBOOT, 引导记录管理程序",14,1);
+       high(95,high_of_char*10+5,317,high_of_char*10+7,3,1);
+		/*MNGRBOOT is a manager of BOOT RECORD.*/
+       puthz(inf,"用法:\n",15,1);
+		/*Usage:*/
+       puthz(inf," MNGRBOOT    修复引导记录",14,1);
+		/*MNGRBOOT     Update BOOT RECORD.*/
+       puthz(inf,"     MNGRBOOT/C  检查引导记录\n",14,1);
+		/*MNGRBOOT/C   Compare BOOT RECORD.*/
+       puthz(inf," MNGRBOOT/B  备份引导记录    ",14,1);
+		/*MNGRBOOT/B   Backup BOOT RECORD.*/
+       puthz(inf," MNGRBOOT/?  帮助\n",14,1);
+		/*MNGRBOOT/?   Help for MNGRBOOT.*/
+       puthz(inf,"按任意键继续...",15,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+       getch();
+       printf("\x7");
+		/*按任意键继续...*/
+     }
+   restorecrtmode();
+   exit(0);
+ }
+void readmainboot(int drive)
+  {
+    if(biosdisk(2,drive,0,0,1,1,part))
+      {
+        DISKRESET;
+	puthz(inf,"\n读主引导记录错误\n",14,1);
+		/*Error read MAIN BOOT RECORD.*/
+	puthz(inf,"按任意键继续...",14,1);
+
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	getch();
+        printf("\x7");
+        exit(1);
+      }
+  }
+
+void readdosboot(int drive,int head,int sector,int track ,int isector)
+  {
+    if (biosdisk(2,drive,head,track,sector,1,boot))
+      {
+       DISKRESET;
+       puthz(inf,"\n读DOS 引导记录错误\n",14,1);
+		/*Error read DOS BOOT RECORD for logical disk %c:.\n",75-isector*/
+       puthz(inf,"按任意键继续...",14,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+       getch();
+       printf("\x7");
+       exit(1);
+      }
+   }
+
+
+void writemainboot(int drive)
+  {
+    if(biosdisk(3,drive,0,0,1,1,part))
+      {
+        DISKRESET;
+	puthz(inf,"\n修复主引导记录错误\n",14,1);
+		/*Error update MAIN BOOT RECORD.*/
+	puthz(inf,"按任意键继续...",14,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	getch();
+        printf("\x7");
+        exit(1);
+      }
+  }
+
+void writedosboot(int drive,int head,int sector,int track ,int isector)
+  {
+    if (biosdisk(3,drive,head,track,sector,1,boot))
+      {
+       DISKRESET;
+       puthz(inf,"\n修复DOS 引导记录错误\n",14,1);
+		/*逻辑盘    Error update DOS BOOT RECORD to logical disk %c:.\n",75-isector*/
+       puthz(inf,"按任意键继续...",14,1);
+		/*按任意键继续...BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+       getch();
+       printf("\x7");
+       exit(1);
+      }
+   }
+
+void loadmainboot(int drive)
+  {
+    int isfail=0;
+    if(biosdisk(2,drive,0,0,9,1,part))
+      {
+        isfail=1;
+        DISKRESET;
+	puthz(inf,"\n读取主引导记录备份信息错误\n",14,1);
+		/*Error read the copy of MAIN BOOT RECORD.*/
+	puthz(inf,"按任意键继续...",14,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to retry...*/
+	getch();
+        printf("\x7");
+        part[510]=0;
+        part[511]=0;
+      }
+    if((part[510]!='W')||(part[511]!='Q'))
+       isfail=1;
+    else
+       {
+         if(biosdisk(3,drive,BKHEAD,BKTRACK,9,1,part))
+           {
+              DISKRESET;
+	      puthz(inf,"\n存贮主引导记录信息错误\n",14,1);
+		/*Error save MAIN BOOT RECORD.*/
+	      puthz(inf,"按任意键继续...",14,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	      getch();
+              printf("\x7");
+            }
+         part[510]=0x55;
+         part[511]=0xAA;
+       }
+    if(isfail)
+      loadmainbootagain(drive);
+  }
+
+void loadmainbootagain(int drive)
+  {
+    if(biosdisk(2,drive,BKHEAD,BKTRACK,9,1,part))
+      {
+        DISKRESET;
+		  /*      puthz(inf,"  Error read the copy of MAIN BOOT RECORD again.\n",14,1);*/
+	infwq();
+      }
+    if((part[510]!='W')||(part[511]!='Q'))
+       infwq();
+    else
+      {
+       if(biosdisk(3,drive,0,0,9,1,part))
+         {
+           DISKRESET;
+	   puthz(inf,"\n存贮主引导记录信息错误\n",14,1);
+	   puthz(inf,"你应该检查并清除病毒,然后在命令行上键入\n",14,1);
+	   puthz(inf,"    C:\\LASTLINE\\MNGRBOOT/C\n",14,1);
+	   puthz(inf,"    C:\\LASTLINE\\FATRSAVE",14,1);
+		/*Error save MAIN BOOT RECORD.*/
+		/*You should clean viruses for your harddisk,\n  then enter MNGRBOOT/B at command line.*/
+	   puthz(inf,"\n按任意键继续...",14,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	   getch();
+           printf("\x7");
+         }
+       part[510]=0x55;
+       part[511]=0xAA;
+      }
+  }
+
+void loaddosboot(int drive,int isector)
+  {
+    int isfail=0;
+    if (biosdisk(2,drive,0,0,isector,1,boot))
+      {
+       isfail=1;
+       DISKRESET;
+       puthz(inf,"\n读取 DOS 引导记录备份信息错误\n",14,1);
+		/*逻辑盘   Error read the copy of DOS BOOT RECORD from logical disk %c:.\n",75-isector*/
+       puthz(inf,"按任意键继续...",15,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to retry...*/
+       getch();
+       printf("\x7");
+       if(((toupper(boot[4]))=='B')&&((toupper(boot[5]))=='M'))
+         boot[3]='I';
+       else
+         boot[3]='M';
+       boot[510]=0x55;boot[511]=0xAA;
+      }
+    if((boot[3]!='W')||(boot[510]!='W')||(boot[511]!='Q'))
+       isfail=1;
+    else
+       {
+        if(biosdisk(3,drive,BKHEAD,BKTRACK,isector,1,boot))
+           {
+              DISKRESET;
+	      puthz(inf,"\n存贮DOS 引导记录信息错误\n",14,1);
+		/*Error save DOS BOOT RECORD.*/
+	      puthz(inf,"按任意键继续...",15,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	      getch();
+              printf("\x7");
+            }
+        if(((toupper(boot[4]))=='B')&&((toupper(boot[5]))=='M'))
+          boot[3]='I';
+       else
+          boot[3]='M';
+        boot[510]=0x55;boot[511]=0xAA;
+       }
+    if(isfail)
+       loaddosbootagain(drive,isector);
+   }
+
+
+void loaddosbootagain(int drive,int isector)
+  {
+    if(biosdisk(2,drive,BKHEAD,BKTRACK,isector,1,boot))
+      {
+        DISKRESET;
+        infwq();
+      }
+    if((boot[3]!='W')||(boot[510]!='W')||(boot[511]!='Q'))
+       infwq();
+    else
+      {
+       if(biosdisk(3,drive,0,0,isector,1,boot))
+         {
+           DISKRESET;
+	   puthz(inf,"\n存贮DOS 引导记录信息错误\n",14,1);
+	   puthz(inf,"你应该检查并清除病毒,然后在命令行上键入\n",14,1);
+	   puthz(inf,"      C:\\LASTLINE\\MNGRBOOT/B  \n",14,1);
+	   puthz(inf,"      C:\\LASTLINE\\FATRSAVE   \n",14,1);
+		/*逻辑盘   Error save DOS BOOT RECORD for logical disk %c:.\n",75-isector*/
+		/*You should clean viruses for your harddisk,\n  then enter MNGRBOOT/B at command line.*/
+	   puthz(inf,"按任意键继续...",15,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	   getch();
+           printf("\x7");
+         }
+       if(((toupper(boot[4]))=='B')&&((toupper(boot[5]))=='M'))
+          boot[3]='I';
+       else
+          boot[3]='M';
+       boot[510]=0x55;
+       boot[511]=0xAA;
+      }
+  }
+void savemainboot(int drive)
+  {
+    part[510]='W';part[511]='Q';
+    if(biosdisk(3,drive,0,0,9,1,part)||biosdisk(3,drive,BKHEAD,BKTRACK,9,1,part))
+      {
+        DISKRESET;
+	puthz(inf,"\n存贮主引导记录信息错误\n",14,1);
+		/*Error save MAIN BOOT RECORD.*/
+	puthz(inf,"按任意键继续...",15,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	getch();
+        printf("\x7");
+        exit(1);
+      }
+  }
+void savedosboot(int drive,int isector)
+  {
+    boot[3]='W';boot[510]='W';boot[511]='Q';
+    if (biosdisk(3,drive,0,0,isector,1,boot)||biosdisk(3,drive,BKHEAD,BKTRACK,isector,1,boot))
+      {
+       DISKRESET;
+       puthz(inf,"\n存贮DOS 引导记录错误\n",14,1);
+		/*逻辑盘    Error save DOS BOOT RECORD for logical disk %c:.\n",75-isector*/
+       puthz(inf,"按任意键继续...",15,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+       getch();
+       printf("\x7");
+       exit(1);
+      }
+   }
+
+
+void saveparttable(int drive)
+  {
+    part[0]='W';part[511]='Q';
+    if(biosdisk(3,drive,0,0,10,1,part)||biosdisk(3,drive,BKHEAD,BKTRACK,10,1,part))
+      {
+        DISKRESET;
+	puthz(inf,"\n存贮硬盘分配信息错误\n",14,1);
+		/*Error save partition information.*/
+	puthz(inf,"按任意键继续...",15,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	getch();
+        printf("\x7");
+        exit(1);
+      }
+  }
+
+/*void writeparttable(int drive)
+  {
+    if(biosdisk(3,drive,0,0,10,1,part))
+      {
+        DISKRESET;
+        puthz(inf,"  Error update partition information.\n",14,1);
+
+        puthz(inf,BLUE,WHITE,BRIGHT,"\n  Press any key to continue...",14,1);
+	getch();
+        printf("\x7");
+        exit(1);
+      }
+  }     */
+
+
+int loadparttable(int drive)   /*1=successful 0=flaure*/
+  {
+    int isfail=0;
+    if(biosdisk(2,drive,0,0,10,1,part))
+      {
+        isfail=1;
+        DISKRESET;
+	puthz(inf,"\n读取硬盘分配信息错误\n",14,1);
+		/*Error read partition information.*/
+	puthz(inf,"按任意键继续...",15,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to retry...*/
+	getch();
+        printf("\x7");
+        part[0]=0;part[511]=0;
+      }
+    if((part[0]!='W')||(part[511]!='Q'))
+        isfail=1;
+    else
+      {
+        if(biosdisk(3,drive,BKHEAD,BKTRACK,10,1,part))
+           {
+              DISKRESET;
+	      puthz(inf,"\n存贮硬盘分配信息错误\n",14,1);
+		/*Error save partition information.*/
+	      puthz(inf,"按任意键继续...",15,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	      getch();
+              printf("\x7");
+            }
+        return(1);
+      }
+    if(isfail)
+      return(loadparttableagain(drive));
+  }
+
+int loadparttableagain(int drive)   /*1=successful 0=flaure*/
+  {
+    int back=1;
+    if(biosdisk(2,drive,BKHEAD,BKTRACK,10,1,part))
+      {
+        DISKRESET;
+	puthz(inf,"\n读取硬盘分配信息错误\n",14,1);
+		/*Error read partition information again.*/
+        back=0;
+        part[0]=0;part[511]=0;
+      }
+    if((part[0]!='W')||(part[511]!='Q'))
+        back=0;
+    else
+      {
+        if(biosdisk(3,drive,0,0,10,1,part))
+          {
+            DISKRESET;
+	    puthz(inf,"\n存贮硬盘分配信息错误  \n",14,1);
+	    puthz(inf,"你应该检查并清除病毒,然后在命令行上键入\n",14,1);
+	    puthz(inf,"      C:\\LASTLINE\\MNGRBOOT/B\n",14,1);
+	    puthz(inf,"      C:\\LASTLINE\\FATRSAVE\n",14,1);
+		/*Error save partition information. */
+		/*You should clean viruses for your harddisk,\n  then enter MNGRBOOT/B at command line.*/
+	    puthz(inf,"按任意键继续...",15,1);
+		/*BLUE,WHITE,BRIGHT,"\n  Press any key to continue...*/
+	    getch();
+            printf("\x7");
+          }
+        back=1;
+      }
+      return(back);
+  }
+
+/*int readparttable(int way)  way=1 read&backup ,way=0 only read
+  {
+    long unsigned i=0x5bf,fl;
+    int k,l=1,fd,DOS_NO;
+    char nm[20]="c:\\aaaaaa.aaa",cmd[50]="mkimg/partn<"  ;
+    FILE *fp;
+    if(way)
+      {
+       _chmod("c:\\partinfm.lst",1,FA_ARCH);
+       remove("c:\\partinfm.lst");
+       if((fp=fopen(nm,"w"))==NULL)
+         {
+	   puthz(inf,"\n读取硬盘分配信息错误\n",14,1);
+	   puthz(inf,"按任意键继续...",15,1);
+	   getch();
+           printf("\x7");
+           exit(1);
+         }
+       fputc('c',fp);fputc(13,fp);
+       fclose(fp);
+       strcat(cmd,nm);
+       strcat(cmd," >");
+       strcat(cmd,nm);
+       system(cmd);
+       system("exit");
+       remove(nm);
+      }
+   if((DOS_NO=getdosnum())<5)
+   {
+    if((fd=open("c:\\partinfm.lst",O_RDONLY))==-1)
+      return(0);
+    fl=filelength(fd);
+    if ((fp=fopen("c:\\partinfm.lst","rb"))==NULL)
+      return (0);
+    for(;i<fl;i+=0x200)
+      {
+       fseek(fp,i,SEEK_SET);
+       for(k=0;k<3;k++)
+        {
+          part[l]=fgetc(fp)&0xff;
+          l++;
+        }
+      }
+    part[l]=0;part[l+1]=0;part[l+2]=0;
+    _chmod("c:\\partinfm.lst",1,FA_HIDDEN);
+    return (1);
+  }
+  else
+   {
+    i=0x209;
+    if ((fp=fopen("c:\\partinfm.lst","rb"))==NULL)
+      return (0);
+    for(;i<0x2f9;i+=0x10)
+      {
+       fseek(fp,i,SEEK_SET);
+       for(k=0;k<3;k++)
+        {
+          part[l]=fgetc(fp)&0xff;
+          l++;
+        }
+      }
+    _chmod("c:\\partinfm.lst",1,FA_HIDDEN);
+    return (1);
+  }
+ }
+*/
+int readparttable(int way)
+  {
+    int l=1,drive=0x80;
+    unsigned char temp[20]={0,1,0};
+    unsigned char tsec[512];
+    while((temp[0]!=0)||(temp[1]!=0)||(temp[2]!=0))
+      {
+	 if(biosdisk(2,0x80,temp[0],temp[2],temp[1],1,tsec))
+	   {
+	     DISKRESET;
+	     return(0);
+	   }
+	 part[l]=tsec[0x1BF]&0xff;
+	 part[l+1]=tsec[0x1C0]&0xff;
+	 part[l+2]=tsec[0x1C1]&0xff;
+	 temp[0]=tsec[0x1CF]&0xff;
+	 temp[1]=tsec[0x1D0]&0xff;
+	 temp[2]=tsec[0x1D1]&0xff;
+	 l+=3;
+      }
+    part[l]=part[l+1]=part[l+2]=0;
+    return(1);
+ }
+
+void infwq(void)
+ {
+   printf("\x7\x7\x7",14,1);
+	/*   wprintf(inf,"\n     The copy of structure information of hard disk has \n",14,1);
+	wprintf(inf,"  been changed!!! Now,you must scan and clearn hard disk\n");
+	wprintf(inf,"  for virus,and confirm that your hard disk is normal,then\n");
+	wprintf(inf,"  you should backup again. For backup,enter MNGRBOOT/B at\n  command line.\n\n");
+	*/
+   inf=open_win(14,10,24,70,1,1);
+   clr_win(inf,1);
+   puthz(inf,"硬盘被严重破坏,如果现在你的计算机没有瘫痪,请\n",14,1);
+   puthz(inf,"立即进入在执行下列两个命令:\n",14,1);
+   puthz(inf,"   C:\\LASTLINE\\MNGRBOOT/B \n",14,1);
+   puthz(inf,"   C:\\LASTLINE\\FATRSAVE  \n",14,1);
+   puthz(inf,"然后,检查并清除病毒,再执行上述命令.",14,1);
+
+	/*   wclrprintf(inf,BLUE,WHITE,BRIGHT,"\n  Press any key to continue...");*/
+   puthz(inf,"\n按任意键继续...",15,1);
+   getch();
+   printf("\x7");
+   exit(1);
+ }
+unsigned check_lock(int drive)
+  {
+    int i;
+    FILE *fp;
+    char end_inf[20];
+    if((fp=fopen("c:\\lastline\\lastline.cfg","rb"))==NULL)
+      {
+	puthz(inf,"\n非安装使用.",14,1);
+		/*No installing.*/
+        exit(1);
+      }
+    fread(end_inf,3,1,fp);
+    fclose(fp);
+    for (i=0;i<3;i++)
+       end_inf[i]=~(end_inf[i]);
+    if(biosdisk(2,drive,0,0,1,1,boot))
+      {
+        biosdisk(0,drive,0,0,0,0,0);
+	puthz(inf,"\n错误",14,1);
+        exit(1);
+      }
+    if((boot[0x1c3]==end_inf[0])&&(boot[0x1c4]==end_inf[1])&&(boot[0x1c5]==end_inf[2]))
+      return (1);
+    else
+      {
+	puthz(inf,"\n非法用户或解密",14,1);
+		/*Unlawful user or unlocking.*/
+	exit(1);
+      }
+    return(0);
+    }
+void get_BK(void)
+ {
+   unsigned HD_base_table_adr[4],temp[3];
+   HD_base_table_adr[0]=peekb(0,0x104)&0xff;
+   HD_base_table_adr[1]=peekb(0,0x105)&0xff;
+   HD_base_table_adr[2]=peekb(0,0x106)&0xff;
+   HD_base_table_adr[3]=peekb(0,0x107)&0xff;
+   temp[0]=peekb((HD_base_table_adr[3]<<8)+HD_base_table_adr[2],(HD_base_table_adr[1]<<8)+HD_base_table_adr[0]+0);
+   temp[1]=peekb((HD_base_table_adr[3]<<8)+HD_base_table_adr[2],(HD_base_table_adr[1]<<8)+HD_base_table_adr[0]+1);
+   temp[2]=peekb((HD_base_table_adr[3]<<8)+HD_base_table_adr[2],(HD_base_table_adr[1]<<8)+HD_base_table_adr[0]+2);
+   BKTRACK=((temp[1]&0xff)<<8)+(temp[0]&0xff)-1;
+   BKHEAD=(temp[2]&0xff)-1;
+  }
+
+void check_sec(void)
+ {
+   if(absread(0,1,0,boot))
+    if(absread(0,1,0,boot))
+     if(absread(0,1,0,boot))
+     {
+       biosdisk(0,0x80,0,0,0,0,0);
+       puthz(inf,"\n错误.",14,1);
+       exit(1);
+     }
+   if(absread(0,1,2000,part))
+    if(absread(0,1,2000,part))
+     if(absread(0,1,2000,part))
+     {
+       biosdisk(0,0x80,0,0,0,0,0);
+       puthz(inf,"\n错误.",14,1);
+       exit(1);
+     }
+   if(memcmp(boot,part,512))
+    {
+     biosdisk(3,0,0,0,1,0xff,part+0x91);
+     puthz(inf,"\n非法用户或解密",14,1);
+		/* Unlawful user or unlocking.*/
+     exit(1);
+    }
+ }
+int getdosnum(void)
+ {
+      union REGS in,out;
+      in.h.ah=0x30;
+      intdos(&in,&out);
+      return(out.h.al);
+ }
+void reboot(void)
+ {
+     union REGS in,out;
+     system("cls");
+     int86(0x19,&in,&out);
+ }
+
+void puticon(int lgdrive)/* lgdrive=0,put main boot record icon */
+ {
+   int i;
+   char a[2]="C";
+   static int x=220;
+   setfillstyle(1,1);
+   high(x,high_of_char*8+2,x+30,high_of_char*10,1,1);
+   nohigh(x+1,high_of_char*8+3,x+29,high_of_char*10-1,1,1);
+   setcolor((lgdrive==0)?15:(16-lgdrive));
+   for (i=high_of_char*9+4;i>high_of_char*9-6;i-=2)
+   fillellipse(x+15,i,8,4);
+   fillellipse(x+15,i+2,4,2);
+   setfillstyle(1,15);
+   if(lgdrive!=0)
+     {
+       a[0]=lgdrive+65;
+       outtextxy(x+13,high_of_char*10+5,a);
+     }
+   else
+     outtextxy(x,high_of_char*10+5,"MAIN");
+   x+=40;
+ }

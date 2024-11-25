@@ -1,0 +1,2 @@
+diskcopy a: a:
+mkhigh
