@@ -68,5 +68,14 @@ iDOF相关资料也包含在本文件夹中，包括阿色亲自设计的Logo、
 
 <img alt="TASKMNG" src="taskmng/tv7.jpg" width="800"><br><br>
 
+## 4 Quick Memos
+存储在 QuickMemos 文件夹。
+
+这是使用VB6编写的一个桌面记事工具。可以在桌面任务栏中显示，方便快速记事。
+
+具有编辑、打印、归档，以及加急、加重标记等功能。
+
+<img alt="Quick Memos" src="QuickMemos/ui.jpg" width="800"><br><br>
+
 
  
