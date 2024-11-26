@@ -101,9 +101,15 @@ iDOF相关资料也包含在本文件夹中，包括阿色亲自设计的Logo、
 ## 6 手写留言板
 存储在 handwriteboard 文件夹中。
 
-这是阿色2009年用VB写的一个在触目屏电视上手写留言小程序。也可以用鼠标写。<br><br>
+这是阿色2009年用VB写的一个在触目屏电视上手写留言小程序。也可以用鼠标写。
+
+记得当时非常紧急，晚上用两小时完成的，现在可能还在用。<br><br>
 
 <img alt="HandWriteBoard" src="handwriteboard/ui.png" width="800"><br><br>
+
+
+
+
 
 <br><br><br><br>
 
