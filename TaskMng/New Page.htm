@@ -1,0 +1,161 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0051)http://ds.dq.cnpc.com.cn/taskmng安装说明/readme.htm -->
+<HTML><HEAD><TITLE>New Page</TITLE>
+<META content="text/html; charset=gb2312" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2919.6307" name=GENERATOR></HEAD>
+<BODY bgColor=#ffebe1 leftMargin=0 topMargin=0>
+<DIV align=center>
+<CENTER>
+<TABLE bgColor=#ffebe1 border=0 width="79%">
+  <TBODY>
+  <TR>
+    <TD width="100%">
+      <P align=center><BIG><BIG><BIG><STRONG><FONT color=#ff0000>TaskMng 
+      用前</FONT><FONT size=6><FONT color=#ff0000 
+      size=6>说明</FONT></STRONG></BIG></BIG></BIG><BR><BR></P>
+      <P align=left></FONT><FONT 
+      size=4>1）此为正式版，可以正式使用，你单位安装前及安装运行后,请与<BR>软件开发部王权联系，电话：5986841/5986842/5986843，BP:191-9816026，Email:<A 
+      href="mailto:wangq@dq.cnpc.com.cn">mailto:wangq@dq.cnpc.com.cn</A><BR><BR>2）如果你单位准备使用，必须经你单位信息中心主任同意。<BR><BR>3）本软件不准个人和非局属单位使用。<BR><BR>4）请各单位先在信息中心内部使用，成熟后再在厂、公司内使用。<BR><BR>5）为了今后在全局顺利地全面应用，要求任何单位、任何人不得私自修改程序，一经发现严肃处理。如果在使用中发现问题或有建议请转给王权收集，并由开发小组统一修改，修改后的程序会及时交付各单位。<BR>6）使用单位必须注意保护产权，不得擅自将该软件程序转给他人，不得泄漏技术秘密。那个单位造成的损失由哪个单位负责。</FONT><FONT 
+      size=6></P>
+      <P align=center><FONT color=#008000 
+      face=隶书><STRONG>Taskmng任务管理系统安装说明</STRONG></FONT></FONT><FONT face=宋体 
+      size=5></P>
+      <P align=justify>　</FONT><FONT face=宋体 size=4>　本系统是基于</FONT><FONT 
+      size=4>B/S<FONT face=宋体>模式的任务管理软件，其后台数据库为</FONT>SQL Server<FONT 
+      face=宋体>（通过对少量的数据库函数的修改，可以运行于各种类型的数据库）；其编程主要采用了</FONT>ASP<FONT 
+      face=宋体>技术，该系统的推行一方面便于一个部门的管理工作，另一方便是为了更好地向全局推行</FONT>ASP<FONT 
+      face=宋体>及</FONT>SQLServer<FONT 
+      face=宋体>等新技术，以加快全局企业网建设的步伐。</FONT></FONT><FONT face=宋体 size=5></P>
+      <OL>
+        <LI></FONT><A name=1></A><FONT face=宋体 size=4><STRONG><A 
+        name=系统运行环境>系统运行环境</A>：</STRONG> 
+        <P align=justify>操作系统为</FONT><FONT size=4>NT4.0<FONT 
+        face=宋体>，</FONT>(IIS3.0+ASP)/IIS4.0(自带ASP)/(SP4+ASP)(<FONT 
+        color=#ff0000><FONT face=宋体>即可运行</FONT>ASP</FONT>)<FONT 
+        face=宋体>，为了对系统作最少的改动即可在您的服务器上运行，建议使用工作平台为</FONT>IIS 4.0<FONT 
+        face=宋体>，数据库为</FONT><FONT color=#ff0000>SQL Server 6.5<FONT 
+        face=宋体>／</FONT>SQL Server 7</FONT><FONT 
+        face=宋体>，程序运行的中间件为</FONT>ODBC</FONT><FONT face=宋体 size=4>。</P>
+        <P align=justify>(SQLServer7可在10.65.10.16上的ads/microsoft/下下载）</P>
+        <P align=left>安装任务管理系统前</FONT><FONT face=宋体><FONT color=#ff0000><FONT 
+        size=5><BLINK>必须</BLINK></FONT></FONT><FONT 
+        size=4>先得到下列文件(请使用电子邮件与王权联系<A 
+        href="mailto:wangq@dq.cnpc.com.cn">wangq@dq.cnpc.com.cn</A>,我们把它Email给你.)：</P>
+        <TABLE bgColor=#d2f4e9 border=1 width="89%">
+          <TBODY>
+          <TR>
+            <TD width="32%">tasksql.zip</TD>
+            <TD width="68%"></FONT></FONT><FONT color=#ff8000 face=宋体 
+              size=4>打包后为数据库环境中所用到的</FONT><FONT color=#ff8000 
+              size=4>tasktab.sql和dept_use.sql</FONT></TD></TR>
+          <TR>
+            <TD width="32%">task_web.zip</TD>
+            <TD width="68%"><FONT 
+          color=#ff8000>打包后为WWW站点中的文件</FONT></TD></TR></TBODY></TABLE>
+        <LI><A name=2></A><STRONG><A name=数据库环境>数据库环境</A>：</STRONG> 
+        <P align=justify>把数据库SQL Server <FONT 
+        face=宋体>正确安装到服务器上，安装成功后创建数据库</FONT><FONT 
+        color=#ff0000>taskmng</FONT><FONT face=宋体>（任意的库名，仅需此库名与</FONT>ODBC<FONT 
+        face=宋体>配置中的数据库名（非数据源）相一致），打开其查询窗口，选择</FONT>taskmng<FONT 
+        face=宋体>为当前数据库，打开文件</FONT><FONT color=#ff0000>tasktab.sql</FONT><FONT 
+        face=宋体>文件并执行，程序自动创建所用到的各种表，同时插入需要的环境变量，打开文件</FONT><FONT 
+        color=#ff0000>dept_use.sql</FONT><FONT 
+        face=宋体>文件，按照您的要求写入您单位的编码和人员信息，并执行该文件（也可自行建立测试所需的单位代码库和人员库），则把相应的数据插入对应的表中。<BR>下面是配置的例子:</P>
+        <P align=justify><IMG alt="exmpl2.JPG (21807 bytes)" height=231 
+        src="New Page.files/exmpl2.jpg" width=379></P>
+        <P align=justify><BR><IMG align=left alt="exmpl.JPG (139445 bytes)" 
+        height=534 src="New Page.files/exmpl.jpg" width=734></P>
+        <P align=justify>　</P>
+        <LI><A name=3></A><A name=配置ODBC><STRONG>配置</FONT>ODBC</STRONG></A> 
+        <FONT face=宋体>
+        <P align=justify>建立</FONT>ASP<FONT face=宋体>程序中需要调用的数据源。在</FONT>ASP<FONT 
+        face=宋体>所在服务器上配置</FONT>ODBC<FONT face=宋体>的系统</FONT>DSN<FONT 
+        face=宋体>（</FONT><FONT color=#ff0000>SystemDSN</FONT><FONT 
+        face=宋体>），数据源驱动程序的类型选择</FONT>sql server<FONT 
+        face=宋体>（注：该驱动程序的版本必须与所安装的数据库的版本相一致，否则会引起不可预料的错误），（</FONT>1<FONT 
+        face=宋体>）输入数据源名：</FONT>taskview<FONT face=宋体>（</FONT><FONT color=#ff0000 
+        face=宋体 size=4>与安装说明中提到的</FONT><FONT color=#ff0000 
+        size=4>taskdb.txt</FONT><FONT color=#ff0000 face=宋体 
+        size=4>中的</FONT><FONT color=#ff0000 size=4>dsn</FONT><FONT color=#ff0000 
+        face=宋体 size=4>名相一致</FONT><FONT size=4><FONT face=宋体>）；（</FONT>2<FONT 
+        face=宋体>）输入数据库服务器的名称，此名称为安装数据库</FONT>SQL Server 7<FONT 
+        face=宋体>的主机名，本地缺省为（</FONT><FONT color=#ff0000>local</FONT><FONT 
+        face=宋体>）；（</FONT>3<FONT face=宋体>）输入数据库的名称：</FONT>taskmng<FONT 
+        face=宋体>。</P>
+        <LI><A name=4></A><A name=建立WWW站点><STRONG>建立</FONT>WWW<FONT 
+        face=宋体>站点</STRONG></A> 
+        <P align=justify>在服务器上设立站点</FONT>taskmng<FONT 
+        face=宋体>，把该系统所需要的文件导入到该站点（也可以在服务器站点上建立</FONT>taskmng<FONT 
+        face=宋体>目录，再将所需文件</FONT>copy<FONT face=宋体>到此目录下）。在</FONT>NT<FONT 
+        face=宋体>操作</FONT></FONT><FONT color=#ff0000 face=宋体 
+        size=4>系统的</FONT><FONT color=#ff0000 size=4>system32</FONT><FONT 
+        color=#ff0000 face=宋体 size=4>目录</FONT><FONT size=4><FONT 
+        face=宋体>下创建</FONT>taskdb.txt<FONT 
+        face=宋体>文件，在该文件中写入一行（</FONT>dsn=taskview<FONT 
+        face=宋体>;</FONT>uid=sa<FONT face=宋体>;</FONT>pwd=<FONT 
+        face=宋体>），其中的</FONT>DSN<FONT face=宋体>为</FONT>ODBC<FONT 
+        face=宋体>中所建的数据源名称如</FONT>taskview<FONT face=宋体>，</FONT>uid<FONT 
+        face=宋体>为可以访问数据库的用户名，</FONT>pwd<FONT face=宋体>为该用户的口令。</P>
+        <LI><A name=5></A><STRONG>在使用前请检查系统时间的<A 
+        name=显示方式>显示方式</A>。</STRONG></FONT></FONT><FONT face=宋体 size=4> </LI></OL>
+      <P><STRONG>&nbsp;&nbsp; </STRONG>（控制面板中的区域设置）</P>
+      <P>　　１）将时间中的时间样式改为<FONT color=#ff0000 face=宋体 size=4>HH:mm:ss</FONT></P>
+      <P>　　２）将日期中的短日期样式和长日期样式分别改成</P>
+      <P>　　　　<FONT color=#ff0000 face=宋体 size=4>yyyy-MM-dd</FONT>和<FONT 
+      color=#ff0000 face=宋体 size=4>yyyy MM dd</FONT>。</P>
+      <P><STRONG>&nbsp; 6、<FONT 
+      color=#000000>在你的系统安装完全正确后，可在第一页面上标注为哪个单位的任务管理系统，类似如下：</FONT></STRONG></P>
+      <P></FONT><FONT face=宋体 size=5><IMG alt="wpe5.jpg (65173 bytes)" 
+      height=427 src="New Page.files/readme3.jpg" width=593></FONT><FONT face=宋体 
+      size=4></P>
+      <P><BR>&nbsp; </P>
+      <P align=justify>小结：</P>
+      <BLOCKQUOTE>
+        <BLOCKQUOTE>
+          <P align=justify>该系统详细的系统使用说明见管理页面中的</FONT><FONT color=#ff0000 face=宋体 
+          size=4>系统帮助</FONT><FONT face=宋体 
+          size=4>。请按安装说明自行安装，如有问题可以与下列人员取得联系：</FONT></P></BLOCKQUOTE></BLOCKQUOTE>
+      <TABLE border=1 cellPadding=7 cellSpacing=1 width=557>
+        <TBODY>
+        <TR>
+          <TD bgColor=#e1f0f0 vAlign=top width=63><FONT face=宋体 size=4>
+            <P align=justify><FONT color=#ff8000>姓名</FONT></FONT></P></TD>
+          <TD bgColor=#e1f0f0 vAlign=top width=136><FONT face=宋体 size=4>
+            <P align=justify><FONT color=#ff8000>电话</FONT></FONT></P></TD>
+          <TD bgColor=#e1f0f0 vAlign=top width=304><FONT size=4>
+            <P align=justify><FONT color=#ff8000>EMAIL</FONT></FONT></P></TD></TR>
+        <TR>
+          <TD vAlign=top width=63><FONT face=宋体 size=4>
+            <P align=justify><FONT color=#ff8000>王权</FONT></FONT></P></TD>
+          <TD vAlign=top width=136><FONT size=4>
+            <P align=justify><FONT color=#ff8000>5986842</FONT></FONT></P></TD>
+          <TD vAlign=top width=304><FONT size=4>
+            <P align=justify><A href="mailto:Wangq@dq.cnpc.com.cn"><FONT 
+            color=#ff8000>Wangq@dq.cnpc.com.cn</FONT></A></FONT></P></TD></TR>
+        <TR>
+          <TD vAlign=top width=63><FONT face=宋体 size=4>
+            <P align=justify><FONT color=#ff8000>张贻春</FONT></FONT></P></TD>
+          <TD vAlign=top width=136><FONT size=4>
+            <P align=justify><FONT color=#ff8000>4102530</FONT></FONT></P></TD>
+          <TD vAlign=top width=304><FONT size=4>
+            <P align=justify><A href="mailto:zhangych@wt.dq.cnpc.com.cn"><FONT 
+            color=#ff8000>zhangych@wt.dq.cnpc.com.cn</FONT></A></FONT></P></TD></TR>
+        <TR>
+          <TD vAlign=top width=63><FONT face=宋体 size=4>
+            <P align=justify><FONT color=#ff8000>郭冬梅</FONT></FONT></P></TD>
+          <TD vAlign=top width=136><FONT size=4>
+            <P align=justify><FONT 
+          color=#ff8000>5683456-3251</FONT></FONT></P></TD>
+          <TD vAlign=top width=304><FONT size=4>
+            <P align=justify><A href="mailto:guodongmei@lj.dq.cnpc.com.cn"><FONT 
+            color=#ff8000>guodongmei@lj.dq.cnpc.com.cn</FONT></A></FONT></P></TD></TR>
+        <TR>
+          <TD vAlign=top width=63><FONT face=宋体 size=4>
+            <P align=justify><FONT color=#ff8000>李相成</FONT></FONT></P></TD>
+          <TD vAlign=top width=136><FONT size=4>
+            <P align=justify><FONT color=#ff8000>4893692</FONT></FONT></P></TD>
+          <TD vAlign=top width=304><FONT size=4>
+            <P align=justify><A href="mailto:lixch@zr.dq.cnpc.com.cn"><FONT 
+            color=#ff8000>lixch@zr.dq.cnpc.com.cn</FONT></A></FONT></P></TD></TR></TBODY></TABLE>
+      <P>　</P></FONT></FONT></TD></TR></TBODY></TABLE></CENTER></DIV></BODY></HTML>
