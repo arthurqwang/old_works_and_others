@@ -107,6 +107,16 @@ iDOF相关资料也包含在本文件夹中，包括阿色亲自设计的Logo、
 
 <img alt="HandWriteBoard" src="handwriteboard/ui.png" width="800"><br><br>
 
+## 7 呱呱鸭米项目
+存储在 DuckRice 文件夹中。
+
+这是阿色帮助家乡推广鸭稻米开发的系统。
+
+主要采用ASP+VB，开发了网上订单系统和基于微博的自动广告机器人。<br><br>
+
+<img alt="DuckRice" src="DuckRice/ggym_logo.gif" width="800"><br><br>
+<img alt="DuckRice" src="DuckRice/blog_robot.png" width="800"><br><br>
+
 
 
 
