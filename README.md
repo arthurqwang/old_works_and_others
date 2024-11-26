@@ -66,7 +66,7 @@ iDOF相关资料也包含在本文件夹中，包括阿色亲自设计的Logo、
 
 当时，该系统的推行一方面是为了便于一个部门的管理工作，另一方便是为了更好地全面推行ASP及SQLServer等新技术，以加快企业网建设的步伐。
 
-<img alt="TASKMNG" src="taskmng/tv7.jpg" width="800"><br><br>
+<img alt="TASKMNG" src="TaskMng/tv7.jpg" width="800"><br><br>
 
 ## 4 Quick Memos
 存储在 QuickMemos 文件夹。
@@ -105,7 +105,7 @@ iDOF相关资料也包含在本文件夹中，包括阿色亲自设计的Logo、
 
 记得当时非常紧急，晚上用两小时完成的，现在可能还在用。<br><br>
 
-<img alt="HandWriteBoard" src="handwriteboard/ui.png" width="800"><br><br>
+<img alt="HandWriteBoard" src="HandWriteBoard/ui.png" width="800"><br><br>
 
 ## 7 呱呱鸭米项目
 存储在 DuckRice 文件夹中。
