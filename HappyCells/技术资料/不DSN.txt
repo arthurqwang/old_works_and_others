@@ -1,0 +1,64 @@
+如何不用 DSN 生成链接表？
+ 
+
+作者：cg1  摘自：access911.net  编辑：cg1  更新日期：2005-1-11  浏览人次：823
+ 
+专题地址：
+http://www.access911.net/?kbid;72FAB31E10DCEAF3
+ 
+ 
+
+简述：
+如何不用 DSN 生成链接表？《VBA》
+
+ 
+
+阅读前需掌握：
+ 
+
+难度等级：
+等级未评定
+ 
+ 
+ 
+
+问题：
+
+
+
+ DoCmd.TransferDatabase acLink, "ODBC", "ODBC;DRIVER=SQL Server;SERVER=127.0.0.1;UID=sa;PWD=55664;DATABASE=XXX", acTable, "employee", "sssss", True 
+
+
+
+为什么不使用 DSN 也能链接表？
+ 
+
+ 
+
+
+回答：
+
+
+
+ 首先解释一下什么是 DSN。DSN是数据源名(Data Source Name)的缩写，是一个唯一标识某数据源的字符串。一个DSN标识了一个包含了如何连接某一特定的数据源的信息的数据结构.这个信息包括要使用何种ODBC驱动程序及要连接哪个数据库.我们可以通过控制面板中的32位ODBC数据源来创建、修改及删除DSN。
+
+因此我们只要将建立好的 DSN 中的字串直接 COPY 到适当位置组合一下也一样可以达到 DSN 文件所能产生的效果，因为 ODBC 自动解析了相关字串。其实与 ADODB.RECORDSET.OPEN 方法中隐含打开 CONNCTION 有点类似。一般我们都是用以下代码打开 RECORDSET 的
+dim rs as new adodb.recordset
+dim conn as new adodb.connection
+dim strconn as string
+dim strsql as string
+strconn="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=c:\1.mdb;User ID=admin;Password=;Jet OLEDB:Database Password=1"
+conn.open strconn
+rs.open strsql,conn,1,1 
+
+
+但是我们完全可以用以下方式打开
+rs.open strsql,"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=c:\1.mdb;User ID=admin;Password=;Jet OLEDB:Database Password=1",1,1 
+
+
+其实就是 ADO 自动将解析了字串并打开 CONNECTION。
+ 
+
+ 
+
+ 

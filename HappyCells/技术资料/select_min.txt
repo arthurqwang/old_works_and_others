@@ -1,0 +1,7 @@
+select top 10 city_code from ip_city
+where ip1*256*256*256+ip2*256*256+ip3*256+ip4=
+(
+select top 1 ip1*256*256*256+ip2*256*256+ip3*256+ip4  from ip_city 
+group by ip1*256*256*256+ip2*256*256+ip3*256+ip4
+order by min(abs((ip1*256*256*256+ip2*256*256+ip3*256+ip4)-(214*256*256*256+ip2*256*256+ip3*256+ip4)))
+);

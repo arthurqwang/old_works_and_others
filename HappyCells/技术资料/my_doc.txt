@@ -1,0 +1,22 @@
+   '获得我的文档目录
+   Private Declare Function SHGetSpecialFolderLocation Lib "Shell32" (ByVal hwndOwner As Long, ByVal nFolder As Integer, ppidl As Long) As Long
+   Private Declare Function SHGetPathFromIDList Lib "Shell32" Alias "SHGetPathFromIDListA" (ByVal pidl As Long, ByVal szPath As String) As Long
+   Const MAX_LEN = 200 '字符串最大长度
+   Const MYDOCUMENTS = &H5& '我的文档
+Private Sub Form_Load()
+'获得各个目录
+   Dim sTmp As String * MAX_LEN  '存放结果的固定长度的字符串
+   Dim pidl As Long '某特殊目录在特殊目录列表中的位置
+    
+   '获得我的文档目录
+   SHGetSpecialFolderLocation 0, MYDOCUMENTS, pidl
+   SHGetPathFromIDList pidl, sTmp
+   my_doc_path = Left(sTmp, InStr(sTmp, Chr(0)) - 1)
+   MsgBox my_doc_path
+
+End Sub
+
+
+
+
+

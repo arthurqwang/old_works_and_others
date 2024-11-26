@@ -1,0 +1,39 @@
+Sub e_db()
+'查询并显示表Sheet1全部内容的代码:
+
+Dim conn As New ADODB.Connection
+Dim cmd As New ADODB.Command
+Dim Rs As New ADODB.Recordset
+Dim DSN_NAME As String
+
+DSN_NAME = "Driver={Microsoft Excel Driver (*.xls)};DBQ=" & ThisWorkbook.Path & "\.." & "\test\book.xls"
+conn.Open DSN_NAME
+Set cmd.ActiveConnection = conn
+cmd.CommandText = "select * from [edb$]"
+Rs.CursorLocation = adUseClient
+Rs.Open cmd
+
+
+
+'Dim conn, Driver, DBPath, Rs
+'Set conn = Server.CreateObject("ADODB.Connection")
+'Driver = "Driver={Microsoft Excel Driver (*.xls)};"
+'DBPath = "DBQ=" & Server.MapPath("book.xls")
+'conn.Open Driver & DBPath
+'Set Rs = Server.CreateObject("ADODB.Recordset")
+'Sql = "select * from [edb$]"
+'Rs.Open Sql, conn, 2, 2
+
+ii = 1
+Do While Not Rs.EOF
+  ii = ii + 1
+  Range("D" & ii).Value = Rs("nm")
+  Range("E" & ii).Value = Rs("ph")
+  Range("F" & ii).Value = Rs("addr")
+  Rs.MoveNext
+Loop
+  Rs.Close
+  Set Rs = Nothing
+  conn.Close
+  Set conn = Nothing
+End Sub

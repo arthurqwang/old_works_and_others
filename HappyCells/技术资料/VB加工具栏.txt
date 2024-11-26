@@ -1,0 +1,55 @@
+使用vb 6和vb.net为Office应用添加工具栏和按钮
+　　在Office应用中，有可我们可能需要利用word进行一系列的操作，比如执行一段宏，通过点击一个工具栏按钮执行宏的代码段，下面的实例正是为office应用添加一个工具栏和按钮，类似可应用到excel和aceess等Office应用程序。
+　　1. 在VB6中的应用：
+　　在VB6中引用Micosoft Word X.0（版本号） Object Library 和Micosoft Office X.0（版本号） Object Library，如下图：（笔者使用Office XP）
+　　
+
+
+
+　　添加如下代码：
+　　Private Sub Command1_Click()
+　　 '定义word应用
+　　 Dim wordApp As New Word.Application
+　　 Dim myDoc As Word.Document
+　　 '定义工具栏
+　　 Dim myBar As Office.CommandBar
+　　 '定义工具栏按钮
+　　 Dim myButton As Office.CommandBarButton
+　　 
+　　 Dim IsExist As Boolean
+　　 IsExist = False
+　　 
+　　 '打开一个word文档
+　　 Set myDoc = wordApp.Documents.Open("f:\test.doc")
+　　 wordApp.Visible = True
+　　 
+　　 '如果存在这个工具栏，就显示这个工具栏
+　　 For Each myBar In wordApp.CommandBars
+　　 If myBar.Name = "文件操作" Then
+　　 myBar.Visible = True
+　　 IsExist = True
+　　 End If
+　　 Next
+　　 
+　　 '如果不存在,就创建工具栏及按钮
+　　 If Not IsExist Then
+　　 Set myBar = wordApp.CommandBars.Add( _
+　　 Name:="文件操作", _
+　　 Position:=msoBarTop, _
+　　 Temporary:=False)
+　　 
+　　 Set myButton = CommandBars("文件操作").Controls.Add
+　　 With myButton
+　　 .Caption = "文件保存"
+　　 .ToolTipText = "lihonggen create"
+　　 ' .Picture =LoadPicture("f:\cd.ICO")
+　　 '指定表面图片序号
+　　 .FaceId = 10
+　　 .Visible = True
+　　 .Enabled = True
+　　 '指定此按钮宏的名称
+　　 .OnAction = "lihonggen"
+　　 End With
+　　 myBar.Visible = True
+　　 End If
+　　End Sub

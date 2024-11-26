@@ -1,0 +1,62 @@
+JOKE_IN_INTEREST=40
+PUZZLE_IN_INTEREST=60
+ELSE_IN_INTEREST=0
+mm2POINT=2.754
+mm2ROW_UNIT=20.500731
+mm2COLUMN_UNIT=0.4461538
+COLUMN_UNIT2PIXEL=6.04
+WEB_TITLE_MAX_FONT_SIZE=22
+MAX_LEN_PER_CELL=60
+MODE_2_LEN=30
+PIC_LEFT=2
+PIC_TOP=2
+PIC_RIGHT=4
+PIC_BOTTOM=4
+CELL_BORDER_TYPE=1
+ISSUE_DAY_AFTER=1
+TOPIC_WHITE_BLACK=0
+TOPIC_FONT_NAME1=黑体
+TOPIC_FONT_NAME2=华文琥珀
+CLASS_FONT_NAME=华文隶书
+USE_CLASS_PIC=1
+TRANSP_LINE=0
+MIX_CLASS=0
+BOUND_MIX_CLASS=0
+KEEP_WHOLE_SIZE=1
+BACK_RUN=0
+NO_CLASS_TITLE=0
+OUTSIDE_CLASS_TITLE=1
+TIPS_YES=1
+{{END}}
+表示参数设定结束，{{END}}下面的是注释，{{END}}可以省略，加上是为了检索速度
+***************************************************************************
+参数含义说明
+JOKE_IN_INTEREST:50    '趣味性材料比例，总计100%
+PUZZLE_IN_INTEREST:50
+ELSE_IN_INTEREST:0
+mm2POINT:2.754       '每厘米等于28.35磅(行高单位),经试验，此值为27.51~27.57,取27.54
+mm2ROW_UNIT=20.500731 '每厘米等于行单位数，实验取得
+mm2COLUMN_UNIT:0.4461538       '每厘米等于3.25 列宽单位
+COLUMN_UNIT2PIXEL:6.04 '每个列宽单位等于6.04个图像像素
+WEB_TITLE_MAX_FONT_SIZE:22 '用于WEB，标题字号:WEB_TITLE_MAX_FONT_SIZE - 标题长度 / 标题所占横向格数
+MAX_LEN_PER_CELL:60 '写笑话时，每单元格最多字符数，以汉字计算。广告内容不受此限。
+MODE_2_LEN:30 ' 汉字为准。当平均单个单元格内容少于这个值时，比较适合显示方式2。客户可以不指定显示模式，此时根据内容多少决定显示方式
+PIC_LEFT:2   '插入图片时，为了让图片不出格，需要缩一点
+PIC_TOP:2
+PIC_RIGHT:4   '是宽度减去的点数，应该等于PIC_LEFT的2倍
+PIC_BOTTOM:4
+CELL_BORDER_TYPE:1   '广告格边框样式，0为单线，其它为双线
+ISSUE_DAY_AFTER:1    '印刷延后天数，用于自动填写出版日期
+TOPIC_WHITE_BLACK:1 '用于印刷时广告格标题（有标题单元格模式），为了印刷清楚，等于1时表示黑白，其它为彩色
+TOPIC_FONT_NAME1:黑体    '广告格标题字体名，1模式
+TOPIC_FONT_NAME2:华文琥珀 '2模式
+CLASS_FONT_NAME:华文琥珀  '广告类别名称使用的字体，如果USE_CLASS_PIC设为非0，则文字就被遮住了
+USE_CLASS_PIC:1  '广告类别格是否使用图，等于0不用，其他表示用
+TRANSP_LINE:0  '广告格边框是否透明，透明即等于没有，等于1透明 其它不透明
+MIX_CLASS:0   '排版是否混类，即不分类，各类广告一起排，适于量小的报纸，等于1混，其它不混
+BOUND_MIX_CLASS:0  '相邻类广告可以越界混排，适于量小的报纸，等于1混，其它不混
+KEEP_WHOLE_SIZE:1  '增大广告纵横格数时保持整版广告幅面不变，0表示不是，其它表示是
+BACK_RUN:1   '排版Excel后台运行，1表示后台，其它前台
+NO_CLASS_TITLE:0   '是否去掉广告类标签，0表示不印(即去掉)，其它表示印
+OUTSIDE_CLASS_TITLE:1  '广告类标签置于页面外侧，即奇数页在右侧，欧数页在左侧，0表示不分，其它表示区分
+TIPS_YES:1   '软件界面悬停提示，等于0不用，其他表示用

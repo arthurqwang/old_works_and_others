@@ -1,0 +1,92 @@
+在VB中使用Automation功能，接管VBA，然后做成COM即可。
+
+封装我们的VBA代码 
+ 
+[2006年10月26日]  点击数:203 【字体：大 中 小】【双击滚屏】 
+  
+
+
+        Visual Basic for Applications（简称VBA）是新一代标准宏语言，是基于Visual Basic for Windows 发展而来的。VBA 提供了面向对象的程序设计方法，提供了相当完整的程序设计语言。VBA 易于学习掌握，用户可以容易地将日常工作转换为VBA程序代码，使工作自动化。
+        但是VBA在代码的保护上却存在着缺陷。如果不对VBA工程设置密码保护，代码很容易被人浏览乃至窃取。而且即使设置了密码保护，也很容易被人破解。笔者就曾用破解工具officekey轻松地破解了他人设置的密码保护，不费吹灰之力便浏览了其中的代码，而且从中发现了文档保护密码。可见，要想保护自己的VBA代码，仅仅设置密码保护是不够的。
+        我们知道，Visual C++、Visual Basic和C++ Builder以及Delphi等编译器所编译出来的程序不容易被人破解（相对来说）,这是因为代码被编译成了可执行文件或者动态链接库文件。那么，我们是否可以将VBA代码封装到动态链接库文件中，然后用Word调用呢？回答是肯定的。而且这样做还有一个好处，即可以加快代码的运行速度。
+        一、将VBA代码封装成动态链接库
+        假如我们已经写好了一个VBA工程，而且运行无误。
+         1.建立VB工程及一般性操作
+        首先，我们需要两种工具，其中当然包括Microsoft Word，另外一种是Microsoft Basic 6.0。
+        打开Microsoft Basic 6.0，在“新建工程”中选取“ActiveX DLL”，新建一个工程。在属性窗口中将工程名改为VBAPrj，类模块名改为VBACls。然后在“工程”菜单下打开“引用”，选取“Microsoft Office 11.0 Object Library”——这一步很是关键，切不可遗漏，然后保存工程。下面我们所做的是向工程内添加代码。
+        将VBA工程中的一个名为Test过程的代码选定后复制，然后切换到VB编辑器，选中VB的工程管理器中的类模块VBACls，将代码粘贴至代码编辑窗口中，于是这段代码便成了类模块VBACls一个方法，然后将工程编译生成dll文件（如果编译成功的话）。在Word中，我们就可以通过类模块VBACls建立的对象来调用此方法（具体怎么调用，我们将后面介绍）。当然，我们可以继续向工程里添加代码。
+        2.修改代码
+       虽然VBA源于VB，但是两者毕竟存在着一些差异。因此，需要对转移到VB中的VBA代码做一些必要的修改。
+       (1)修改VBA代码中所特有类型的对象。
+       如果我们所添加的代码里有VBA所特有类型——如Document、Rang、BookMark等所建立的对象，编译时会提示错误，因为VB不能够识别这些对象。此时修改的方法是，将这些对象作为过程或函数的参数进行传递。需要注意的是，这些参数的类型都一律设为Object。
+       例如，我们在过程Test中要访问对象ThisDocument，但是VB无法识别ThisDocument，于是我们就为过程test添加一个参数Doc来传递ThisDocument，即Test可定义为Test(Doc As Object)。
+       (2)修改VBA所特有一般变量。
+       VB也无法识别VBA特有的一般变量，如ProtectType，同样，我们也将其作为过程后函数的参数进行传递，不过其类型名都一律设为Variant。
+       (3)修改VBA所特有常量。
+       如果在VBA代码中出现了这样的语句:
+       ProtectionType = wdNoProtection  
+       很明显，wdNoProtection是Word所独有的常量，不为VB所能识别，因而无法通过编译。怎样解决这个问题呢？当然，我们可以用修改变量的方法予以修改。但是聪明的读者会想到：如果我们知道了wdNoProtection的值，就可以直接将值赋给ProtectionType。但是接下来的一个问题是：我们怎样才能获得wdNoProtection的值呢？方法很简单，就是让Word“开口”告诉我们。
+       在Word一个事件中添加以下语句：
+        MsgBox CStr (wdNoProtection)
+       其中CStr是类型转换函数，返回参数相应的字符串。只要在Word中触发此事件，会弹出一个对话窗，显示“-1”，这就是Word所告诉我们的：wdNoProtection 的值是-1。于是我们就可以将语句 ProtectionType = wdNoProtection 改为 ProtectionType = -1，问题到此就迎刃而解了。
+        3.封装用户窗体
+       我们也可以将用户窗体封装到动态链接库文件里。首先打开Word的VBA编辑器，选中工程资源管理器中的用户窗体，点击右键，选择“导出文件”，选定路径后，将窗体文件保存。然后切换到VB编辑器，在“工程”菜单中选择“添加文件”命令，添加保存的窗体文件。添加结束后，我们会发现VB编辑器中的工程资源管理器中的设计器出现了刚添加的窗体名，选中后双击，在窗体编辑器中就会显现所添加的用户窗体。
+        到了这里，读者会问：窗体还有代码呢，怎么办？先别急，试一试下面的操作，你就会明白，问题早已不再是问题了。选中工程资源管理器中的用户窗体，点击右键，选择“查看代码”，你就会高兴发现，在代码编辑框中出现了窗体所对应的代码。原来，在我们导入窗体文件的同时也导入了窗体的代码！当然高兴之余，不要忘了还要对这些代码按照我们上述的方法进行必要修改，以保证代码顺利地通过编译。这样Word就可以通过类模块VBACls间接地调用窗体。
+        二、在Word中引用动态链接库
+       假如经过我们编译已生成了一个动态链接库文件VBAPrj.dll，其中有一类模块VBACls，此类模块有一个方法Test(Doc As Object)。
+       接下来我们所要做的是用Word调用Test，有三种方法可供选择：
+       1.打开Word的VBA编辑器中ThisDocument代码窗口，点"工具"菜单下的"引用"命令，在引用对话框中引用该动态链接库。
+        调用代码如下: 
+         Dim VBACls As New VBAPrj.VBACls 
+         VBACls.Test(ThisDocument) 
+       2.如果知道该动态链接库文件的位置，可以在ThisDocument代码窗口以代码形式引用, 代码如下: 
+         Private Sub Document_Open()
+                   On Error Resume Next
+                   Me.VBProject.References.AddFromFile "D:\VBAPrj.dll"
+         End Sub
+        3.将动态链接库文件拷贝到Word文档同一目录下，可在ThisDocument代码窗口中建立如下引用函数：
+          Private Function GetProjectDoc() As Object
+                 On Error Resume Next
+                 Dim VBACls As Object
+                 Set VBACls = CreateObject("VBAPrj.VBACls")
+                 If VBACls Is Nothing Then
+              MsgBox "VBAPrj.dll必须和文档在同一目录下！"
+              Exit Function
+                End If
+                Set GetProjectDoc = VBACls
+         End Function
+        然后以以下代码形式调用Test：
+         Dim objPrjDoc As Object
+         Set objPrjDoc = GetProjectDoc
+         Call objPrjDoc.Test(ThisDocument)
+         Set objPrjDoc = Nothing
+        笔者更倾向使用第三种方法，虽然这种方法相对麻烦，但是只要动态链接库与Word文档处于同一目录下，可保证程序的可移植性。 
+         到目前为止，我们已完成了我们所要达的目的。此时，即便我们不对VBA工程设置密码保护，别人也将很难窥视到我们的代码。 
+
+ 注：文章大部分属于作者原创，其中参考了守柔版主的文章《将VBA代码封装成动态链接库文件以及在Word中引用动态链接库》，在此对守柔版主表示感谢。
+
+
+1.新建一个ActiveX Dll,工程名字为vbmytestdll,类模块名字为mytestdll 
+2.类模块内容只有一个函数,主要返回DLL的HELLO WORLD 
+Public Function dlltest1() As String 
+dlltest1 = "HELLO WORLD" 
+End Function 
+
+3.保存,生成DLL,名字为 
+
+vbmytestdll.dll 
+
+4.新建一个EXE工程,在菜单: 工程---引用---浏览里找到vbmytestdll.dll,把它引用进来 
+
+5.EXE工程代码如下: 
+
+Option Explicit 
+Dim testdll As mytestdll'类模块名字 
+
+Private Sub Form_Load() 
+Set testdll = New mytestdll 'DLL的一个新实例 
+Me.Caption = testdll.dlltest1 '我的标题=返回DLL的HELLO WORLD 
+End Sub 
+
+OK,编译成EXE即可看到效果. 
+ 

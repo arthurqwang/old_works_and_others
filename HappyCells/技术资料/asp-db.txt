@@ -1,0 +1,268 @@
+选添加ADODB控件 
+Function o_Connection() As ADODB.Connection 
+Dim Conn 
+Dim AuthConnectionString As String 
+Set Conn = CreateObject("ADODB.Connection") 
+AuthConnectionString = "DBQ=" & App.Path & "\don.mdb;Driver={Microsoft Access Driver (*.mdb)};" 
+Conn.Open AuthConnectionString 
+Set o_Connection = Conn 
+End Function 
+
+Function rs_hs(sql As String, Conn As ADODB.Connection) As ADODB.Recordset 
+
+
+If InStr(UCase(sql), "INSERT") > 0 Or InStr(UCase(sql), "DROP") > 0 Or InStr(UCase(sql), "DELETE") > 0 Or InStr(UCase(sql), "CREATE") Then 
+Conn.Execute sql 
+Else 
+Dim rs1 As New ADODB.Recordset 
+rs1.Open sql, Conn, 3, 3 
+End If 
+Set rs_hs1 = rs1 
+End Function 
+这是我写的一套数据库打开函数可直接用 
+至于SQL只要将 
+"DBQ=don.mdb;Driver={Microsoft Access Driver (*.mdb)};" 
+改为"Provider=Sqloledb; User ID=sa; Password=; Initial Catalog = abcd; Data Source=(local)" 
+就OK了
+
+
+
+**********************
+vb ado方式访问sql数据库，最简单方式
+set conn = new adodb.connection
+set rs = new adodb.recordset
+conn.connectionstring = "driver={sql server};server=dfsdf;uid=test;pwd=test;database=test"
+conn.connectiontimeout = 30
+conn.open
+rs.open "insert into table1 values(12,john)", conn, adopenstatic, adlockreadonly, adcmdtext
+
+
+
+vb ado 连接数据库，并绑定datagrid控件
+我使用ado连接数据库，通过绑定datagrid控件来显示数据库中符合条件的内容。
+
+option explicit
+
+private sub command1_click()
+dim cn as new adodb.connection 数据库连接变量
+dim cmd as new adodb.command 命令集
+dim rs as new adodb.recordset 记录集 
+dim strconnect as string 连接字符串
+set cn = new adodb.connection
+strconnect = "provider=sqloledb.1;persist security info=false;user id=sa;initial catalog=database;data source=servername" 指定连接字符串
+cn.connectionstring = strconnect 
+cn.open 连接数据库
+with cmd
+.activeconnection = cn
+.commandtype = adcmdstoredproc 有四种可选择的类型,在编程过程中使用sql server的存储过程是很好的方法
+.commandtext = "sp_get_name" 存储过程名称
+.parameters.refresh
+.parameters("@dt").value = date() 存储过程中参数的值(存储过程中只有一个参数)
+end with
+
+with rs
+.cursorlocation = aduseclient
+.cursortype = adopenstatic
+.locktype = adlockreadonly
+.open cmd
+end with
+set datagrid1.datasource = rs 绑定数据库显示控件
+
+end sub
+
+要在datagrid控件中显示数据cursorlocation = aduseclient和set datagrid1.datasource = rs两个语句不可缺少。
+
+
+
+
+vb使用ado数据库2种方式
+vb使用ado数据库可以分为有源数据库和无源数据库，即是否使用了dsn数据源，如下例：
+1、在连接数据库前首先要在vb菜单中“工程”-“引用”从中选择 microsoft activex data objects 2.6 library和 microsoft activex data objects recordset 2.6两个组件，这是在连接数据前所必做的工作。
+2、接下来定义ado的连接对象，如下所示：
+set conn = new adodb.connection
+set rs = new adodb.recordset
+第一种方法采用的是无源的数据库连接方法
+conn.connectionstring = "driver={sql server};server=jszx3-11;uid=sa;pwd=;database=wzc"
+conn.connectiontimeout = 30
+conn.open
+rs.open "select 用户名,密码 from login where 用户名=" & trim(combo1.text) & " and 密码=" & trim(text1.text) & "", conn, adopenstatic, adlockreadonly, adcmdtext
+if rs.eof = true and rs.bof then
+m = msgbox("请重新登录", vbexclamation)
+text1.text = ""
+text1.setfocus
+else
+form1.hide
+end if
+rs.close
+这是第二种方法连接数据库的方法，这一种方法是采用有源的方法与数据库连接的方法，代码如下所示：
+set conn = new adodb.connection
+set rs = new adodb.recordset
+conn.connectionstring = "dsn=login;uid=sa;pwd=;"
+conn.connectiontimeout = 30
+conn.open
+rs.open "select 用户名 from login", conn, adopenstatic, adlockreadonly, adcmdtext
+dim I as string
+for t = 0 to val(rs.recordcount) - 1
+I = trim(rs.fields("用户名").value)
+rs.movenext
+combo1.additem I
+next t
+rs.close
+
+
+********************************8
+
+一般来说，一个真正的、完整的站点是离不开数据库的，因为实际应用中，需要保存的数据很多，而且这些数据之间往往还有关联，利用数据库来管理这些数据，可以很方便的查询和更新。数据库有很多种，如：Fox 数据库(.dbf)、Access 数据库(.mdb)、Informix、Oracle 和 SQL Server 等等，在这里，我将以 Microsoft Access 数据库为例来说明ASP是如何访问数据库的。 
+常用数据库语句
+
+　　1.SELECT 语句：命令数据库引擎从数据库里返回信息，作为一组记录。
+　　2.INSERT INTO 语句：添加一个或多个记录至一个表。
+　　3.UPDATE 语句：创建更新查询来改变基于特定准则的指定表中的字段值。
+　　4.DELETE 语句：创建一个删除查询把记录从 FROM 子句列出并符合 WHERE 子句的一个或更多的表中清除。
+　　5.EXECUTE 语句：用于激活 PROCEDURE（过程）
+
+用 ASP 来做一个自己的通讯录练练手吧……
+
+一、建立数据库：
+
+　　用 Microsoft Access 建立一个名为 data.mdb 的空数据库，使用设计器创建一个新表。输入以下几个字段：
+
+　　字段名称　　数据类型　　说明　　　　　　其它
+　　ID　　　　　自动编号　　数据标识　　　　字段大小：长整型　新值：递增　索引：有（无重复）
+　　username　　文本　　　　姓名　　　　　　缺省值
+　　usermail　　文本　　　　E-mail　　　　　缺省值
+　　view　　　　数字　　　　查看次数　　　　字段大小：长整型　默认值：0　索引：无
+　　indate　　　时间日期　　加入时间　　　　缺省值
+
+　　保存为 data.mdb 文件，为了便于说明，只是做了一个比较简单的库。
+
+二、连接数据库
+
+　　方法1：
+　　Set conn = Server.CreateObject("ADODB.Connection")
+　　conn.Open "driver={Microsoft Access Driver (*.mdb)};dbq="&Server.MapPath("data.mdb")
+
+　　方法2：
+　　Set conn = Server.CreateObject("ADODB.Connection")
+　　conn.Open "Provider=Microsoft.Jet.OLEDB.4.0;Data Source="&Server.MapPath("data.mdb")
+
+　　注意：一个页面中，只要连接一次就可以了，数据库使用完后要及时关闭连接。
+　　conn.Close
+　　Set conn = Nothing
+
+三、添加新记录到数据库
+
+　　Set conn = Server.CreateObject("ADODB.Connection")
+　　conn.Open "driver={Microsoft Access Driver (*.mdb)};dbq="&Server.MapPath("data.mdb")
+
+　　username = "风云突变"
+　　usermail = "fytb@163.com"
+　　indate = Now()
+
+　　sql = "insert into data (username,usermail,indata) values("&username&","&usermail&","&indate&")"
+　　conn.Execute(sql)
+
+　　conn.Close
+　　Set conn = Nothing
+
+　　说明：建立数据库连接；通过表单获取姓名、E-mail 字符串，Now()获取当前时间日期；使用 insert into 语句添加新记录；conn.Execute 来执行；最后关闭。
+
+四、选择数据库里的记录
+
+　　1.选择所有记录的字段（按记录倒序排序）：sql = "select * from data order by ID desc"
+　　2.选择所有记录的姓名和E-mail字段（不排序）：sql = "select username,usermail from data"
+　　3.选择姓名为“风云突变”的所有记录：sql = "select * from data where username="风云突变""
+　　4.选择使用 163 信箱的所有记录（按查看次数排序）：sql = "select * from data where usermail like %"@163.com"% order by view desc"
+　　5.选择最新的10个记录：sql = "select top 10 * from data order by ID desc"
+
+　　SQL 语句已经知道了，不过在Web应用时，还得创建一个 RecordSet 对象得到记录集，才能把从数据库里取出的值应用在网页上，如果现在将所有的记录显示在网页上就这样：
+
+　　Set conn = Server.CreateObject("ADODB.Connection")
+　　conn.Open "driver={Microsoft Access Driver (*.mdb)};dbq="&Server.MapPath("data.mdb")
+
+　　sql = "select * from data"
+　　Set rs = Server.CreateObject("ADODB.RecordSet")
+　　rs.Open sql,conn,1,1
+
+　　Do While Not rs.Eof
+　　　　Response.Write "<p>姓名："& rs("username") &"　E-mail："& rs("usermail") &"　查看："& rs("view") &"次　"& rs("indate") &"加入</p>"
+　　　　rs.MoveNext
+　　Loop
+
+　　rs.Close
+　　Set rs = Nothing
+　　conn.Close
+　　Set conn = Nothing
+
+　　说明：建立数据库连接；创建 rs 得到记录集；循环显示记录，rs.Eof 表示记录末，rs.MoveNext 表示移到下一个记录；最后关闭。
+
+五、修改（更新）数据库记录
+
+　　修改记录的E-mail：
+
+　　Set conn = Server.CreateObject("ADODB.Connection")
+　　conn.Open "driver={Microsoft Access Driver (*.mdb)};dbq="&Server.MapPath("data.mdb")
+
+　　ID = 1
+　　usermail = "fytb@163.com"
+
+　　sql = "update data set usermail="&usermail&" where ID="&CInt(ID)
+　　conn.Execute(sql)
+
+　　conn.Close
+　　Set conn = Nothing
+
+　　说明：建立数据库连接；获取记录ID、新 E-mail 字符串；使用 update 语句修改记录；conn.Execute 来执行；最后关闭。
+　　如果使记录的查看值加1，则：sql = "update data set view=view+1 where ID="&CInt(ID)
+
+六、删除数据库记录
+
+　　删除某一条记录：
+
+　　Set conn = Server.CreateObject("ADODB.Connection")
+　　conn.Open "driver={Microsoft Access Driver (*.mdb)};dbq="&Server.MapPath("data.mdb")
+
+　　ID = 1
+
+　　sql = "delete from data where ID="&CInt(ID)
+　　conn.Execute(sql)
+
+　　conn.Close
+　　Set conn = Nothing
+
+　　说明：建立数据库连接；获取记录ID；使用 delete 语句删除记录；conn.Execute 来执行；最后关闭。
+　　删除多条记录为：sql = "delete from data where ID in (ID1,ID2,ID3)"
+　　删除所有记录为：sql = "delete from data"
+
+总结：
+
+　　以上教程是针对ASP的初学者而写的，只是介绍了一些基本的用法，在了解之后可以自己去试试，重要的在于能举一反三、综合运用。更多的语法和参数请参阅 Microsoft Access 帮助中的 Microsoft Jet SQL 参考，由于本人才疏学浅、能力有限，如有表达不明确有地方还望指出，如果在应用当中遇到什么问题，也希望能够提出。谢谢。
+
+
+*****************************
+
+--------------------------------------------------------------------------------
+怎么样才能在打开EXCEL时候自动运行宏各位斑竹，向您们请教
+我现在在EXCEL做了窗体，程序
+想在运行EXCEL文件时候 就运行窗体
+但我不知道怎么做
+有的说在TISHWORKBOOK中年直接调用就可以
+可是我试了，不行
+请各位斑竹指点
+2003-9-14 11:13:00 ★ 热点调查： 您读过几本Office书？ ★ hxhgxy 
+
+
+等级：版主
+威望：17
+文章：2558
+EH币：6207
+积分：73
+精华：13
+查看：主题帖  精华帖
+注册：2002年2月17日第 2 楼 ※邮件 
+
+--------------------------------------------------------------------------------
+在THISWORKBOOK里写
+PRIVATE SUB WORKBOOK_OPEN（）
+USERFORM1。SHOW
+END SUB

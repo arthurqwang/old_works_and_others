@@ -1,0 +1,62 @@
+**************************************************************************************************
+1,站点基本信息
+
+www.kxqbz.com 2007年4月3日注册 DNS解析到: 218.22.93.237
+www.cndem.com user/pw:
+FTP: www.kxqbz.com user/pw:  
+
+
+ 
+
+
+服务商:北京阳光丽都  http://www.leedu.net/
+ 
+
+
+京 ICP 证 040199 号 
+版权所有 : 安徽蚌埠民建网络科技发展有限公司, 北京阳光丽都科贸有限公司 
+公司地址 : 安徽省蚌埠市华丰街一巷 46 号民建蚌埠市委会民建网络 邮政编码 :233000
+北京海淀区交通大学路交大嘉园 A 座603室 陈钧 邮政编码 :100044
+安徽省服务电话 :0552-2070056 0552-2051090 传真:0552-7111608
+业务部: webmaster11@leedu.net 客服部: webmaster10@leedu.net 
+续租部:xzb@leedu.net 投诉部:tsb@leedu.net
+夜间值班电话:0552-2070056转804
+
+非法网站举报电话:0552-2051090-803 
+(凡举报本公司虚拟主机用户涉嫌违法行为,经核实后.
+本公司将给予终生免费虚拟主机使用)
+
+Copyright?阳光丽都 -WWW.Leedu.Net
+
+***********************************************************************************************
+常见问题及解决方法
+
+1,FTP不好使.
+现象:
+COMMAND:>	REST 0
+		350 Restarting at 0. Send STORE or RETRIEVE.
+COMMAND:>	PASV
+		227 Entering Passive Mode (218,22,93,227,18,166)
+COMMAND:>	LIST
+STATUS:>  	Connecting ftp data socket 218.22.93.227:4774...
+ERROR:>   	Can't connect to remote server. Socket error = #10060.
+
+解决办法:
+  (1)防火墙设置.天网,应程序规则,FTP Transfer Engine,删除.然后重新启动cuteFTP,当防火墙询问时,允许通过.
+  (2)设为PORT,不能设为auto或pasv
+  (3)可看看Windows自带的防火墙设置,也可把两个防火墙都关掉看看.曾经天网2.6不好使,但装上3.0就好了.
+  (4)天网安全级别改成"中"
+
+2,改口令
+使用FTP命令:
+    site pswd password zhen
+
+3,如果有问题,可到问题平台提交,等待处理
+   www.cndem.com user/pw:1/zhn
+   在 客户中心/疑难解答 提交问题
+
+
+
+
+
+

@@ -1,0 +1,1059 @@
+VB常用代码总结 
+ 
+作者：゜|ｍ&⒌哖後
+
+移动无标题栏的窗体(borderstyle=none)
+dim mouseX as integer
+dim mouseY as integer
+dim moveX as integer
+dim moveY as integer
+dim down as boolean
+form_mousedown: 'mousedown事件
+down=true
+mouseX=x
+mouseY=y
+form_mouseup: 'mouseup事件
+down=false
+form_mousemove
+if down=true then
+   moveX=me.left-mouseX+X
+   moveY=me.top-mouseY+Y
+   me.move moveX,moveY
+end if
+***********************************************************************
+闪烁控件
+比如要闪烁一个label（标签）
+添加一个时钟控件 间隔请根据实际需要设置 enabled属性设为true
+代码为：label1.visible=not label1.visible
+**********************************************************************
+禁止使用 Alt+F4 关闭窗口 
+Private Declare Function DeleteMenu Lib "user32" (ByVal hMenu As Long, ByVal nPosition As Long, ByVal wFlags As Long) As Long
+Private Declare Function GetMenuItemCount Lib "user32" (ByVal hMenu As Long) As Long
+Private Const MF_BYPOSITION = &H400& 
+
+Private Sub Form_Load()
+Dim hwndMenu As Long
+Dim c As Long
+hwndMenu = GetSystemMenu(Me.hwnd, 0)
+
+c = GetMenuItemCount(hwndMenu)
+
+DeleteMenu hwndMenu, c - 1, MF_BYPOSITION
+
+c = GetMenuItemCount(hwndMenu)
+DeleteMenu hwndMenu, c - 1, MF_BYPOSITION
+End Sub
+***********************************************************************
+启动控制面板大全
+'打开控制面板
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL", 9)
+'辅助选项 属性-键盘
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL access.cpl,,1", 9)
+'辅助选项 属性-声音
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL access.cpl,,2", 9)
+'辅助选项 属性-显示
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL access.cpl,,3", 9)
+'辅助选项 属性-鼠标
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL access.cpl,,4", 9)
+'辅助选项 属性-常规
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL access.cpl,,5", 9)
+'添加/删除程序 属性-安装/卸载
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL Appwiz.cpl,,1", 9)
+'添加/删除程序 属性-Windows安装程序
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL Appwiz.cpl,,2", 9)
+'添加/删除程序 属性-启动盘
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL Appwiz.cpl,,3", 9)
+'显示 属性-背景
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,0", 9)
+'显示 属性-屏幕保护程序
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,1", 9)
+'显示 属性-外观
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,2", 9)
+'显示 属性-设置
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,3", 9)
+'Internet 属性-常规
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL Inetcpl.cpl,,0", 9)
+'Internet 属性-安全
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL Inetcpl.cpl,,1", 9)
+'Internet 属性-内容
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL Inetcpl.cpl,,2", 9)
+'Internet 属性-连接
+Call Shell("rundll32.exe shell32.dll,Control_RunDLL I
+*****************************************************************
+怎样关闭一个程序
+你可以使用API函数FindWindow和PostMessage来寻找一个窗口并且关闭它。下面的范例演示如何关闭一个标题为"Calculator"的窗口。
+Dim winHwnd As Long
+Dim RetVal As Long
+winHwnd = FindWindow(vbNullString, "Calculator")
+Debug.Print winHwnd
+If winHwnd <> 0 Then
+RetVal = PostMessage(winHwnd, WM_CLOSE, 0&, 0&)
+If RetVal = 0 Then
+MsgBox "Error posting message."
+End If
+Else
+MsgBox "The Calculator is not open."
+End If
+
+For this code to work, you must have declared the API functions in a module in your project. You must put the following in the declarations section of the module. 
+
+Declare Function FindWindow Lib "user32" Alias _
+"FindWindowA" (ByVal lpClassName As String, _
+ByVal lpWindowName As String) As Long 
+Declare Function PostMessage Lib "user32" Alias _
+"PostMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, _
+ByVal wParam As Long, lParam As Any) As Long 
+Public Const WM_CLOSE = &H10 
+*****************************************************************
+如何使Form的背景图随Form大小改变 
+单纯显示图形用Image即可,而且用Image也正好可解决你的问题
+设定Image的Stretch=true
+在加入以下的code
+Private Sub Form_Resize()
+Image1.Move 0, 0, ScaleWidth, ScaleHeight
+End Sub
+
+或者使用以下的方式来做也可以 
+
+Private Sub Form_Paint()
+Me.PaintPicture Me.Picture, 0, 0, ScaleWidth, ScaleHeight
+End Sub
+*************************************************************************
+软件的注册
+可用注册表简单地保存已用的天数或次数
+'次数限制（如３０次）如下：
+Private Sub Form_Load()
+Dim RemainDay As Long
+RemainDay = GetSetting("MyApp", "set", "times", 0)
+If RemainDay = 30 Then
+   MsgBox "试用次数已满，请注册"
+   Unload Me
+End If
+MsgBox "现在剩下：" & 30 - RemainDay & "试用次数，好好珍惜！"
+RemainDay = RemainDay + 1
+SaveSetting "MyApp", "set", "times", RemainDay
+End Sub
+
+'时间限制的（如３０天）
+Private Sub Form_Load()
+Dim RemainDay As Long
+RemainDay = GetSetting("MyApp", "set", "day", 0)
+If RemainDay = 30 Then
+    MsgBox "试用期已过，请注册"
+    Unload Me
+End If
+MsgBox "现在剩下：" & 30 - RemainDay & "试用天数，好好珍惜！"
+if day(now)-remainday>0 then RemainDay = RemainDay + 1
+SaveSetting "MyApp", "set", "times", RemainDay
+End Sub 
+*****************************************************************
+MMControl控件全屏播放
+Option Explicit
+Private Declare Function mciSendString Lib "winmm.dll" _
+        Alias "mciSendStringA" (ByVal lpstrCommand As _
+        String, ByVal lpstrReturnString As Any, ByVal _
+        uReturnLength As Long, ByVal hwndCallback As _
+        Long) As Long
+
+Private Declare Function mciSendCommand Lib "winmm.dll" _
+        Alias "mciSendCommandA" (ByVal wDeviceID As Long, _
+        ByVal uMessage As Long, ByVal dwParam1 As Long, _
+        dwParam2 As MCI_OVLY_RECT_PARMS) As Long
+
+Private Declare Function GetShortPathName Lib "kernel32" _
+        Alias "GetShortPathNameA" (ByVal lpszLongPath As _
+        String, ByVal lpszShortPath As String, ByVal _
+        cchBuffer As Long) As Long
+        
+Private Type RECT
+  Left As Long
+  Top As Long
+  Right As Long
+  Bottom As Long
+End Type
+
+Private Type MCI_OVLY_RECT_PARMS
+  dwCallback As Long
+  rc As RECT
+End Type
+
+Const MCI_OVLY_WHERE_SOURCE = &H20000
+Const MCI_OVLY_WHERE_DESTINATION = &H40000
+Const MCI_WHERE = &H843
+
+Dim Play As Boolean
+
+Private Sub Form_Load()
+  MMControl1.Wait = True
+  MMControl1.UpdateInterval = 50
+  MMControl1.hWndDisplay = Picture1.hWnd
+  Picture1.ScaleMode = 3
+  Timer1.Interval = 50
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+  MMControl1.Command = "stop"
+  MMControl1.Command = "close"
+End Sub
+
+Private Sub Command1_Click()
+  MMControl1.Command = "stop"
+  MMControl1.Command = "close"
+  Play = False
+  
+  CommonDialog1.Filter = ("VB-Dateien (*.avi)|*.avi;")
+  CommonDialog1.InitDir = App.Path
+  CommonDialog1.ShowOpen
+  
+  If CommonDialog1.filename <> "" Then
+    MMControl1.DeviceType = "avivideo"
+    MMControl1.filename = CommonDialog1.filename
+    MMControl1.Command = "open"
+    MMControl1.Notify = True
+    Label4.Caption = MMControl1.Length
+
+    If Check2.Value = vbChecked And Option2 Then
+      Call AdaptPicture
+    End If
+    
+    If Option3.Value Then Call Option3_Click
+    Me.Caption = CommonDialog1.filename
+  End If
+End Sub
+
+Private Sub Command2_Click()
+  If Not Option3.Value Then
+    If Play = False And MMControl1.filename <> "" Then
+      MMControl1.Command = "play"
+      Play = True
+    End If
+  Else
+    Call Option3_Click
+  End If
+End Sub
+
+Private Sub Command3_Click()
+  Play = False
+  MMControl1.Command = "stop"
+End Sub
+
+Private Sub Command4_Click()
+  MMControl1.Command = "pause"
+End Sub
+
+Private Sub MMControl1_Done(NotifyCode As Integer)
+  If Play And Check1.Value = vbChecked Then
+    Play = False
+    MMControl1.Command = "stop"
+    MMControl1.Command = "prev"
+    MMControl1.Command = "play"
+    Play = True
+  End If
+End Sub
+
+Private Sub MMControl1_StatusUpdate()
+  Label2.Caption = MMControl1.Position
+End Sub
+
+Private Sub Option1_Click()
+  Check1.Enabled = True
+  Check2.Enabled = False
+  MMControl1.hWndDisplay = 0
+End Sub
+
+Private Sub Option2_Click()
+  Check1.Enabled = True
+  Check2.Enabled = True
+  MMControl1.hWndDisplay = Picture1.hWnd
+End Sub
+
+Private Sub Option3_Click()‘－－－－－－－－－－－注意这里
+  Dim R&, AA$
+    Check1.Enabled = False
+    Check2.Enabled = False
+    MMControl1.Command = "stop"
+    Play = False
+    
+    AA = Space$(255)
+    R = GetShortPathName(CommonDialog1.filename, AA, Len(AA))
+    AA = Mid$(AA, 1, R)
+    R = mciSendString("play " & AA & " fullscreen ", 0&, 0, 0&)
+End Sub
+
+Private Sub Check2_Click()
+  If Check2.Value = vbChecked And MMControl1.filename <> "" Then
+    Call AdaptPicture
+  End If
+End Sub
+
+Private Sub Timer1_Timer()
+  Dim x%, AA$
+    x = MMControl1.Mode
+    Select Case x
+      Case 524: AA = "NotOpen"
+      Case 525: AA = "Stop"
+      Case 526: AA = "Play"
+      Case 527: AA = "Record"
+      Case 528: AA = "Seek"
+      Case 529: AA = "Pause"
+      Case 530: AA = "Ready"
+    End Select
+    Label6.Caption = AA
+End Sub
+
+Private Sub AdaptPicture()
+  Dim Result&, Par As MCI_OVLY_RECT_PARMS
+    
+    Par.dwCallback = MMControl1.hWnd
+    Result = mciSendCommand(MMControl1.DeviceID, _
+             MCI_WHERE, MCI_OVLY_WHERE_SOURCE, Par)
+    If Result <> 0 Then
+      MsgBox ("Fehler")
+    Else
+      Picture1.Width = (Par.rc.Right - Par.rc.Left) * 15 + 4 * 15
+      Picture1.Height = (Par.rc.Bottom - Par.rc.Top) * 15 + 4 * 15
+    End If
+End Sub
+******************************************************************
+通用对话框专辑（全）
+使用API调用Winodws各种通用对话框(Common Diaglog)的方法（一）
+
+1.文件属性对话框
+Type SHELLEXECUTEINFO
+cbSize As Long
+fMask As Long
+hwnd As Long
+lpVerb As String
+lpFile As String
+lpParameters As String
+lpDirectory As String
+nShow As Long
+hInstApp As Long
+lpIDList As Long '可选参数
+lpClass As String '可选参数
+hkeyClass As Long '可选参数
+dwHotKey As Long '可选参数
+hIcon As Long '可选参数
+hProcess As Long '可选参数
+End Type
+
+Const SEE_MASK_INVOKEIDLIST = &HC
+Const SEE_MASK_NOCLOSEPROCESS = &H40
+Const SEE_MASK_FLAG_NO_UI = &H400
+
+Declare Function ShellExecuteEX Lib "shell32.dll" Alias "ShellExecuteEx" _
+(SEI As SHELLEXECUTEINFO) As Long
+Public Function ShowProperties(filename As String, OwnerhWnd As Long) As Long
+'打开指定文件的属性对话框,如果返回值<=32则出错
+Dim SEI As SHELLEXECUTEINFO
+Dim r As Long
+With SEI
+.cbSize = Len(SEI)
+.fMask = SEE_MASK_NOCLOSEPROCESS Or SEE_MASK_INVOKEIDLIST Or SEE_MASK_FLAG_NO_UI
+.hwnd = OwnerhWnd
+.lpVerb = "properties"
+.lpFile = filename
+.lpParameters = vbNullChar
+.lpDirectory = vbNullChar
+.nShow = 0
+.hInstApp = 0
+.lpIDList = 0
+End With
+r = ShellExecuteEX(SEI)
+ShowProperties = SEI.hInstApp
+End Function
+
+新建一个工程,添加一个按钮和名为Text1的文本框
+把以下代码置入CommandbButton_Click 中
+Dim r As Long
+Dim fname As String
+'从Text1 中获取文件名及路径
+fname = (Text1)
+r = ShowProperties(fname, Me.hwnd)
+If r <= 32 Then MsgBox "Error"
+
+2.使用Win95的关于对话框
+Private Declare Function ShellAbout Lib "shell32.dll" _
+Alias "ShellAboutA" (ByVal hwnd As Long, ByVal szApp As String, _
+ByVal szOtherStuff As String, ByVal hIcon As Long) As Long
+示例:
+Dim x As Long
+x = shellabout (Form1.hwnd, "Visual Basic 6.0", _
+"Alp Studio MouseTracker Ver 1.0", Form1.icon)
+
+2.调用"捕获打印机端口"对话框
+Private Declare Function WNetConnectionDialog Lib "mpr.dll" _
+(ByVal hwnd As Long, ByVal dwType As Long) As Long
+示例:
+Dim x As Long
+x = WNetConnectionDialog(Me.hwnd, 2)
+
+3.调用颜色对话框
+Private Type ChooseColor
+lStructSize As Long
+hwndOwner As Long
+hInstance As Long
+rgbResult As Long
+lpCustColors As String
+flags As Long
+lCustData As Long
+lpfnHook As Long
+lpTemplateName As String
+End Type
+Private Declare Function ChooseColor Lib "comdlg32.dll" Alias "ChooseColorA" (pChoosecolor As ChooseColor) As Long
+
+将以下代码置入某一事件中:
+Dim cc As ChooseColor
+Dim CustColor(16) As Long
+cc.lStructSize = Len(cc)
+cc.hwndOwner = Form1.hWnd
+cc.hInstance = App.hInstance
+cc.flags = 0
+cc.lpCustColors = String$(16 * 4, 0)
+Dim a
+Dim x
+Dim c1
+Dim c2
+Dim c3
+Dim c4
+a = ChooseColor(cc)
+Cls
+If (a) Then
+MsgBox "Color chosen:" & Str$(cc.rgbResult)
+
+For x = 1 To Len(cc.lpCustColors) Step 4
+c1 = Asc(Mid$(cc.lpCustColors, x, 1))
+c2 = Asc(Mid$(cc.lpCustColors, x + 1, 1))
+c3 = Asc(Mid$(cc.lpCustColors, x + 2, 1))
+c4 = Asc(Mid$(cc.lpCustColors, x + 3, 1))
+CustColor(x / 4) = (c1) + (c2 * 256) + (c3 * 65536) + (c4 * 16777216)
+MsgBox "Custom Color " & Int(x / 4) & " = " & CustColor(x / 4)
+Next x
+Else
+MsgBox "Cancel was pressed"
+End If
+
+4.调用复制磁盘对话框
+Private Declare Function SHFormatDrive Lib "shell32" (ByVal hwnd As Long, ByVal Drive As Long, ByVal fmtID As Long, ByVal options As Long) As Long
+Private Declare Function GetDriveType Lib "kernel32" Alias "GetDriveTypeA" (ByVal nDrive As String) As Long
+
+示例:
+向窗体中添加一个名为Drive1的DriveListBox,将以下代码置入某一事件中
+Dim DriveLetter$, DriveNumber&, DriveType&
+Dim RetVal&, RetFromMsg&
+DriveLetter = UCase(Drive1.Drive)
+DriveNumber = (Asc(DriveLetter) - 65)
+DriveType = GetDriveType(DriveLetter)
+If DriveType = 2 Then 'Floppies, etc
+RetVal = Shell("rundll32.exe diskcopy.dll,DiskCopyRunDll " _
+& DriveNumber & "," & DriveNumber, 1) 'Notice space after
+Else ' Just in case 'DiskCopyRunDll
+RetFromMsg = MsgBox("Only floppies can" & vbCrLf & _
+"be diskcopied!", 64, "DiskCopy Example")
+End If
+
+5.调用格式化软盘对话框
+Private Declare Function SHFormatDrive Lib "shell32" (ByVal hwnd As Long, ByVal Drive As Long, ByVal fmtID As Long, ByVal options As Long) As Long
+Private Declare Function GetDriveType Lib "kernel32" Alias "GetDriveTypeA" (ByVal nDrive As String) As Long
+参数设置:
+fmtID-
+3.5" 5.25"
+-------------------------
+0 1.44M 1.2M
+1 1.44M 1.2M
+2 1.44M 1.2M
+3 1.44M 360K
+4 1.44M 1.2M
+5 720K 1.2M
+6 1.44M 1.2M
+7 1.44M 1.2M
+8 1.44M 1.2M
+9 1.44M 1.2M
+
+选项
+0 快速
+1 完全
+2 只复制系统文件 
+3 只复制系统文件 
+4 快速
+5 完全
+6 只复制系统文件 
+7 只复制系统文件 
+8 快速
+9 完全
+示例:要求同上
+Dim DriveLetter$, DriveNumber&, DriveType&
+Dim RetVal&, RetFromMsg%
+DriveLetter = UCase(Drive1.Drive)
+DriveNumber = (Asc(DriveLetter) - 65) ' Change letter to Number: A=0
+DriveType = GetDriveType(DriveLetter)
+If DriveType = 2 Then 'Floppies, etc
+RetVal = SHFormatDrive(Me.hwnd, DriveNumber, 0&, 0&)
+Else
+RetFromMsg = MsgBox("This drive is NOT a removeable" & vbCrLf & _
+"drive! Format this drive?", 276, "SHFormatDrive Example")
+Select Case RetFromMsg
+Case 6 'Yes
+' UnComment to do it...
+'RetVal = SHFormatDrive(Me.hwnd, DriveNumber, 0&, 0&)
+Case 7 'No
+' Do nothing
+End Select
+End If
+-----------------------------------------------------------------------------
+使用API调用Winodws各种通用对话框(Common Diaglog)的方法（二）
+
+1.选择目录/文件夹对话框
+将以下代码置于一模块中
+Option Explicit
+' 调用方式:: string = BrowseForFolders(Hwnd,TitleOfDialog)
+' 例如:String1 = BrowseForFolders(Hwnd, "Select target folder...")
+Public Type BrowseInfo
+hwndOwner As Long
+pIDLRoot As Long
+pszDisplayName As Long
+lpszTitle As Long
+ulFlags As Long
+lpfnCallback As Long
+lParam As Long
+iImage As Long
+End Type
+Public Const BIF_RETURNONLYFSDIRS = 1
+Public Const MAX_PATH = 260
+Public Declare Sub CoTaskMemFree Lib "ole32.dll" (ByVal hMem As Long)
+Public Declare Function lstrcat Lib "kernel32" Alias "lstrcatA" (ByVal lpString1 As String, ByVal lpString2 As String) As Long
+Public Declare Function SHBrowseForFolder Lib "shell32" (lpbi As BrowseInfo) As Long
+Public Declare Function SHGetPathFromIDList Lib "shell32" (ByVal pidList As Long, ByVal lpBuffer As String) As Long
+
+Public Function BrowseForFolder(hwndOwner As Long, sPrompt As String) As String
+Dim iNull As Integer
+Dim lpIDList As Long
+Dim lResult As Long
+Dim sPath As String
+Dim udtBI As BrowseInfo
+'初始化变量
+With udtBI
+.hwndOwner = hwndOwner
+.lpszTitle = lstrcat(sPrompt, "")
+.ulFlags = BIF_RETURNONLYFSDIRS
+End With
+'调用 API
+lpIDList = SHBrowseForFolder(udtBI)
+If lpIDList Then
+sPath = String$(MAX_PATH, 0)
+lResult = SHGetPathFromIDList(lpIDList, sPath)
+Call CoTaskMemFree(lpIDList)
+iNull = InStr(sPath, vbNullChar)
+If iNull Then sPath = Left$(sPath, iNull - 1)
+End If
+'如果选择取消, sPath = ""
+BrowseForFolder = sPath
+End Function
+2.调用"映射网络驱动器"对话框
+Private/Public Declare Function WNetConnectionDialog Lib "mpr.dll" _
+(ByVal hwnd As Long, ByVal dwType As Long) As Long
+x% = WNetConnectionDialog(Me.hwnd, 1)
+3.调用"打开文件"对话框
+Private Type OPENFILENAME
+lStructSize As Long
+hwndOwner As Long
+hInstance As Long
+lpstrFilter As String
+lpstrCustomFilter As String
+nMaxCustFilter As Long
+nFilterIndex As Long
+lpstrFile As String
+nMaxFile As Long
+lpstrFileTitle As String
+nMaxFileTitle As Long
+lpstrInitialDir As String
+lpstrTitle As String
+flags As Long
+nFileOffset As Integer
+nFileExtension As Integer
+lpstrDefExt As String
+lCustData As Long
+lpfnHook As Long
+lpTemplateName As String
+End Type
+Private Declare Function GetOpenFileName Lib "comdlg32.dll" Alias "GetOpenFileNameA" (pOpenfilename As OPENFILENAME) As Long
+将以下代码置于某一事件中
+Dim ofn As OPENFILENAME
+ofn.lStructSize = Len(ofn)
+ofn.hwndOwner = Form1.hWnd
+ofn.hInstance = App.hInstance
+ofn.lpstrFilter = "Text Files (*.txt)" + Chr$(0) + "*.txt" + Chr$(0) + "Rich Text Files (*.rtf)" + Chr$(0) + "*.rtf" + Chr$(0)
+ofn.lpstrFile = Space$(254)
+ofn.nMaxFile = 255
+ofn.lpstrFileTitle = Space$(254)
+ofn.nMaxFileTitle = 255
+ofn.lpstrInitialDir = curdir
+ofn.lpstrTitle = "Our File Open Title"
+ofn.flags = 0
+Dim a
+a = GetOpenFileName(ofn)
+If (a) Then
+MsgBox "File to Open: " + Trim$(ofn.lpstrFile)
+Else
+MsgBox "Cancel was pressed"
+End If
+4.调用"打印"对话框
+Private Type PrintDlg
+lStructSize As Long
+hwndOwner As Long
+hDevMode As Long
+hDevNames As Long
+hdc As Long
+flags As Long
+nFromPage As Integer
+nToPage As Integer
+nMinPage As Integer
+nMaxPage As Integer
+nCopies As Integer
+hInstance As Long
+lCustData As Long
+lpfnPrintHook As Long
+lpfnSetupHook As Long
+lpPrintTemplateName As String
+lpSetupTemplateName As String
+hPrintTemplate As Long
+hSetupTemplate As Long
+End Type
+Private Declare Function PrintDlg Lib "comdlg32.dll" Alias "PrintDlgA" (pPrintdlg As PrintDlg) As Long
+'将以下代码置于某一事件中
+Dim tPrintDlg As PrintDlg
+tPrintDlg.lStructSize = Len(tPrintDlg)
+tPrintDlg.hwndOwner = Me.hwnd
+tPrintDlg.hdc = hdc
+tPrintDlg.flags = 0
+tPrintDlg.nFromPage = 0
+tPrintDlg.nToPage = 0
+tPrintDlg.nMinPage = 0
+tPrintDlg.nMaxPage = 0
+tPrintDlg.nCopies = 1
+tPrintDlg.hInstance = App.hInstance
+lpPrintTemplateName = "Print Page"
+Dim a
+a = PrintDlg(tPrintDlg)
+If a Then
+lFromPage = tPrintDlg.nFromPage
+lToPage = tPrintDlg.nToPage
+lMin = tPrintDlg.nMinPage
+lMax = tPrintDlg.nMaxPage
+lCopies = tPrintDlg.nCopies
+PrintMyPage 'Custom printing Subroutine 
+End If 
+*************************************************************************
+用 WinSock 控件下载文件 
+1 增加一个 Winsock 控件， 名称为 Winsock1。
+2 建立连接：
+Winsock1.RemoteHost = "nease.com"
+Winsock1.RemotePort = 80
+Winsock1.Connect
+3 在Winsock1.Connect 事件中加入：
+
+Dim strCommand as String
+Dim strWebPage as String
+strWebPage = "http://www.nease.com/~kenj/index.html";
+strCommand = "GET " + strWebPage + " HTTP/1.0" + vbCrLf 
+strCommand = strCommand + "Accept: */*" + vbCrLf 
+strCommand = strCommand + "Accept: text/html" + vbCrLf 
+strCommand = strCommand + vbCrLf 
+Winsock1.SendData strCommand
+4 Winsock 开始下载， 在收到数据时， 发生DataArrival 事件。
+Dim webData As String 
+Winsock1.GetData webData, vbString
+TxtWebPage.Text = TxtWebPage.Text + webData
+******************************************************
+用VB实现客户——服务器（TCP/IP）编程实例 
+现在大多数语言都支持客户－服务器模式(C/S)编程，其中VB给我们提供了很好的客户－服务器编程方式。下面我们用VB来实现TCP／IP网络编程。
+　　TCP／IP协议是Internet最重要的协议。VB提供了WinSock控件,用于在TCP／IP的基础上进行网络通信。当两个应用程序使用Socket进行网络通信时，其中一个必须创建Socket服务器侦听，而另一个必须创建Socket客户去连接服务器。这样两个程序就可以进行通信了。
+　　1．创建服务器，首先创建一个服务端口号。并开始侦听是否有客户请求连接。
+　　建立一窗体，并向其增加一个Winsock控件(可在工程菜单中的部件项来添加此控件)
+　　添加两文本框Text1,Text2,和一按钮Command1 
+　　Private Sub Form_Load()
+　　SockServer.LocalPort = 2000 ′服务器端口号,最好大于1000
+　　SockServer.Listen ′开始侦听
+　　End Sub
+　　Private Sub Form_Unload(Cancel As Integer)
+　　SockServer.Close
+　　End Sub
+　　Private Sub SockServer_Close()
+　　SockServer.Close
+　　End Sub
+　　Private Sub SockServer_ConnectionRequest(ByVal requestID As Long)
+　　SockServer.Close 
+　　SockServer.Accept requestID ′表示客户请求连接的ID号
+　　End Sub
+　　′当客户向服务器发送数据到达后,产生DataArrival事件,在事件中接收数据,GetData方法接收数据。
+　　Private Sub SockServer_Data
+Arrival(ByVal bytesTotal As Long)
+　　Dim s As String
+　　SockServer.GetData s
+　　Text1.Text = s
+　　End Sub
+　　当我需要向客户发送数据时，只需调用SendData方法。
+　　Private Sub Command1_Click()
+　　SockServer .SendData Text2.Text
+　　End Sub
+　　2．创建客户。要创建客户连接服务器，首先设置服务器主机名，如IP地址、域名或计算机名，然后设置服务器端口，最后连接服务器。
+　　建立一窗体，并向其增加一个Winsock控件(可在工程菜单中的部件项来添加此控件)，取名为：SockC1。添加两文本框Text1,Text2,和一按钮Command1
+　　Private Sub Form_Load()
+　　SockCl.RemoteHost =′127.0.0.1″
+　　′表示服务器主机名
+　　SockCl.RemotePort = 2000 
+　 ′表示服务器端口名
+　　SockCl.Connect
+′连接到服务器 
+　　End Sub
+　　Private Sub Form_Unload(Cancel As Integer)
+　　SockCl.Close
+　　End Sub
+　　Private Sub SockCl_Close()
+　　SockCl.Close
+　　End Sub
+　　Private Sub SockCl_DataArrival(ByVal bytesTotal As Long)
+　　Dim s As String
+　　SockCl.GetData s ′接收数据到文本框中
+　　Text1.Text = s
+　　End Sub
+　　Private Sub Command1_Click()
+　　SockCl.SendData Text2.Text ′向服务器发送数据
+　　End Sub
+　　3．进行通信。把这两个窗体分别编译成两个EXE文件，服务器Server.exe和客户Client.exe程序，并把它们分别安装在服务器端和客户端，这样就可以实现两者通信了。 
+******************************************************************
+PING一个IP地址(向它发送一个数据包并等待回应) 
+新建一个工程，添加一个标准模块，写入以下代码：
+Option Explicit
+Public Const IP_STATUS_BASE = 11000
+Public Const IP_SUCCESS = 0
+Public Const IP_BUF_TOO_SMALL = (11000 + 1)
+Public Const IP_DEST_NET_UNREACHABLE = (11000 + 2)
+Public Const IP_DEST_HOST_UNREACHABLE = (11000 + 3)
+Public Const IP_DEST_PROT_UNREACHABLE = (11000 + 4)
+Public Const IP_DEST_PORT_UNREACHABLE = (11000 + 5)
+Public Const IP_NO_RESOURCES = (11000 + 6)
+Public Const IP_BAD_OPTION = (11000 + 7)
+Public Const IP_HW_ERROR = (11000 + 8)
+Public Const IP_PACKET_TOO_BIG = (11000 + 9)
+Public Const IP_REQ_TIMED_OUT = (11000 + 10)
+Public Const IP_BAD_REQ = (11000 + 11)
+Public Const IP_BAD_ROUTE = (11000 + 12)
+Public Const IP_TTL_EXPIRED_TRANSIT = (11000 + 13)
+Public Const IP_TTL_EXPIRED_REASSEM = (11000 + 14)
+Public Const IP_PARAM_PROBLEM = (11000 + 15)
+Public Const IP_SOURCE_QUENCH = (11000 + 16)
+Public Const IP_OPTION_TOO_BIG = (11000 + 17)
+Public Const IP_BAD_DESTINATION = (11000 + 18)
+Public Const IP_ADDR_DELETED = (11000 + 19)
+Public Const IP_SPEC_MTU_CHANGE = (11000 + 20)
+Public Const IP_MTU_CHANGE = (11000 + 21)
+Public Const IP_UNLOAD = (11000 + 22)
+Public Const IP_ADDR_ADDED = (11000 + 23)
+Public Const IP_GENERAL_FAILURE = (11000 + 50)
+Public Const MAX_IP_STATUS = 11000 + 50
+Public Const IP_PENDING = (11000 + 255)
+Public Const PING_TIMEOUT = 200
+Public Const WS_VERSION_REQD = &H101
+Public Const WS_VERSION_MAJOR = WS_VERSION_REQD \ &H100 And &HFF&
+Public Const WS_VERSION_MINOR = WS_VERSION_REQD And &HFF&
+Public Const MIN_SOCKETS_REQD = 1
+Public Const SOCKET_ERROR = -1
+
+Public Const MAX_WSADes cription = 256
+Public Const MAX_WSASYSStatus = 128
+
+Public Type ICMP_OPTIONS
+Ttl As Byte
+Tos As Byte
+Flags As Byte
+OptionsSize As Byte
+OptionsData As Long
+End Type
+
+Dim ICMPOPT As ICMP_OPTIONS
+
+Public Type ICMP_ECHO_REPLY
+Address As Long
+status As Long
+RoundTripTime As Long
+DataSize As Integer
+Reserved As Integer
+DataPointer As Long
+Options As ICMP_OPTIONS
+Data As String * 250
+End Type
+
+Public Type HOSTENT
+hName As Long
+hAliases As Long
+hAddrType As Integer
+hLen As Integer
+hAddrList As Long
+End Type
+
+Public Type WSADATA
+wVersion As Integer
+wHighVersion As Integer
+szDes cription(0 To MAX_WSADes cription) As Byte
+szSystemStatus(0 To MAX_WSASYSStatus) As Byte
+wMaxSockets As Integer
+wMaxUDPDG As Integer
+dwVendorInfo As Long
+End Type
+
+Public Declare Function IcmpCreateFile Lib "icmp.dll" () As Long
+Public Declare Function IcmpCloseHandle Lib "icmp.dll" (ByVal IcmpHandle As Long) As Long
+Public Declare Function IcmpSendEcho Lib "icmp.dll" (ByVal IcmpHandle As Long, ByVal DestinationAddress As Long, ByVal RequestData As String, ByVal RequestSize As Integer, ByVal RequestOptions As Long, ReplyBuffer As ICMP_ECHO_REPLY, ByVal ReplySize As Long, ByVal Timeout As Long) As Long
+Public Declare Function WSAGetLastError Lib "WSOCK32.DLL" () As Long
+Public Declare Function WSAStartup Lib "WSOCK32.DLL" (ByVal wVersionRequired As Long, lpWSADATA As WSADATA) As Long
+Public Declare Function WSACleanup Lib "WSOCK32.DLL" () As Long
+Public Declare Function gethostname Lib "WSOCK32.DLL" (ByVal szHost As String, ByVal dwHostLen As Long) As Long
+Public Declare Function gethostbyname Lib "WSOCK32.DLL" (ByVal szHost As String) As Long
+Public Declare Sub RtlMoveMemory Lib "kernel32" (hpvDest As Any, ByVal hpvSource As Long, ByVal cbCopy As Long)
+
+Public Function GetStatusCode(status As Long) As String
+
+Dim msg As String
+
+Select Case status
+Case IP_SUCCESS: msg = "ip success"
+Case IP_BUF_TOO_SMALL: msg = "ip buf too_small"
+Case IP_DEST_NET_UNREACHABLE: msg = "ip dest net unreachable"
+Case IP_DEST_HOST_UNREACHABLE: msg = "ip dest host unreachable"
+Case IP_DEST_PROT_UNREACHABLE: msg = "ip dest prot unreachable"
+Case IP_DEST_PORT_UNREACHABLE: msg = "ip dest port unreachable"
+Case IP_NO_RESOURCES: msg = "ip no resources"
+Case IP_BAD_OPTION: msg = "ip bad option"
+Case IP_HW_ERROR: msg = "ip hw_error"
+Case IP_PACKET_TOO_BIG: msg = "ip packet too_big"
+Case IP_REQ_TIMED_OUT: msg = "ip req timed out"
+Case IP_BAD_REQ: msg = "ip bad req"
+Case IP_BAD_ROUTE: msg = "ip bad route"
+Case IP_TTL_EXPIRED_TRANSIT: msg = "ip ttl expired transit"
+Case IP_TTL_EXPIRED_REASSEM: msg = "ip ttl expired reassem"
+Case IP_PARAM_PROBLEM: msg = "ip param_problem"
+Case IP_SOURCE_QUENCH: msg = "ip source quench"
+Case IP_OPTION_TOO_BIG: msg = "ip option too_big"
+Case IP_BAD_DESTINATION: msg = "ip bad destination"
+Case IP_ADDR_DELETED: msg = "ip addr deleted"
+Case IP_SPEC_MTU_CHANGE: msg = "ip spec mtu change
+
+  
+'一条代码得到本机IP地址
+在工程->部件中加载  Microsoft Winsock Control 6.0 控件
+Text1.text=Winsock1.localip
+***********************************************************
+将程序从任务列表中隐藏
+将你的程序从Windows的系统任务列表中隐藏(即CTRL+ALT+DEL出来的框)
+
+'复制以下代码到一模块中
+
+Declarations
+Public Declare Function GetCurrentProcessId Lib "kernel32" () As Long
+Public Declare Function GetCurrentProcess Lib "kernel32" () As Long
+Public Declare Function RegisterServiceProcess Lib "kernel32" (ByVal dwProcessID As Long, ByVal dwType As Long) As Long
+Public Const RSP_SIMPLE_SERVICE = 1
+Public Const RSP_UNREGISTER_SERVICE = 0
+
+'下面代码为隐藏
+Public Sub MakeMeService()
+Dim pid As Long
+Dim reserv As Long
+pid = GetCurrentProcessId()
+regserv = RegisterServiceProcess(pid, RSP_SIMPLE_SERVICE)
+End Sub
+
+'恢复隐藏
+Public UnMakeMeService()
+Dim pid As Long
+Dim reserv As Long
+pid = GetCurrentProcessId()
+regserv = RegisterServiceProcess(pid, RSP_UNREGISTER_SERVICE)
+End Sub 
+******************************************************
+如何在窗体中平铺图片？ 
+　本文介绍怎样用一个图片（例如BMP）平铺在窗口并完全覆盖它。
+　　我们常常有需要使用一幅小图去覆盖一个窗口或者窗口的一部分。这正是设计那些小图的目的。它们以原来的尺寸作为背景排列在要覆盖的窗口上，这种技术就叫“平铺”。
+　　VB没有提供平铺图片到窗口的标准功能。要做到这点，我们必须使用WINDOWS API和一些图形技术。
+　　操作步骤：
+　　1、建立一个新工程项目，缺省建立窗体FORM1
+　　2、添加一个新模体
+　　3、粘贴下面代码到新模体
+Option Explicit
+Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, ByVal x As Long, _
+　ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, _
+　ByVal xSrc As Long, ByVal ySrc As Long, ByVal dwRop As Long) As Long
+Declare Function GetDC Lib "user32" (ByVal hwnd As Long) As Long
+Public RetValue As Long
+Public Sub TileWindow(WindowObject As Object, p As PictureBox)
+　　Dim j As Integer, i As Integer
+　　Dim x As Integer
+　　Dim WhDC As Long 
+　　' This object can be any VB standard object with an hWnd property
+　　WhDC = GetDC(WindowObject.hwnd) 
+　　For j = 0 To WindowObject.Height Step p.ScaleHeight
+　　　　For i = 0 To WindowObject.Width Step p.ScaleWidth
+　　　　　　x = BitBlt(WhDC, i, j, p.ScaleWidth, p.ScaleHeight, p.hDC, 0, 0, vbSrcCopy)
+　　　　Next
+　　Next
+End Sub
+　　4、添加一个图片框控件（PICUTRE1），设置其SCALEMODE属性=3-PIXEL，AUTOREDRAW属性=TURE，AUTOSIZE属性=TURE。在PICTURE属性中选择一幅图。
+　　5、添加以下代码到FORM1的PAINT事件：
+Private Sub Form_Paint()
+　　TileWindow Me, Picture1
+End Sub
+　　6、保存工程项目
+　　7、运行程序。当显示出窗体后，可以看到图片“平铺”到整个窗体。
+　　注意：尽管这种方法显示能够在任何支持hWnd属性的控件上平铺图片，但仍必须留意哪些控件支持PAINT方法
+*************************************************************
+制作拖盘
+Public Const MAX_TOOLTIP As Integer = 64
+Public Const NIF_ICON = &H2
+Public Const NIF_MESSAGE = &H1
+Public Const NIF_TIP = &H4
+Public Const NIM_ADD = &H0
+Public Const NIM_DELETE = &H2
+Public Const WM_MOUSEMOVE = &H200
+Public Const WM_LBUTTONDOWN = &H201
+Public Const WM_LBUTTONUP = &H202
+Public Const WM_LBUTTONDBLCLK = &H203
+Public Const WM_RBUTTONDOWN = &H204
+Public Const WM_RBUTTONUP = &H205
+Public Const WM_RBUTTONDBLCLK = &H206
+
+Public Const SW_RESTORE = 9
+Public Const SW_HIDE = 0
+
+Public nfIconData As NOTIFYICONDATA
+
+
+Public Type NOTIFYICONDATA
+   cbSize As Long
+   hWnd As Long
+   uID As Long
+   uFlags As Long
+   uCallbackMessage As Long
+   hIcon As Long
+   szTip As String * MAX_TOOLTIP
+End Type
+
+Public Declare Function ShowWindow Lib "user32" (ByVal hWnd As Long, ByVal nCmdShow As Long) As Long
+Public Declare Function Shell_NotifyIcon Lib "shell32.dll" Alias "Shell_NotifyIconA" (ByVal dwMessage As Long, lpData As NOTIFYICONDATA) As Long
+
+以下在form_load里初始化
+With nfIconData
+     .hWnd = Me.hWnd
+     .uID = Me.Icon
+     .uFlags = NIF_ICON Or NIF_MESSAGE Or NIF_TIP
+     .uCallbackMessage = WM_MOUSEMOVE
+     .hIcon = Me.Icon.Handle
+     '定义鼠标移动到托盘上时显示的Tip
+     .szTip = App.Title & "V" & App.Major & "." & App.Minor & "." & App.Revision & " Build:0825" & vbNullChar
+     .cbSize = Len(nfIconData)
+   End With
+   Call Shell_NotifyIcon(NIM_ADD, nfIconData)
+'以下在mousemove
+Dim lMsg As Single
+   lMsg = x / Screen.TwipsPerPixelX
+   Select Case lMsg
+     Case WM_LBUTTONUP
+       'MsgBox "请用鼠标右键点击图标!", vbInformation, "天倚之音"
+       '单击左键，显示窗体
+       ShowWindow Me.hWnd, SW_RESTORE
+       '下面两句的目的是把窗口显示在窗口最顶层
+       'Me.Show
+       'Me.SetFocus
+       '' Case WM_RBUTTONUP
+        ''PopupMenu frmmnu.mnulstsong  '如果是在系统Tray图标上点右键，则弹出菜单mnulstsong
+       '' Case WM_MOUSEMOVE
+       '' Case WM_LBUTTONDOWN
+       '' Case WM_LBUTTONDBLCLK
+       '' Case WM_RBUTTONDOWN
+       '' Case WM_RBUTTONDBLCLK
+       '' Case Else
+   End Select
+'以下在窗体关闭（程序结束时） 保证托盘图标消失
+Call Shell_NotifyIcon(NIM_DELETE, nfIconData)   '拖盘相关调用
+******************************************************************
+一个API一行代码实现 XP风格控件
+'声明
+Private Declare Sub InitCommonControls Lib "comctl32.dll" ()
+
+Private Sub Form_Initialize()
+   InitCommonControls
+End Sub
+
+比如生成的可执行文件名为：
+test.exe
+在该文件同一目录下 新建立一个文本文件 文本文件里输入以下内容
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+
+<assemblyIdentity
+
+version="1.0.0.0"
+
+processorArchitecture="X86"
+
+name="CompanyName.ProductName.YourApp"
+
+type="win32"
+
+/>
+
+<description>Your application description here.</description>
+
+<dependency>
+
+<dependentAssembly>
+
+<assemblyIdentity
+
+type="win32"
+
+name="Microsoft.Windows.Common-Controls"
+
+version="6.0.0.0"
+
+processorArchitecture="X86"
+
+publicKeyToken="6595b64144ccf1df"
+
+language="*"
+
+/>
+
+</dependentAssembly>
+
+</dependency>
+
+</assembly>
+
+最后将这个文本文件改名为：test.exe.manifest
+现在大家在打开test.exe  发现窗体上的空件都变成XP风格的了
+**********************************************************
+改变文件的属性
+语法
+SetAttr pathname, attributes
+
+pathname 必要参数。用来指定一个文件名的字符串表达式，可能包含目录或文件夹、以及驱动器。 
+Attributes 必要参数。常数或数值表达式，其总和用来表示文件的属性。 
+
+attributes 参数设置可为：
+常数       值   描述 
+vbNormal   0   常规（缺省值） 
+VbReadOnly 1   只读。 
+vbHidden   2   隐藏。 
+vbSystem   4   系统文件 
+vbArchive  32  上次备份以后，文件已经改变 
+
+举例：
+setattr "c:\123.txt",VbReadOnly+vbHidden
+将123这个文本文件设置成只读和隐藏属性~
+
+
+
+

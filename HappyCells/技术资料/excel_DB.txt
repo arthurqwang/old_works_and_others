@@ -1,0 +1,116 @@
+主要介绍用Excel做数据库并使用ASP编程对其进行操作 
+  
+一、问题的提出     
+在ASP编程中会遇到很多大大小小的难题，我有一次为一家书店设计网站的时候就遇到了一个这样的难题。起初使用Access做数据库，该数据库主要是为了保存书店内图书的信息，但是当记录的条目过多时数据库的体积将会变得很大。在实际的应用中，网站的空间是有限的，很多要建设网站的客户都没有自己的主机，网站的空间是向网站空间提供商花钱购买而来的，这就要求在网站空间一定的条件下，尽量减小网站内文件的体积。于是我选择了Excel做数据库。 
+   
+二、方法与说明     
+将Excel文件（例如book.xls）看成一个数据库，其中的每一个工作表(sheet)看成数据库表。假设Excel中的第一行为字段名，所以你定义的范围中必须要包括第一行的内容。 
+
+  
+Excel中的行标题（即字段名）不能够包含数字。Excel的驱动在遇到这种问题时就会出错（例如你的行标题名为"F1"）。如果你的Excel中某一列同时包含了文本和数字的话,那么Excel的ODBC驱动将不能够正常处理这一行的数据，你必须要保证该列的数据类型一致。 
+
+
+
+使用Excel做数据库在添加数据的时候可以在本地机上使用Microsoft Excel进行编辑。书商们在做图书数据的时候往往都是从各大出版社下载所需的图书信息，这些图书信息都有固定的格式，书商把下载的数据通过复制、粘贴等方法大批量的添加到Excel数据库中。做好数据后将Excel数据库上传到网站。这种方法有以下优点：快速、方便和易操作。 
+    
+
+    访问数据库信息的第一步是和数据库源建立连接。 
+    
+
+    使用Excel数据库的连接方法： 
+
+
+
+<% 
+Dim Conn,Driver,DBPath,Rs 
+Set Conn = Server.CreateObject("ADODB.Connection") 
+Driver = "Driver={Microsoft Excel Driver (*.xls)};" 
+DBPath = "DBQ=" & Server.MapPath("book.mdb") 
+Conn.Open Driver & DBPath 
+%> 
+
+    其中Driver = "Driver={Microsoft Excel Driver (*.xls)};" 
+ 这一行代码是关键，主要是驱动的选择问题。我们同使用Access做数据库的连接方法比较下便知。 
+   
+<% 
+Dim Conn,Driver,DBPath,Rs 
+Set Conn = Server.CreateObject("ADODB.Connection") 
+Driver = "Driver={Microsoft Access Driver (*.mdb)};" 
+DBPath = "DBQ=" & Server.MapPath("book.mdb") 
+Conn.Open Driver & DBPath 
+%> 
+
+三、程序清单 
+查询并显示表Sheet1字段为书名的代码： 
+<% 
+Dim Conn,Driver,DBPath,Rs 
+' 建立Connection对象 
+Set Conn = Server.CreateObject("ADODB.Connection") 
+Driver = "Driver={Microsoft Excel Driver (*.xls)};" 
+DBPath = "DBQ=" & Server.MapPath("book.xls") 
+'调用Open 方法打开数据库 
+Conn.Open Driver & DBPath 
+'DSN连接方式 
+'Conn.Open "Dsn=book" 
+'注意 表名一定要以下边这种格试 "[表名$      ]" 书写 
+Sql="Select * From [Sheet1$      ]" 
+Set Rs=Conn.Execute(Sql) 
+IF Rs.Eof And Rs.Bof Then 
+  Response.write "没有找到您需要的数据!!" 
+Else 
+  Do While Not Rs.EOF 
+   Response.write Rs("书名") 
+   Response.write "<br>" 
+  Rs.MoveNext 
+  Loop 
+End IF 
+Rs.Close 
+Set Rs=nothing 
+Conn.Close 
+Set Conn=Nothing 
+%> 
+查询并显示表Sheet1全部内容的代码： 
+<% 
+Dim Conn,Driver,DBPath,Rs 
+Set Conn = Server.CreateObject("ADODB.Connection") 
+Driver = "Driver={Microsoft Excel Driver (*.xls)};" 
+DBPath = "DBQ=" & Server.MapPath( "book.xls" ) 
+Conn.Open Driver & DBPath 
+Set Rs = Server.CreateObject("ADODB.Recordset") 
+Sql="select * from [Sheet1$      ]" 
+Rs.Open Sql,conn,2,2 
+%> 
+<table border="1"> 
+<tr> 
+<% 
+for i=0 to Rs.Fields.Count-1 
+%> 
+  <td bgcolor="#0099FF"><%=Rs(i).Name%></td> 
+<% 
+next 
+%> 
+</tr> 
+<% 
+do while Not Rs.EOF 
+%> 
+<tr> 
+<% 
+for i=0 to Rs.Fields.Count-1 
+%> 
+  <td><%=Rs(i)%></td> 
+<% 
+next 
+%> 
+</tr> 
+<% 
+  Rs.MoveNext 
+  Loop 
+  Rs.close 
+  set Rs=nothing 
+  Conn.close 
+  set Conn=nothing 
+%> 
+</table> 
+四、结论 
+本文主要介绍ASP编程操作Excel，实现对Excel数据库的检索等功能。实现方法简单，程序代码少，可供实用编程时借鉴使用。以上程序在Windows2000Sever及IIS5.0下运行通过。
+Trackback: http://tb.blog.csdn.net/TrackBack.aspx?PostId=384194

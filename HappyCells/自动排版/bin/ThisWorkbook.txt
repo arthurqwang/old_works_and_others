@@ -1,0 +1,19 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "ThisWorkbook"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+
+Private Sub WORKBOOK_OPEN()
+SYSTEM_INFO_NAME = "《开心情报站》自动排版系统 - HCAutoEdit V2.0"
+Application.DisplayAlerts = False   '关掉excel的警告提示
+Application.Caption = SYSTEM_INFO_NAME   '设excel 窗口标题
+Sheets(1).Name = "开心情报站 广告笑着看" '表单名字,不能超过31字符
+UserForm_Preface.Caption = SYSTEM_INFO_NAME
+UserForm_Preface.Show
+End Sub
+

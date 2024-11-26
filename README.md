@@ -77,5 +77,9 @@ iDOF相关资料也包含在本文件夹中，包括阿色亲自设计的Logo、
 
 <img alt="Quick Memos" src="QuickMemos/ui.jpg" width="800"><br><br>
 
+## 5 开心情报站(Happy Cells)
+存储在 HappyCells 文件夹中。
 
- 
+
+
+ www.kxqbz.com
