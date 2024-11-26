@@ -55,8 +55,8 @@ iDOF相关资料也包含在本文件夹中，包括阿色亲自设计的Logo、
 
 <img alt="iDOF" src="Digital_Oilfield_Forum_Website/智能数字油田开放论坛_iDOF/iDOF-Logo-bar-论坛用稿-800x175.png" width="800"><br><br>
 
-## 3 任务管理系统(TaskMng)
-存储在 taskmng 文件夹中。
+## 3 任务管理系统(TaskMng，代码已经过期脱密公开)
+存储在 TaskMng 文件夹中。
 
 本系统是阿色带领团队基于B/S模式开发的软件产品，是为加强团队协作而建立的任务管理系统，曾大规模应用于阿色供职的超大企业和其下属企业，以及外部用户单位。
 
