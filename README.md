@@ -117,10 +117,6 @@ iDOF相关资料也包含在本文件夹中，包括阿色亲自设计的Logo、
 <img alt="DuckRice" src="DuckRice/ggym_logo.gif" width="800"><br><br>
 <img alt="DuckRice" src="DuckRice/blog_robot.png" width="800"><br><br>
 
-
-
-
-
 <br><br><br><br>
 
 * 说明：上述代码均为阿色和有关人员业余时间所写的个人成果，与单位相关的代码也已经过期作废并已脱密公开，不涉及任何版权问题。若对阿色及团队的本职工作成果感兴趣，请联系本人或本人单位按对公业务处理。
