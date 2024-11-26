@@ -29,7 +29,7 @@
 该软件获得了软件制作权，在那个年代这是本地区的第一个。
 
 <img alt="Lastline" src="Lastline_and_DOS_Era_Floppy_Disk_Recover/lastline1.JPG" width="800"><br><br>
-<img alt="Lastline" src="Lastline_and_DOS_Era_Floppy_Disk_Recover/最后防线1.JPG" width="800"><br><br>
+<img alt="Lastline" src="Lastline_and_DOS_Era_Floppy_Disk_Recover/最后防线1.jpg" width="800"><br><br>
 =======
 
 1990年，毕业设计编写了地震勘探剖面图、速度谱等图件的绘制程序。该程序使用FORTRAN语言，调用绘图软件包，在当时非常高级的BENSON喷墨绘图仪和行式针式打印机上绘图。
