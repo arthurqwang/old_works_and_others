@@ -10,7 +10,7 @@
 
 后来，随着IT技术的发展，相继学习使用过VB、VBA、LISP、FoxBase、C++、C#、HTML、CGI、Java、JavaScript、ASP、PHP、...、Python等。
 
-完成的大部分代码已经遗失，本仓库保存的是从软盘中抢救出来的早期的一些代码，主要包括：
+完成的大部分代码已经遗失，本仓库保存的是从软盘中抢救出来的早期的一些代码（这些代码均为阿色和有关人员业余时间所写的个人成果，某些与单位相关的代码也已经过期作废并公开，不涉及任何版权问题），主要包括：
 
 ## 1 最后防线(Lastline)和其他早期程序
 存储在 Lastline_and_DOS_Era_Floppy_Disk_Recover 文件夹。
@@ -80,6 +80,27 @@ iDOF相关资料也包含在本文件夹中，包括阿色亲自设计的Logo、
 ## 5 开心情报站(Happy Cells)
 存储在 HappyCells 文件夹中。
 
+这是阿色2007年指导的一个广告业创意项目。那时，移动互联网还没有起来。
 
+项目内容：<br>
+创办一个小报，内容是广告和笑话等趣味材料，同时开通网站，同步刊登网络版小报。<br>
+纸质小报送到各个餐馆、商场等人群聚集地，免费索取，网络版免费浏览并自动接收广告业务。<br>
+用户可以在网页上自行编辑、设计其广告内容，当然也可线下联系。<br>
+根据用户定义和业主要求，自动生成小报的纸质版和网页版的排版，并自动上传。<br>
+同时支持各地连锁经营。
 
- www.kxqbz.com
+上述功能已经全部实现。
+
+云端使用ASP实现网络版，本地使用VBA在MS Excel中实现自动排版，并生成html文件用于网络版。使用VBA封装技术，实现了EXE文件直接运行，不需要在Excel中启动VBA。<br><br>
+
+<img alt="HappyCellsLogo" src="HappyCells/kxqbz_logo.jpg" width="800"><br><br>
+<img alt="HappyCellsLogo" src="HappyCells/setup_ui.png" width="800"><br><br>
+<img alt="HappyCellsLogo" src="HappyCells/p1.jpg" width="800"><br><br>
+<img alt="HappyCellsLogo" src="HappyCells/p2.png" width="800"><br><br>
+
+## 6 手写留言板
+存储在 handwriteboard 文件夹中。
+
+这是阿色2009年用VB写的一个在触目屏电视上手写留言小程序。也可以用鼠标写。<br><br>
+
+<img alt="HandWriteBoard" src="handwriteboard/ui.png" width="800"><br><br>
